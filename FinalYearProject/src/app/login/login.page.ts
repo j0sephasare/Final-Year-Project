@@ -14,17 +14,15 @@ export class LoginPage {
   constructor(private http: HttpClient, private router: Router) {}
 
   onLogin() {
-    this.http.post('http://localhost:8100/login', { email: this.email, password: this.password })
+    this.http.post('http://localhost:4000/login', { email: this.email, password: this.password })
       .subscribe(response => {
         console.log('Login success', response);
-        // Handle navigation or display a success message.
-        this.router.navigate(['/dashboard']); // Redirect to the dashboard page after successful login.
+        this.router.navigate(['/home']);
       }, error => {
         console.error('Login error', error);
-        // Handle errors, e.g., display an error message.
       });
   }
-  
+
   // Function to navigate to the registration page
   goToRegistrationPage() {
     this.router.navigate(['/registration']);
