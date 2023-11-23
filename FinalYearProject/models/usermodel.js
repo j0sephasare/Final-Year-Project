@@ -38,5 +38,17 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 // Create and export the User model
+
+
+// models/user.js
+
+
+const userSchema = new mongoose.Schema({
+  // ... other user fields
+  exercises: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Exercise' }],
+});
+
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;
+

@@ -7,6 +7,7 @@ const cors = require('cors');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 
+
 require('dotenv').config();
 
 app.use(bodyParser.json());
@@ -85,4 +86,36 @@ main().catch((err) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+});
+
+const ExerciseSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: { type: String },
+  image: { type: String },
+  difficulty: { type: String },
+
+});
+
+const Exercise = mongoose.model('Exercise', ExerciseSchema);
+app.get('/exercises', async (req, res) => {
+  try {
+    const exercises = await Exercise.find();
+    res.status(200).json(exercises);
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+    res.status(500).json({ message: 'Failed to fetch exercises' });
+  }
+});
+
+app.post('/exercises', async (req, res) => {
+  const { name, description, image, difficulty } = req.body;
+
+  try {
+    const exercise = new Exercise({ name, description, image, difficulty });
+    await exercise.save();
+    res.status(201).json({ message: 'Exercise added successfully' });
+  } catch (error) {
+    console.error('Error adding exercise:', error);
+    res.status(500).json({ message: 'Failed to add exercise' });
+  }
 });

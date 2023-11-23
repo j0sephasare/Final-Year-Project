@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExercisesPage } from './exercises/exercises.page';
 import { ProfilePage } from './profile/profile.page';
 import { ChatbotPage } from './chatbot/chatbot.page';
+import { WeightworkoutsPage } from './weightworkouts/weightworkouts.page';
+import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
 
 const routes: Routes = [
   {
@@ -20,6 +22,9 @@ const routes: Routes = [
     path: 'registration',
     loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationPageModule)
   },
+ 
+  { path: 'weight-workouts', component: WeightworkoutsPage },
+  { path: 'exercise-list', component: ExercisesListPage }, // Add this line
   {
     path: '',
     redirectTo: 'login',
@@ -36,6 +41,14 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'weightworkouts',
+    loadChildren: () => import('./weightworkouts/weightworkouts.module').then( m => m.WeightworkoutsPageModule)
+  },
+  {
+    path: 'exercises-list',
+    loadChildren: () => import('./exercises-list/exercises-list.module').then( m => m.ExercisesListPageModule)
   },
 ];
 
