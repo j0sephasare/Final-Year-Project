@@ -1,0 +1,22 @@
+<!-- exercises-list.page.html -->
+
+<div class="exercise-list-container">
+  <table class="exercise-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exercise of exercises" (click)="selectExercise(exercise)" [class.selected]="exercise.selected">
+        <td><span>{{ exercise.name }}</span></td>
+        <td><span>{{ exercise.description }}</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ion-button class="add-button" (click)="addSelectedExercises()" [disabled]="!areAnyExercisesSelected()">
+  Add Selected Exercises
+</ion-button>
