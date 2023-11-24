@@ -1,3 +1,10 @@
+export interface ExerciseSet {
+  setNumber: number;
+  kg: number;
+  reps: number;
+}
+
+
 export class Exercise {
   constructor(
     public id: number,
@@ -5,7 +12,11 @@ export class Exercise {
     public description: string,
     public image: string,
     public difficulty: string,
-    public selected?: boolean
+    public selected?: boolean,
+    public kg: number = 0,  // Add kg property
+    public reps: number = 0,
+    public calculatedVolume?: number,
+    public sets?: ExerciseSet[]
   ) {}
 }
 

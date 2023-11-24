@@ -6,6 +6,7 @@ import { ProfilePage } from './profile/profile.page';
 import { ChatbotPage } from './chatbot/chatbot.page';
 import { WeightworkoutsPage } from './weightworkouts/weightworkouts.page';
 import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
+import { MicroServiceLoginPage } from './micro-service-login/micro-service-login.page';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
     
   },
   { path: 'chatbot', component: ChatbotPage },
+  {path: 'MicroServiceLoginPage', component: MicroServiceLoginPage},
   { path: 'profile', component: ProfilePage },
   { path: 'exercises', component: ExercisesPage },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
@@ -49,6 +51,10 @@ const routes: Routes = [
   {
     path: 'exercises-list',
     loadChildren: () => import('./exercises-list/exercises-list.module').then( m => m.ExercisesListPageModule)
+  },
+  {
+    path: 'micro-service-login',
+    loadChildren: () => import('./micro-service-login/micro-service-login.module').then( m => m.MicroServiceLoginPageModule)
   },
 ];
 

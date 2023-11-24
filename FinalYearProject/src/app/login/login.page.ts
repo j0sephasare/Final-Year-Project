@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router'; // Import the Router module
+import { Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +11,20 @@ export class LoginPage {
   email: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private router: Router, public auth: AuthService) {}
+
+  ngOnInit() {
+    // Subscribe to authentication state changes
+    this.auth.isAuthenticated$.subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        // If authenticated, navigate to the home page
+        this.router.navigate(['/home']);
+      }
+    });
+  }
 
   onLogin() {
-    this.http.post('http://localhost:4000/login', { email: this.email, password: this.password })
-      .subscribe(response => {
-        console.log('Login success', response);
-        this.router.navigate(['/home']);
-      }, error => {
-        console.error('Login error', error);
-      });
+    // Handle your login logic here, if needed
   }
 
   // Function to navigate to the registration page

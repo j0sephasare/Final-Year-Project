@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectedExerciseService } from '../selected-exercise.service';
 import { TimerService } from '../timer.service';
-import { Exercise, ExerciseData } from 'models/exercise.model';
+import { Exercise, ExerciseData, ExerciseSet } from 'models/exercise.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,13 +13,10 @@ import { Subscription } from 'rxjs';
 })
 export class WeightworkoutsPage implements OnInit, OnDestroy {
   exercisesData: ExerciseData = { exercises: [] };
-  selectedExercise: Exercise | null = null;
-  kg: number | null = null;
-  reps: number | null = null;
   selectedExercises: Exercise[] = [] as Exercise[];
-
   timerSubscription!: Subscription;
-  timer: { minutes: number; seconds: number } = { minutes: 0, seconds: 0 }; // Add this line
+  timer: { minutes: number; seconds: number } = { minutes: 0, seconds: 0 };
+  calculatedVolume: number = 0;
 
   constructor(
     private router: Router,
@@ -30,18 +27,28 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Load exercises when the component initializes
     this.timerSubscription = this.timerService.getTimer().subscribe((time) => {
       this.timer = time;
     });
   }
 
   ngOnDestroy() {
-    // Clear the timer when the component is destroyed
     this.timerSubscription.unsubscribe();
   }
 
-  // This method will be called when the user clicks "Add Exercise"
+  calculateVolume(): void {
+    this.calculatedVolume = 0;
+
+    for (const exercise of this.selectedExercises) {
+      if (exercise.kg && exercise.reps) {
+        const weight = exercise.kg * exercise.reps;
+        this.calculatedVolume += weight;
+      }
+    }
+  }
+
+  
+
   openExerciseList() {
     this.router.navigate(['/exercise-list']);
   }
