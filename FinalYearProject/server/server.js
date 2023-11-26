@@ -119,3 +119,28 @@ app.post('/exercises', async (req, res) => {
     res.status(500).json({ message: 'Failed to add exercise' });
   }
 });
+const SavedExerciseSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
+  exerciseName: { type: String, required: true },
+  volume: { type: Number, required: true },
+  sets: { type: Number, required: true },
+  reps: { type: Number, required: true },
+});
+
+const SavedExercise = mongoose.model('SavedExercise', SavedExerciseSchema);
+
+app.post('/SavedExercises', async (req, res) => {
+  const { userId, exerciseName, volume, sets, reps } = req.body;
+
+  console.log('Received exercise data:', req.body);
+
+  try {
+    const savedExercise = new SavedExercise({ userId, exerciseName, volume, sets, reps });
+    await savedExercise.save();
+    console.log('Exercise saved successfully:', savedExercise);
+    res.status(201).json({ message: 'Exercise saved successfully' });
+  } catch (error) {
+    console.error('Error saving exercise:', error);
+    res.status(500).json({ message: 'Failed to save exercise' });
+  }
+});

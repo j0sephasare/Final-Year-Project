@@ -19,12 +19,15 @@ export class Exercise {
     public name: string,
     public description: string,
     public image: string,
+  
     public difficulty: string,
     public selected?: boolean,
     public kg: number = 0,  // Add kg property
     public reps: number = 0,
     public calculatedVolume?: number,
-    public sets?: ExerciseSet[]
+    public sets?: ExerciseSet[],
+    
+      public setsCounter: number = 1
   ) {}
 }
 

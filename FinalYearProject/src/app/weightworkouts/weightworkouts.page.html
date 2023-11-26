@@ -1,34 +1,64 @@
-<!-- weightworkouts.page.html -->
 <ion-content>
   <!-- Timer -->
   <div class="timer">
-    {{ timer.minutes }}min {{ timer.seconds }}s - Volume: {{ calculatedVolume }} kg
+    {{ timer.minutes }}min {{ timer.seconds }}s - Volume: {{ calculatedVolume }} kg - Sets: {{ totalSets }}
   </div>
+  <ion-button
+  slot="fixed"
+  style="position: fixed; top: 0; right: 0; margin: 16px;"
+  (click)="finishWorkout()"
+>
+  Finish
+</ion-button>
 
   <!-- List of selected exercises -->
   <ion-list>
     <ion-item *ngFor="let exercise of selectedExercises">
-      <ion-label>{{ exercise.name }}</ion-label>
-      <ion-input placeholder="Enter kg" [(ngModel)]="exercise.kg"></ion-input>
-      <ion-input placeholder="Enter Reps" [(ngModel)]="exercise.reps"></ion-input>
-  
-      <ion-button (click)="calculateVolume()">
-        Tick
-      </ion-button>
+      <!-- Exercise Name Row -->
+      <ion-row>
+        <ion-col>
+          <ion-label>{{ exercise.name }}</ion-label>
+        </ion-col>
+      </ion-row>
+
+      <!-- Other Information Row -->
+      <ion-row>
+        <ion-col>
+          <ion-input placeholder="Enter kg" [(ngModel)]="exercise.kg"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-label>Reps</ion-label>
+          <ion-input placeholder="Enter Reps" [(ngModel)]="exercise.reps"></ion-input>
+        </ion-col>
+        <ion-col>
+          <div>Sets: {{ exercise.setsCounter || 1 }}</div>
+        </ion-col>
+      </ion-row>
+
+      <!-- Button Row -->
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="calculateVolume()">
+            Calculate Volume
+          </ion-button>
+          <ion-button (click)="addSet(exercise)">
+            Add Set
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </ion-item>
   </ion-list>
-
 
   <!-- Button to add exercise -->
   <ion-button (click)="openExerciseList()">
     Add Exercise
   </ion-button>
 
+  <!-- Button to manually calculate volume -->
   
-  
-    
-   
 </ion-content>
+
+<!-- Rest of the code remains the same -->
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
