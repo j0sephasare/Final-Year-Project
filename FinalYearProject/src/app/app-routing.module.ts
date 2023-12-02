@@ -7,6 +7,9 @@ import { ChatbotPage } from './chatbot/chatbot.page';
 import { WeightworkoutsPage } from './weightworkouts/weightworkouts.page';
 import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
 import { MicroServiceLoginPage } from './micro-service-login/micro-service-login.page';
+import { SavedExercisesComponent } from './saved-exercise/saved-exercise.component';
+import { SavedExerciseListPage } from './saved-exercise-list/saved-exercise-list.page';
+import { LocalgymsPage } from './localgyms/localgyms.page';
 
 const routes: Routes = [
   {
@@ -15,7 +18,9 @@ const routes: Routes = [
     
   },
   { path: 'chatbot', component: ChatbotPage },
+  { path: 'saved-exercises', component: SavedExerciseListPage },
   {path: 'MicroServiceLoginPage', component: MicroServiceLoginPage},
+  {path: 'local-gyms', component: LocalgymsPage},
   { path: 'profile', component: ProfilePage },
   { path: 'exercises', component: ExercisesPage },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
@@ -55,6 +60,19 @@ const routes: Routes = [
   {
     path: 'micro-service-login',
     loadChildren: () => import('./micro-service-login/micro-service-login.module').then( m => m.MicroServiceLoginPageModule)
+  },
+  {
+    path: 'profile-page-exercises',
+    loadChildren: () => import('./profile-page-exercises/profile-page-exercises.module').then( m => m.ProfilePageExercisesPageModule)
+  },
+  {
+    path: 'saved-exercise-list',
+    loadChildren: () => import('./saved-exercise-list/saved-exercise-list.module').then( m => m.SavedExerciseListPageModule)
+  },
+ 
+  {
+    path: 'localgyms',
+    loadChildren: () => import('./localgyms/localgyms.module').then( m => m.LocalgymsPageModule)
   },
 ];
 

@@ -110,6 +110,8 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
 
     // Optionally, you can reset the selected exercises after saving
     this.selectedExercises = [];
+    this.calculatedVolume = 0;
+    this.totalSets = 0;
   }
 
   openExerciseList() {

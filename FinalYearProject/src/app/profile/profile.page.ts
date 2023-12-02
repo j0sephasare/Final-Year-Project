@@ -17,4 +17,12 @@ export class ProfilePage implements OnInit {
   logout() {
     this.auth.logout({ returnTo: `${window.location.origin}/login` } as LogoutOptions);
   }
+  openSavedExerciseList() {
+    this.router.navigate(['/saved-exercises']);
+    console.log('Button clicked!');
+  }
+  FindLocalGyms() {
+    this.router.navigate(['/local-gyms']);
+    console.log('Button clicked!');
+  }
 }

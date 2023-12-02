@@ -12,8 +12,9 @@ import { AuthModule } from '@auth0/auth0-angular';
 
 
 
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,AuthModule.forRoot({
     domain:'dev-mejvcseurlxwqamz.us.auth0.com',
     clientId:'USCIpDB8QbzVkN5khAGOKs28xpCg7A3E',

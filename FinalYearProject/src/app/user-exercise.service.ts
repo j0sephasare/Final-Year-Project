@@ -14,4 +14,8 @@ export class UserExerciseService {
   saveExercise(data: SaveExerciseData): Observable<HttpResponse<any>> {
     return this.httpClient.post<any>(`${this.apiUrl}`, data, { observe: 'response' });
   }
+
+  getSavedExercises(userId: string): Observable<SaveExerciseData[]> {
+    return this.httpClient.get<SaveExerciseData[]>(`${this.apiUrl}/${userId}`);
+  }
 }

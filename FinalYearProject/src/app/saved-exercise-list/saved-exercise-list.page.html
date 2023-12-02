@@ -1,0 +1,41 @@
+<!-- saved-exercise-list.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Saved Exercises</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let exercise of savedExercises">
+      <!-- Adjust the property to exerciseName -->
+      <ion-label>{{ exercise.exerciseName }}</ion-label>
+      <!-- Display other properties as needed -->
+      <ion-label>Volume: {{ exercise.volume }}</ion-label>
+      <ion-label>Sets: {{ exercise.sets }}</ion-label>
+      <ion-label>Reps: {{ exercise.reps }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button [routerLink]="['/home']">
+        <ion-icon name="home-outline"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/exercises']">
+        <ion-icon name="barbell-outline"></ion-icon>
+        Exercises
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/chatbot']">
+        <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+        Chatbot
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/profile']">
+        <ion-icon name="person-outline"></ion-icon>
+        Profile
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
