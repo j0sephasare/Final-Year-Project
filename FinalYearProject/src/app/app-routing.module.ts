@@ -10,6 +10,8 @@ import { MicroServiceLoginPage } from './micro-service-login/micro-service-login
 import { SavedExercisesComponent } from './saved-exercise/saved-exercise.component';
 import { SavedExerciseListPage } from './saved-exercise-list/saved-exercise-list.page';
 import { LocalgymsPage } from './localgyms/localgyms.page';
+import { ChallengesPage } from './challenges/challenges.page';
+import { MealPlanPage } from './meal-plan/meal-plan.page';
 
 const routes: Routes = [
   {
@@ -18,6 +20,8 @@ const routes: Routes = [
     
   },
   { path: 'chatbot', component: ChatbotPage },
+  { path: 'mealPlan', component: MealPlanPage },
+  { path: 'challenges', component: ChallengesPage },
   { path: 'saved-exercises', component: SavedExerciseListPage },
   {path: 'MicroServiceLoginPage', component: MicroServiceLoginPage},
   {path: 'local-gyms', component: LocalgymsPage},
@@ -74,6 +78,15 @@ const routes: Routes = [
     path: 'localgyms',
     loadChildren: () => import('./localgyms/localgyms.module').then( m => m.LocalgymsPageModule)
   },
+  {
+    path: 'challenges',
+    loadChildren: () => import('./challenges/challenges.module').then( m => m.ChallengesPageModule)
+  },
+  {
+    path: 'meal-plan',
+    loadChildren: () => import('./meal-plan/meal-plan.module').then( m => m.MealPlanPageModule)
+  },
+
 ];
 
 @NgModule({

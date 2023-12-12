@@ -14,10 +14,7 @@
 <ion-button (click)="FindLocalGyms()">Find Local Gyms</ion-button>
   <!-- Other profile content goes here -->
   
-
-  <!-- Include the SavedExercisesComponent here -->
   <ion-content>
-  
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button [routerLink]="['/home']">
@@ -28,9 +25,13 @@
           <ion-icon name="barbell-outline"></ion-icon>
           Exercises
         </ion-tab-button>
-        <ion-tab-button [routerLink]="['/chatbot']">
-          <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-          Chatbot
+        <ion-tab-button [routerLink]="['/mealPlan']">
+          <ion-icon name="book-outline"></ion-icon>
+          Meal Plans
+        </ion-tab-button>
+        <ion-tab-button [routerLink]="['/challenges']">
+          <ion-icon name="trophy-outline"></ion-icon>
+          Challenges
         </ion-tab-button>
         <ion-tab-button [routerLink]="['/profile']">
           <ion-icon name="person-outline"></ion-icon>
@@ -38,6 +39,4 @@
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
-    
-  
   </ion-content>
