@@ -12,6 +12,7 @@ import { SavedExerciseListPage } from './saved-exercise-list/saved-exercise-list
 import { LocalgymsPage } from './localgyms/localgyms.page';
 import { ChallengesPage } from './challenges/challenges.page';
 import { MealPlanPage } from './meal-plan/meal-plan.page';
+import { RonaldoPage } from './ronaldo/ronaldo.page';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'chatbot', component: ChatbotPage },
   { path: 'mealPlan', component: MealPlanPage },
   { path: 'challenges', component: ChallengesPage },
+  { path: 'ronaldo', component: RonaldoPage },
   { path: 'saved-exercises', component: SavedExerciseListPage },
   {path: 'MicroServiceLoginPage', component: MicroServiceLoginPage},
   {path: 'local-gyms', component: LocalgymsPage},
@@ -86,6 +88,11 @@ const routes: Routes = [
     path: 'meal-plan',
     loadChildren: () => import('./meal-plan/meal-plan.module').then( m => m.MealPlanPageModule)
   },
+  {
+    path: 'ronaldo',
+    loadChildren: () => import('./ronaldo/ronaldo.module').then( m => m.RonaldoPageModule)
+  },
+
 
 ];
 
