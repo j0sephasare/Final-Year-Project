@@ -3,6 +3,21 @@
     <ion-title>MealPlans</ion-title>
   </ion-toolbar>
 </ion-header>
+<div *ngIf="meals.length > 0; else noMeals">
+  <h2>Nutritional Information</h2>
+  <ul>
+    <li *ngFor="let meal of meals">
+      <h3>{{ meal.label }}</h3>
+      <p>Calories: {{ meal.nutrients.ENERC_KCAL }}</p>
+      <p>Proteins: {{ meal.nutrients.PROCNT }}g</p>
+      <!-- Add more nutritional info as needed -->
+    </li>
+  </ul>
+</div>
+<ng-template #noMeals>
+  <p>No meals found.</p>
+</ng-template>
+
 
 <ion-content>
   <ion-tabs>

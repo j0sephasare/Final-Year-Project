@@ -5,6 +5,22 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-label>First drill</ion-label>
+    <p></p>
+    <ion-label>Use 10-12 cones to create a channel ending near the penalty area.
+      At the top of the channel, use 4-5 cones to create a line angled towards the corner flag.
+      The coach stands at the end of the channel, nearest the goal, a couple yards inside the penalty area.
+      The shooting players start 4-5 yards at the top of the channel with a ball.</ion-label>
+    <ion-item *ngFor="let exercise of exercises">
+      <ion-label>{{ exercise.name }}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="exercise.done"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  <ion-button [disabled]="!allExercisesDone()" (click)="completeExercises()">Complete</ion-button>
+</ion-content>
+
+<ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
       <ion-tab-button [routerLink]="['/home']">
