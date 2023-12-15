@@ -22,6 +22,9 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "@auth0/auth0-angular": "^2.2.1",
+    "@capacitor/camera": "^5.0.8",
+    "@capacitor/filesystem": "^5.2.0",
+    "@capacitor/preferences": "^5.0.6",
     "@ionic/angular": "^7.0.0",
     "@ionic/cli": "^7.1.5",
     "@types/googlemaps": "^3.43.3",
@@ -32,7 +35,7 @@
     "ionicons": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.3",
-    "rxjs": "^7.8.1",
+    "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

@@ -1,0 +1,41 @@
+/* Style for Header Title */
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Style for Start Workout Button */
+  .start-workout-button {
+    margin: 16px;
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Style for Page Content */
+  .page-content {
+    padding: 16px;
+  }
+  
+  /* Style for Tab Bar */
+  ion-tab-bar {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+  }
+  
+  /* Style for Tab Button Icons */
+  ion-tab-button ion-icon {
+    font-size: 24px;
+  }
+  
+  /* Style for Tab Button Text */
+  ion-tab-button span {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  

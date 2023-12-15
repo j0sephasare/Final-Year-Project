@@ -1,24 +1,76 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Ronaldo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <!-- Display the list of exercises -->
   <ion-list>
-    <ion-label>First drill</ion-label>
-    <p></p>
-    <ion-label>Use 10-12 cones to create a channel ending near the penalty area.
-      At the top of the channel, use 4-5 cones to create a line angled towards the corner flag.
-      The coach stands at the end of the channel, nearest the goal, a couple yards inside the penalty area.
-      The shooting players start 4-5 yards at the top of the channel with a ball.</ion-label>
-    <ion-item *ngFor="let exercise of exercises">
+    <ion-item *ngFor="let exercise of exercises; let i = index">
       <ion-label>{{ exercise.name }}</ion-label>
       <ion-checkbox slot="end" [(ngModel)]="exercise.done"></ion-checkbox>
     </ion-item>
   </ion-list>
-  <ion-button [disabled]="!allExercisesDone()" (click)="completeExercises()">Complete</ion-button>
+  
+  <!-- Button to complete training when all exercises are done -->
+  <ion-button [disabled]="!allExercisesDone()" expand="full" color="success" (click)="completeTraining()">
+    Complete Training
+  </ion-button>
 </ion-content>
+
+<ion-list class="ion-padding">
+  <!-- First Drill -->
+  <ion-item>
+    <ion-label>
+      <h2>Shooting Practice</h2>
+      <p>
+        Set up cones or markers to designate a shooting area.
+        Receive a pass or dribble the ball into the shooting area.
+        Practice shooting with different techniques: instep drive, chip shots, volleys, and bending shots.
+        Aim for accuracy and consistency in hitting targets or specific areas of the goal.
+      </p>
+    </ion-label>
+    <ion-button slot="end" expand="full" color="primary" (click)="markExerciseAsCompleted(0)">
+      Complete
+    </ion-button>
+  </ion-item>
+
+  <!-- Second Drill -->
+  <ion-item>
+    <ion-label>
+      <h2>Speed and Agility Ladder:</h2>
+      <p>
+        Lay an agility ladder on the ground.
+        Stand at the ladder's beginning.
+        Perform various ladder drills such as the "In and Out" (quickly stepping in and out of each box), the "Icky Shuffle" (side-stepping through the ladder), and "Quick Feet" (fast, alternate footwork).
+        Focus on maintaining balance, speed, and coordination.
+        Gradually increase the speed and complexity of the drills as you improve.
+      </p>
+    </ion-label>
+    <ion-button slot="end" expand="full" color="primary" (click)="markExerciseAsCompleted(1)">
+      Complete
+    </ion-button>
+  </ion-item>
+  
+  <!-- Third Drill -->
+  <ion-item>
+    <ion-label>
+      <h2>Free-Kick Practice:</h2>
+      <p>
+        Place the ball at the desired distance from the goal.
+        Focus on your free-kick technique, including your approach, body posture, and foot placement.
+        Aim for specific targets within the goal (e.g., corners) or practice bending the ball around a wall.
+        Experiment with different techniques and learn to generate power and accuracy.
+      </p>
+    </ion-label>
+    <ion-button slot="end" expand="full" color="primary" (click)="markExerciseAsCompleted(2)">
+      Complete
+    </ion-button>
+  </ion-item>
+
+  <!-- Add more drills here -->
+</ion-list>
 
 <ion-content>
   <ion-tabs>
@@ -44,5 +96,6 @@
         Profile
       </ion-tab-button>
     </ion-tab-bar>
-  </ion-tabs>
+  
+</ion-tabs>
 </ion-content>

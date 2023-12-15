@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>challenges</ion-title>
+    <ion-title class="header-title">Challenges</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-button (click)="openRonaldoChallenge()">
+<ion-button class="challenge-button" (click)="openRonaldoChallenge()">
   Train like Ronaldo
- </ion-button>
+</ion-button>
 
-<ion-content>
+<ion-content class="page-content">
   <ion-tabs>
     <ion-tab-bar slot="bottom">
       <ion-tab-button [routerLink]="['/home']">
