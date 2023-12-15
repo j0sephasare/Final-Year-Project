@@ -3,21 +3,55 @@
     <ion-title>MealPlans</ion-title>
   </ion-toolbar>
 </ion-header>
-<div *ngIf="meals.length > 0; else noMeals">
-  <h2>Nutritional Information</h2>
-  <ul>
-    <li *ngFor="let meal of meals">
-      <h3>{{ meal.label }}</h3>
-      <p>Calories: {{ meal.nutrients.ENERC_KCAL }}</p>
-      <p>Proteins: {{ meal.nutrients.PROCNT }}g</p>
-      <!-- Add more nutritional info as needed -->
-    </li>
-  </ul>
-</div>
-<ng-template #noMeals>
-  <p>No meals found.</p>
-</ng-template>
+<ion-content>
+  <!-- Breakfast Section -->
+  <h2>Breakfast</h2>
+  <ion-list>
+    <ion-item *ngFor="let meal of breakfastMeals">
+      <ion-thumbnail slot="start">
+        <img [src]="meal.image" alt="{{ meal.label }}">
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{ meal.label }}</h3>
+        <p>Calories: {{ meal.calories }}</p>
+        <p>Protein: {{ meal.protein }}</p>
+        <!-- Add other nutrient information here -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
+  <!-- Lunch Section -->
+  <h2>Lunch</h2>
+  <ion-list>
+    <ion-item *ngFor="let meal of lunchMeals">
+      <ion-thumbnail slot="start">
+        <img [src]="meal.image" alt="{{ meal.label }}">
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{ meal.label }}</h3>
+        <p>Calories: {{ meal.calories }}</p>
+        <p>Protein: {{ meal.protein }}</p>
+        <!-- Add other nutrient information here -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Dinner Section -->
+  <h2>Dinner</h2>
+  <ion-list>
+    <ion-item *ngFor="let meal of dinnerMeals">
+      <ion-thumbnail slot="start">
+        <img [src]="meal.image" alt="{{ meal.label }}">
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{ meal.label }}</h3>
+        <p>Calories: {{ meal.calories }}</p>
+        <p>Protein: {{ meal.protein }}</p>
+        <!-- Add other nutrient information here -->
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
 
 <ion-content>
   <ion-tabs>

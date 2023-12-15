@@ -6,10 +6,13 @@ interface EdamamResponse {
     food: {
       label: string;
       nutrients: {
-        ENERC_KCAL?: number; // Calories (made optional)
-        PROCNT?: number; // Protein (made optional)
+        ENERC_KCAL?: number; // Calories
+        PROCNT?: number; // Protein
+        FAT?: number; // Fat
+        CHOCDF?: number; // Carbs
         // Add other nutrients as needed
       };
+      image: string; // Image URL
     };
   }>;
 }
@@ -20,57 +23,47 @@ interface EdamamResponse {
   styleUrls: ['./meal-plan.page.scss']
 })
 export class MealPlanPage implements OnInit {
-  meals: any[] = []; // This will hold the processed meal data
+  breakfastMeals: any[] = [];
+  lunchMeals: any[] = [];
+  dinnerMeals: any[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.fetchNutritionalMeals();
+    // Define queries for breakfast, lunch, and dinner
+    const breakfastQuery = 'breakfast';
+    const lunchQuery = 'lunch';
+    const dinnerQuery = 'dinner';
+
+    // Fetch meals for breakfast, lunch, and dinner
+    this.fetchMeals(breakfastQuery, this.breakfastMeals);
+    this.fetchMeals(lunchQuery, this.lunchMeals);
+    this.fetchMeals(dinnerQuery, this.dinnerMeals);
   }
 
-  fetchNutritionalMeals() {
-    const appId = '31aea67a';
-    const appKey = '1dec2191a79e5f0b037756564455b124';
-    const query = 'apple'; // Replace with your actual query
-
-    const options = {
-      headers: {
-        'X-RapidAPI-Key': '1078899fe4mshd46dc715175878dp1a3a95jsna40193cb83aa',
-        'X-RapidAPI-Host': 'edamam-food-and-grocery-database.p.rapidapi.com'
-      }
-    };
+  fetchMeals(query: string, mealArray: any[]) {
+    const appId = '31aea67a'; // Replace with your actual App ID
+    const appKey = '1dec2191a79e5f0b037756564455b124'; // Replace with your actual App Key
+ 
 
     const url = `https://api.edamam.com/api/food-database/v2/parser?ingr=${query}&app_id=${appId}&app_key=${appKey}`;
 
-    this.http.get<EdamamResponse>(url, options)
+    this.http.get<EdamamResponse>(url)
       .subscribe(data => {
-        this.meals = data.hints.map(hint => {
-          const label = hint.food.label;
-          const nutrients = hint.food.nutrients || {}; // Ensure nutrients object exists
-
-          // Check if specific properties exist or provide default values
-          const calories = nutrients.ENERC_KCAL || 0;
-          const protein = nutrients.PROCNT || 0;
-
-          return {
-            label: label,
-            image: this.getImageForFood(label), // Get image URL based on the food label
-            calories: calories,
-            protein: protein,
-            // Add other nutrients as needed
-          };
-        });
+        mealArray.push(
+          ...data.hints.filter(hint => hint.food.image) // Filter out meals without images
+            .map(hint => ({
+              label: hint.food.label,
+              image: hint.food.image,
+              calories: hint.food.nutrients.ENERC_KCAL || 0,
+              protein: hint.food.nutrients.PROCNT || 0,
+              fat: hint.food.nutrients.FAT || 0,
+              carbs: hint.food.nutrients.CHOCDF || 0,
+              // Add other nutrients as needed
+            }))
+        );
       }, error => {
-        console.error(error);
+        console.error('Error fetching meals:', error);
       });
-  }
-
-  private getImageForFood(foodLabel: string): string {
-    const foodImages: { [key: string]: string } = {
-      'apple': 'assets/apple.jpg', // Replace with an actual image path or URL
-      // Add more mappings as needed
-    };
-
-    return foodImages[foodLabel.toLowerCase()] || 'assets/apple.jpg'; // Replace with a default image path or URL
   }
 }

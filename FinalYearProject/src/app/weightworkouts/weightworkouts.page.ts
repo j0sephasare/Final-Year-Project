@@ -4,6 +4,7 @@ import { SelectedExerciseService } from '../selected-exercise.service';
 import { TimerService } from '../timer.service';
 import { Exercise, ExerciseData } from 'models/exercise.model';
 import { Subscription } from 'rxjs';
+
 import { UserExerciseService } from '../user-exercise.service';
 import { AuthService } from '@auth0/auth0-angular';
 
