@@ -10,6 +10,15 @@
 </ion-header>
 
 <ion-content class="page-content">
+  <div class="profile-container" *ngIf="userProfile">
+    <img [src]="userProfile.picture" alt="Profile Picture" class="profile-picture"/>
+    <h2 class="profile-name">{{ userProfile.name }}</h2>
+    <!-- Other profile details here -->
+  </div>
+  <!-- Rest of the page content -->
+</ion-content>
+
+<ion-content class="page-content">
   <ion-button class="profile-button" (click)="openSavedExerciseList()">Exercises</ion-button>
   <ion-button class="profile-button" (click)="FindLocalGyms()">Find Local Gyms</ion-button>
   <!-- Other profile content goes here -->
@@ -25,7 +34,7 @@
       <ion-icon name="barbell-outline" class="tab-icon"></ion-icon>
       Exercises
     </ion-tab-button>
-    <ion-tab-button [routerLink]="['/mealPlan']" class="tab-button">
+    <ion-tab-button [routerLink]="['/mealPlanner']" class="tab-button">
       <ion-icon name="book-outline" class="tab-icon"></ion-icon>
       Meal Plans
     </ion-tab-button>

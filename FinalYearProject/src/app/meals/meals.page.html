@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">Meals</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-content">
+  <ion-item>
+    <ion-label position="floating" class="input-label">Enter Ingredients</ion-label>
+    <ion-input [(ngModel)]="ingredients" type="text" class="input-field"></ion-input>
+  </ion-item>
+  <ion-button (click)="searchRecipes()" class="search-button">Find Recipes</ion-button>
+
+  <!-- Section for Displaying Selected Recipe Details -->
+  <div *ngIf="selectedRecipeDetails" class="recipe-details">
+    <h2>{{ selectedRecipeDetails.title }}</h2>
+    <img [src]="selectedRecipeDetails.image" alt="Recipe Image" class="recipe-image">
+    <p class="recipe-instructions">{{ selectedRecipeDetails.instructions }}</p>
+    <!-- You can add more details like ingredients, servings, etc. here -->
+  </div>
+
+  <!-- Breakfast Recipes Section -->
+  <div *ngIf="breakfastRecipes.length > 0" class="recipe-section">
+    <h2 class="section-title">Breakfast</h2>
+    <ion-list class="recipe-list">
+      <ion-item *ngFor="let recipe of breakfastRecipes" (click)="getRecipeDetails(recipe.id)" class="recipe-item">
+        <ion-thumbnail slot="start">
+          <img [src]="recipe.image" class="recipe-thumbnail">
+        </ion-thumbnail>
+        <ion-label>
+          <h2 class="recipe-title">{{ recipe.title }}</h2>
+          <!-- Click to view details -->
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Lunch Recipes Section -->
+  <div *ngIf="lunchRecipes.length > 0" class="recipe-section">
+    <h2 class="section-title">Lunch</h2>
+    <ion-list class="recipe-list">
+      <ion-item *ngFor="let recipe of lunchRecipes" (click)="getRecipeDetails(recipe.id)" class="recipe-item">
+        <ion-thumbnail slot="start">
+          <img [src]="recipe.image" class="recipe-thumbnail">
+        </ion-thumbnail>
+        <ion-label>
+          <h2 class="recipe-title">{{ recipe.title }}</h2>
+          <!-- Click to view details -->
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Dinner Recipes Section -->
+  <div *ngIf="dinnerRecipes.length > 0" class="recipe-section">
+    <h2 class="section-title">Dinner</h2>
+    <ion-list class="recipe-list">
+      <ion-item *ngFor="let recipe of dinnerRecipes" (click)="getRecipeDetails(recipe.id)" class="recipe-item">
+        <ion-thumbnail slot="start">
+          <img [src]="recipe.image" class="recipe-thumbnail">
+        </ion-thumbnail>
+        <ion-label>
+          <h2 class="recipe-title">{{ recipe.title }}</h2>
+          <!-- Click to view details -->
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom" class="tab-bar">
+      <ion-tab-button [routerLink]="['/home']" class="tab-button">
+        <ion-icon name="home-outline" class="tab-icon"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/exercises']" class="tab-button">
+        <ion-icon name="barbell-outline" class="tab-icon"></ion-icon>
+        Exercises
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/mealPlanner']" class="tab-button">
+        <ion-icon name="book-outline" class="tab-icon"></ion-icon>
+        Meal Plans
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/challenges']" class="tab-button">
+        <ion-icon name="trophy-outline" class="tab-icon"></ion-icon>
+        Challenges
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/profile']" class="tab-button">
+        <ion-icon name="person-outline" class="tab-icon"></ion-icon>
+        Profile
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

@@ -1,0 +1,107 @@
+/* meals.page.scss */
+
+.page-content {
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  ion-item {
+    --highlight-background: transparent;
+  }
+  
+  ion-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  ion-input {
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  
+  .search-button {
+    margin-top: 20px;
+    --background: #007bff;
+    --color: #fff;
+    --border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .recipe-details {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    padding: 20px;
+  }
+  
+  .recipe-details h2 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .recipe-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .recipe-instructions {
+    color: #555;
+    margin-top: 10px;
+  }
+  
+  .section-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  .recipe-list {
+    margin-top: 20px;
+  }
+  
+  .recipe-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .recipe-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .recipe-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .tab-bar {
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tab-button {
+    color: #333;
+  }
+  
+  .tab-icon {
+    font-size: 24px;
+    color: #333;
+  }
+  

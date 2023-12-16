@@ -8,10 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
+  userProfile: any;
   constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.auth.user$.subscribe(
+      (profile) => (this.userProfile = profile)
+    );
   }
 
   logout() {
