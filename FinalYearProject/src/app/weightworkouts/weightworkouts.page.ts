@@ -106,6 +106,7 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
             );
           }
         });
+        
       }
     }
 

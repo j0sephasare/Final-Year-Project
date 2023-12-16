@@ -14,7 +14,8 @@ import { ChallengesPage } from './challenges/challenges.page';
 import { MealPlanPage } from './meal-plan/meal-plan.page';
 import { RonaldoPage } from './ronaldo/ronaldo.page';
 import { MealsPage } from './meals/meals.page';
-
+import { ImageuploadPage } from './imageupload/imageupload.page';
+import { MacroCounterPage } from './macro-counter/macro-counter.page';
 const routes: Routes = [
   {
     path: 'home',
@@ -23,8 +24,10 @@ const routes: Routes = [
   },
   { path: 'chatbot', component: ChatbotPage },
   { path: 'mealPlan', component: MealPlanPage },
+  { path: 'macroCounter', component: MacroCounterPage },
   { path: 'mealPlanner', component: MealsPage },
   { path: 'challenges', component: ChallengesPage },
+  {path: 'image-upload', component:ImageuploadPage},
   { path: 'ronaldo', component: RonaldoPage },
   { path: 'saved-exercises', component: SavedExerciseListPage },
   {path: 'MicroServiceLoginPage', component: MicroServiceLoginPage},
@@ -97,6 +100,14 @@ const routes: Routes = [
   {
     path: 'meals',
     loadChildren: () => import('./meals/meals.module').then( m => m.MealsPageModule)
+  },
+  {
+    path: 'imageupload',
+    loadChildren: () => import('./imageupload/imageupload.module').then( m => m.ImageuploadPageModule)
+  },
+  {
+    path: 'macro-counter',
+    loadChildren: () => import('./macro-counter/macro-counter.module').then( m => m.MacroCounterPageModule)
   },
 
 

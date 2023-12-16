@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Macro Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="macro-container">
+    <!-- Form Inputs -->
+    <ion-item>
+      <ion-label position="floating">Age</ion-label>
+      <ion-input type="number" [(ngModel)]="age"></ion-input>
+    </ion-item>
+
+    <!-- Gender Selection -->
+    <ion-item>
+      <ion-label>Gender</ion-label>
+      <ion-select [(ngModel)]="gender">
+        <ion-select-option value="male">Male</ion-select-option>
+        <ion-select-option value="female">Female</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Height and Weight -->
+    <ion-item>
+      <ion-label position="floating">Height (cm)</ion-label>
+      <ion-input type="number" [(ngModel)]="height"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Weight (kg)</ion-label>
+      <ion-input type="number" [(ngModel)]="weight"></ion-input>
+    </ion-item>
+
+    <!-- Activity Level -->
+    <ion-item>
+      <ion-label>Activity Level</ion-label>
+      <ion-select [(ngModel)]="activityLevel">
+        <ion-select-option value="sedentary">Sedentary</ion-select-option>
+        <ion-select-option value="light">Light Activity</ion-select-option>
+        <ion-select-option value="moderate">Moderate Activity</ion-select-option>
+        <ion-select-option value="active">Active</ion-select-option>
+        <ion-select-option value="veryActive">Very Active</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Goal -->
+    <ion-item>
+      <ion-label>Goal</ion-label>
+      <ion-select [(ngModel)]="goal">
+        <ion-select-option value="lose">Lose Weight</ion-select-option>
+        <ion-select-option value="maintain">Maintain Weight</ion-select-option>
+        <ion-select-option value="gain">Gain Weight</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="full" (click)="calculateMacros()">Calculate</ion-button>
+
+    <!-- Results -->
+    <div class="result" *ngIf="totalCalories">
+      <h2>Total Calories: {{ totalCalories }} kcal</h2>
+      <p>Proteins: {{ macros.proteins }}g</p>
+      <p>Carbs: {{ macros.carbs }}g</p>
+      <p>Fats: {{ macros.fats }}g</p>
+    </div>
+  </div>
+</ion-content>
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button [routerLink]="['/home']">
+        <ion-icon name="home-outline"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/exercises']">
+        <ion-icon name="barbell-outline"></ion-icon>
+        Exercises
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/mealPlanner']">
+        <ion-icon name="book-outline"></ion-icon>
+        Meal Plans
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/challenges']">
+        <ion-icon name="trophy-outline"></ion-icon>
+        Challenges
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/profile']">
+        <ion-icon name="person-outline"></ion-icon>
+        Profile
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

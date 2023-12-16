@@ -28,4 +28,9 @@ export class ProfilePage implements OnInit {
     this.router.navigate(['/local-gyms']);
     console.log('Button clicked!');
   }
+
+  MacroCounter() {
+    this.router.navigate(['/macroCounter']);
+    console.log('Button clicked!');
+  }
 }
