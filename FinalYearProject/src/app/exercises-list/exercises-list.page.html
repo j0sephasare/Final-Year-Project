@@ -24,29 +24,30 @@
 <ion-button class="add-button" (click)="addSelectedExercises()" [disabled]="!areAnyExercisesSelected()">
   Add Selected Exercises
 </ion-button>
+
 <ion-content>
   <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button [routerLink]="['/home']">
-        <ion-icon name="home-outline"></ion-icon>
+    <ion-tab-bar slot="bottom" class="tab-bar">
+      <ion-tab-button [routerLink]="['/home']" class="tab-button">
+        <ion-icon name="home-outline" class="tab-icon"></ion-icon>
         Home
       </ion-tab-button>
-      <ion-tab-button [routerLink]="['/exercises']">
-        <ion-icon name="barbell-outline"></ion-icon>
+      <ion-tab-button [routerLink]="['/exercises']" class="tab-button">
+        <ion-icon name="barbell-outline" class="tab-icon"></ion-icon>
         Exercises
       </ion-tab-button>
-      <ion-tab-button [routerLink]="['/mealPlanner']">
-        <ion-icon name="book-outline"></ion-icon>
+      <ion-tab-button [routerLink]="['/mealPlanner']" class="tab-button">
+        <ion-icon name="book-outline" class="tab-icon"></ion-icon>
         Meal Plans
       </ion-tab-button>
-      <ion-tab-button [routerLink]="['/challenges']">
-        <ion-icon name="trophy-outline"></ion-icon>
+      <ion-tab-button [routerLink]="['/challenges']" class="tab-button">
+        <ion-icon name="trophy-outline" class="tab-icon"></ion-icon>
         Challenges
       </ion-tab-button>
-      <ion-tab-button [routerLink]="['/profile']">
-        <ion-icon name="person-outline"></ion-icon>
+      <ion-tab-button [routerLink]="['/profile']" class="tab-button">
+        <ion-icon name="person-outline" class="tab-icon"></ion-icon>
         Profile
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
-</ion-content>
+  </ion-content>

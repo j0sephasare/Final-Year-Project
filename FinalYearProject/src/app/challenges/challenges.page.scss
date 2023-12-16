@@ -21,21 +21,25 @@
   .page-content {
     padding: 16px;
   }
-  
+   
   /* Style for Tab Bar */
-  ion-tab-bar {
+  .tab-bar {
     background-color: #fff;
     border-top: 1px solid #ccc;
   }
   
-  /* Style for Tab Button Icons */
-  ion-tab-button ion-icon {
-    font-size: 24px;
-  }
-  
-  /* Style for Tab Button Text */
-  ion-tab-button span {
+  /* Style for Tab Buttons */
+  .tab-button {
     font-size: 14px;
     font-weight: bold;
+  }
+  
+  /* Style for Tab Icons */
+  .tab-icon {
+    font-size: 24px;
+  }
+  .profile-container {
+    text-align: center;
+    margin-top: 20px;
   }
   
