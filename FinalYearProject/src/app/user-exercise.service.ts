@@ -18,4 +18,13 @@ export class UserExerciseService {
   getSavedExercises(userId: string): Observable<SaveExerciseData[]> {
     return this.httpClient.get<SaveExerciseData[]>(`${this.apiUrl}/${userId}`);
   }
+  updateSavedExercise(id: string, data: SaveExerciseData): Observable<HttpResponse<any>> {
+    return this.httpClient.put<HttpResponse<any>>(`${this.apiUrl}/${id}`, data, { observe: 'response' });
+  }
+
+  // Method to delete a saved exercise
+  deleteSavedExercise(id: string): Observable<HttpResponse<any>> {
+    return this.httpClient.delete<HttpResponse<any>>(`${this.apiUrl}/${id}`, { observe: 'response' });
+  }
+  
 }

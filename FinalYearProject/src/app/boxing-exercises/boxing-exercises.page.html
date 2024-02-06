@@ -1,17 +1,29 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="header-title">
-      Exercises
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-button class="start-workout-button" (click)="startWeightWorkout()">
-  Start A Weight Workout
-</ion-button>
+<!-- boxing-exercises.page.html -->
+<div class="exercise-list-container">
+  <table class="exercise-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Duration</th>
+        <th>Intensity</th>
+        <th>Type</th>
+        <th>Equipment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exercise of boxingExercises" (click)="selectExercise(exercise)" [class.selected]="exercise.selected">
+        <td>{{ exercise.title }}</td>
+        <td>{{ exercise.description }}</td>
+        <td>{{ exercise.duration }}</td>
+        <td>{{ exercise.intensity }}</td>
+        <td>{{ exercise.type }}</td>
+        <td>{{ exercise.equipment.join(', ') }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<ion-button class="start-Boxingworkout-button" (click)="startBoxingWorkout()">
-  Start A Boxing Workout
-</ion-button>
 
 
 <ion-content>

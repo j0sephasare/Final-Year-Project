@@ -1,0 +1,50 @@
+/* boxing-exercises.page.scss */
+
+.exercise-list-container {
+  margin: 20px;
+}
+
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.exercise-table th, .exercise-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.exercise-table th {
+  background-color: #f2f2f2;
+}
+
+.exercise-table tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.exercise-table tr.selected {
+  background-color: #aaf0d1; /* You can change this color to match your design */
+}
+
+.add-button {
+  margin-top: 20px;
+}
+
+/* Style for Tab Bar */
+.tab-bar {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+/* Style for Tab Buttons */
+.tab-button {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Style for Tab Icons */
+.tab-icon {
+  font-size: 24px;
+}

@@ -1,5 +1,15 @@
-
-<div *ngFor="let exercise of savedExercises">
-  <!-- Display exercise details as needed -->
-  <p>{{ exercise.exerciseName }} - Volume: {{ exercise.volume }}, Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}</p>
+<div *ngFor="let exercise of savedExercises; let i = index">
+  <!-- Toggle between view and edit mode for each exercise -->
+  <div *ngIf="!exercise.isEditMode">
+    <p>{{ exercise.exerciseName }} - Volume: {{ exercise.volume }}, Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}</p>
+    <ion-button (click)="enableEditMode(exercise)">Edit</ion-button>
+    <ion-button (click)="deleteExercise(exercise._id)">Delete</ion-button>
+  </div>
+  <div *ngIf="exercise.isEditMode">
+    <input type="number" [(ngModel)]="exercise.volume" placeholder="Volume">
+    <input type="number" [(ngModel)]="exercise.sets" placeholder="Sets">
+    <input type="number" [(ngModel)]="exercise.reps" placeholder="Reps">
+    <ion-button (click)="updateExercise(exercise)">Update</ion-button>
+    <ion-button (click)="disableEditMode(exercise)">Cancel</ion-button>
+  </div>
 </div>

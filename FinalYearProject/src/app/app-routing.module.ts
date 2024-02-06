@@ -108,7 +108,15 @@ const routes: Routes = [
   {
     path: 'macro-counter',
     loadChildren: () => import('./macro-counter/macro-counter.module').then( m => m.MacroCounterPageModule)
+  },  {
+    path: 'boxing-exercises',
+    loadChildren: () => import('./boxing-exercises/boxing-exercises.module').then( m => m.BoxingExercisesPageModule)
   },
+  {
+    path: 'boxing-workout',
+    loadChildren: () => import('./boxing-workout/boxing-workout.module').then( m => m.BoxingWorkoutPageModule)
+  },
+
 
 
 ];

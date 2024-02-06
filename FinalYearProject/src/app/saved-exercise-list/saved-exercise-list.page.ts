@@ -12,24 +12,55 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class SavedExerciseListPage implements OnInit {
   savedExercises: SaveExerciseData[] = [];
+  editModeIndex: number | null = null;
 
-  constructor(private userExerciseService: UserExerciseService,private auth: AuthService) {}
+  constructor(private userExerciseService: UserExerciseService, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.auth.user$.subscribe((user) => {
-      if (user) {
-        const userId: string = user.sub!; // Use the non-null assertion operator (!)
-        console.log('User ID:', userId);
-
-        this.userExerciseService.getSavedExercises(userId).subscribe(
+      if (user && user.sub) {
+        this.userExerciseService.getSavedExercises(user.sub).subscribe(
           (data) => {
-            console.log('Received data:', data);
             this.savedExercises = data;
           },
           (error) => {
             console.error('Error fetching saved exercises:', error);
           }
         );
+      }
+    });
+  }
+
+  enableEditMode(index: number): void {
+    this.editModeIndex = index;
+  }
+
+  cancelEditMode(): void {
+    this.editModeIndex = null;
+  }
+
+  updateExercise(exercise: SaveExerciseData): void {
+    if (exercise._id) {
+      this.userExerciseService.updateSavedExercise(exercise._id, exercise).subscribe({
+        next: () => {
+          console.log('Exercise updated successfully');
+          this.cancelEditMode();
+        },
+        error: (error) => {
+          console.error('Error updating exercise:', error);
+        }
+      });
+    }
+  }
+
+  deleteExercise(id: string): void {
+    this.userExerciseService.deleteSavedExercise(id).subscribe({
+      next: () => {
+        this.savedExercises = this.savedExercises.filter(ex => ex._id !== id);
+        console.log('Exercise deleted successfully');
+      },
+      error: (error) => {
+        console.error('Error deleting exercise:', error);
       }
     });
   }

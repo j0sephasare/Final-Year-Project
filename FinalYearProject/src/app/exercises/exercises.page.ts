@@ -16,5 +16,11 @@ export class ExercisesPage {
     this.router.navigate(['/weightworkouts']);
   }
 
+  startBoxingWorkout() {
+    // Navigate to the WeightworkoutsPage
+    this.router.navigate(['/boxing-workout']);
+  }
+
+
   // The rest of your existing code
 }

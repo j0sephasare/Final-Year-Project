@@ -5,15 +5,28 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let exercise of savedExercises">
-      <!-- Adjust the property to exerciseName -->
-      <ion-label>{{ exercise.exerciseName }}</ion-label>
-      <!-- Display other properties as needed -->
-      <ion-label>Volume: {{ exercise.volume }}</ion-label>
-      <ion-label>Sets: {{ exercise.sets }}</ion-label>
-      <ion-label>Reps: {{ exercise.reps }}</ion-label>
+    <ion-item *ngFor="let exercise of savedExercises; let i = index">
+      <div *ngIf="editModeIndex !== i"> <!-- Display mode -->
+        <ion-label>
+          {{ exercise.exerciseName }} - Volume: {{ exercise.volume }}, Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}
+        </ion-label>
+        <ion-button fill="outline" slot="end" (click)="enableEditMode(i)">
+          Edit
+        </ion-button>
+        <ion-button color="danger" slot="end" *ngIf="exercise._id" (click)="deleteExercise(exercise._id)">
+          Delete
+        </ion-button>
+      </div>
+      <div *ngIf="editModeIndex === i"> <!-- Edit mode -->
+        <ion-input type="number" [(ngModel)]="exercise.volume" placeholder="Volume"></ion-input>
+        <ion-input type="number" [(ngModel)]="exercise.sets" placeholder="Sets"></ion-input>
+        <ion-input type="number" [(ngModel)]="exercise.reps" placeholder="Reps"></ion-input>
+        <ion-button (click)="updateExercise(exercise)">Save</ion-button>
+        <ion-button (click)="cancelEditMode()">Cancel</ion-button>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

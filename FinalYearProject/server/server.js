@@ -167,3 +167,64 @@ app.get('/savedExercises/:userId', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch saved exercises' });
   }
 });
+
+// Update and Delete endpoints for Saved Exercises
+
+// PUT endpoint for updating a saved exercise
+app.put('/savedExercises/:id', async (req, res) => {
+  const { id } = req.params;
+  const { volume, sets, reps } = req.body;
+
+  try {
+    const updatedExercise = await SavedExercise.findByIdAndUpdate(id, { volume, sets, reps }, { new: true });
+    if (!updatedExercise) {
+      return res.status(404).json({ message: 'Exercise not found' });
+    }
+    res.status(200).json(updatedExercise);
+  } catch (error) {
+    console.error('Error updating exercise:', error);
+    res.status(500).json({ message: 'Failed to update exercise' });
+  }
+});
+
+// DELETE endpoint for deleting a saved exercise
+app.delete('/savedExercises/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedExercise = await SavedExercise.findByIdAndDelete(id);
+    if (!deletedExercise) {
+      return res.status(404).json({ message: 'Exercise not found' });
+    }
+    res.status(200).json({ message: 'Exercise deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting exercise:', error);
+    res.status(500).json({ message: 'Failed to delete exercise' });
+  }
+});
+
+
+// Define the Schema for the boxing workout exercises
+const BoxingExercisesSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  duration: { type: String, required: true },
+  intensity: { type: String, required: true },
+  equipment: [{ type: String }], // Assuming 'equipment' is an array of strings
+  type: { type: String, required: true }
+});
+
+// Create a model from the schema
+const BoxingExercises = mongoose.model('BoxingExercises', BoxingExercisesSchema,'BoxingExercises');
+
+// Route to get boxing workout exercises
+app.get('/BoxingExercises', async (req, res) => {
+  try {
+    const exercises = await BoxingExercises.find(); // Use the model to find documents
+    console.log('Exercises found:', exercises);
+    res.status(200).json(exercises);
+  } catch (error) {
+    console.error('Error fetching boxing workout exercises:', error);
+    res.status(500).json({ message: 'Failed to fetch boxing workout exercises' });
+  }
+});
