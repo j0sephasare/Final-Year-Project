@@ -119,4 +119,13 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
   openExerciseList() {
     this.router.navigate(['/exercise-list']);
   }
+  deleteExercise(exerciseIndex: number): void {
+    // Confirm with the user before deleting
+    if (window.confirm('Are you sure you want to delete this exercise?')) {
+      this.selectedExercises.splice(exerciseIndex, 1);
+      this.calculateVolume(); // Update the total volume if necessary
+    }
+  }
+  
+  
 }
