@@ -122,28 +122,48 @@ app.post('/exercises', async (req, res) => {
 const SavedExerciseSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   exerciseName: { type: String, required: true },
+  workoutTitle: { type: String, required: true },
+  description: { type: String, required: true },
   volume: { type: Number, required: true },
   sets: { type: Number, required: true },
   reps: { type: Number, required: true },
+  duration: { type: String, required: true },
+  timestamp: { type: Date, required: true } // Stores the date and time of workout
 });
 
 const SavedExercise = mongoose.model('SavedExercise', SavedExerciseSchema);
 
 app.post('/SavedExercises', async (req, res) => {
-  const { userId, exerciseName, volume, sets, reps } = req.body;
+  // Destructure all fields from req.body
+  const { userId, exerciseName, volume, sets, reps, workoutTitle, description, duration } = req.body;
+  // Create a timestamp for the current time
+  const timestamp = new Date();
 
   console.log('Received exercise data:', req.body);
 
   try {
-    const savedExercise = new SavedExercise({ userId, exerciseName, volume, sets, reps });
+    // Include all fields in the new saved exercise document
+    const savedExercise = new SavedExercise({
+      userId,
+      exerciseName,
+      workoutTitle,
+      description,
+      volume,
+      sets,
+      reps,
+      duration,
+      timestamp // Save the current timestamp
+    });
+    
     await savedExercise.save();
     console.log('Exercise saved successfully:', savedExercise);
-    res.status(201).json({ message: 'Exercise saved successfully' });
+    res.status(201).json({ message: 'Exercise saved successfully', savedExercise });
   } catch (error) {
     console.error('Error saving exercise:', error);
-    res.status(500).json({ message: 'Failed to save exercise' });
+    res.status(500).json({ message: 'Failed to save exercise', error });
   }
 });
+
 app.get('/SavedExercises', async (req, res) => {
   const userId = req.query.userId;
 

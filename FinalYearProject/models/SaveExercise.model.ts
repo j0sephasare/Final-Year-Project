@@ -6,4 +6,8 @@ export interface SaveExerciseData {
     sets: number;
     reps: number;
     isEditMode?: boolean; 
+    description: string;
+    duration: string;          // Duration of the workout
+    timestamp: string;  
+    workoutTitle: string;
   }

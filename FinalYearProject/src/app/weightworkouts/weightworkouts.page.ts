@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { SelectedExerciseService } from '../selected-exercise.service';
 import { TimerService } from '../timer.service';
 import { Exercise, ExerciseData } from 'models/exercise.model';
@@ -81,41 +81,32 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
   }
 
   finishWorkout(): void {
-    // Assuming you want to save all selected exercises at once
-    for (const exercise of this.selectedExercises) {
-      if (exercise.kg && exercise.reps) {
-        this.auth.user$.subscribe((user) => {
-          if (user) {
-            const data = {
-              userId: user.sub, // User ID from Auth0
-              exerciseName: exercise.name,
-              volume: exercise.kg * exercise.reps,
-              sets: exercise.setsCounter || 1,
-              reps: exercise.reps,
-            };
-
-            // Save the exercise data to the backend
-            this.userExerciseService.saveExercise(data).subscribe(
-              (response) => {
-                console.log('Exercise saved successfully:', response);
-                // You can perform additional actions after saving the exercise if needed
-              },
-              (error) => {
-                console.error('Error saving exercise:', error);
-              }
-            );
+    this.calculateVolume(); // Make sure volume and sets are calculated
+  
+    this.auth.user$.subscribe((user) => {
+      if (user) {
+        const navigationExtras: NavigationExtras = {
+          state: {
+            exercises: this.selectedExercises,
+            totalVolume: this.calculatedVolume,
+            totalSets: this.totalSets,
+            duration: this.timer, // Pass the timer if you need to
+            userId: user.sub // Include the userId in the state
           }
-        });
-        
+          
+        };
+        this.selectedExercises = [];
+        this.calculatedVolume = 0;
+        this.totalSets = 0;
+        // Navigate to FinishWorkoutPage with the data
+        this.router.navigate(['/finish-workout'], navigationExtras);
+      } else {
+        // Handle the case where the user is not logged in or the user data is not retrieved
+        console.error('User information is not available.');
       }
-    }
-
-    // Optionally, you can reset the selected exercises after saving
-    this.selectedExercises = [];
-    this.calculatedVolume = 0;
-    this.totalSets = 0;
+    });
   }
-
+  
   openExerciseList() {
     this.router.navigate(['/exercise-list']);
   }

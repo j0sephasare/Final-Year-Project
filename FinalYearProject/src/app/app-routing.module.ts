@@ -116,6 +116,10 @@ const routes: Routes = [
     path: 'boxing-workout',
     loadChildren: () => import('./boxing-workout/boxing-workout.module').then( m => m.BoxingWorkoutPageModule)
   },
+  {
+    path: 'finish-workout',
+    loadChildren: () => import('./finish-workout/finish-workout.module').then( m => m.FinishWorkoutPageModule)
+  },
 
 
 

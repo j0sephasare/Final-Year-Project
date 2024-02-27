@@ -1,0 +1,40 @@
+ion-content {
+    --background: #fff;
+  }
+  
+  ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    --padding-end: 0;
+    --border-color: #e0e0e0;
+    --border-style: solid;
+    --border-width: 0 0 1px 0;
+  }
+  
+  ion-input,
+  ion-textarea,
+  ion-note {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    width: 100%;
+    font-size: 1em;
+  }
+  
+  ion-label {
+    --color: #000;
+  }
+  
+  ion-button {
+    margin: 20px 0;
+    font-weight: 500;
+  }
+  
+  ion-toolbar {
+    --background: #f8f8f8;
+  }
+  
+  ion-title {
+    text-align: center;
+  }
+  

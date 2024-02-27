@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Finish Workout</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveWorkout()">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Workout title</ion-label>
+      <ion-input [(ngModel)]="workoutTitle"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Duration</ion-label>
+      <ion-note>{{ duration }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Volume</ion-label>
+      <ion-note>{{ volume }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Sets</ion-label>
+      <ion-note>{{ sets }}</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea [(ngModel)]="description"></ion-textarea>
+    </ion-item>
+
+    <!-- Display the current date and time -->
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap" style="color: #3880ff;">When</ion-label>
+      <ion-note slot="end" style="color: #3880ff; font-weight: bold;">{{ getCurrentTimestamp() }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" color="danger" (click)="discardWorkout()">Discard Workout</ion-button>
+</ion-content>
