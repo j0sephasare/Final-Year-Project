@@ -1,6 +1,28 @@
 <div class="date-time">
   <span id="currentDateTime"></span>
 </div>
+<ion-content>
+  <div class="date-time">
+    <span id="currentDateTime"></span>
+  </div>
+
+  <!-- Display saved workouts -->
+  <ion-list>
+    <ion-card *ngFor="let workout of savedWorkouts">
+      <ion-card-header>
+        <ion-card-title>{{ workout.workoutTitle }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Exercise: {{ workout.exerciseName }}</p>
+        <p>Description: {{ workout.description }}</p>
+        <p>Volume: {{ workout.volume }}</p>
+        <p>Sets: {{ workout.sets }}</p>
+        <p>Reps: {{ workout.reps }}</p>
+        <p>Duration: {{ workout.duration }}</p>
+        <p>Date: {{ workout.timestamp | date: 'medium' }}</p> <!-- Adjust date format as needed -->
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
 
 
