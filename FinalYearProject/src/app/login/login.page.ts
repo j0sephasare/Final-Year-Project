@@ -31,4 +31,8 @@ export class LoginPage {
   goToRegistrationPage() {
     this.router.navigate(['/registration']);
   }
+
+  manualNavigateToHome() {
+    this.router.navigate(['/home']);
+  }
 }
