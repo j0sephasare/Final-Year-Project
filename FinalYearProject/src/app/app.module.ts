@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
     domain:'dev-mejvcseurlxwqamz.us.auth0.com',
     clientId:'USCIpDB8QbzVkN5khAGOKs28xpCg7A3E',
     authorizationParams:{
-      redirect_uri:'com.FinalYearProject.app://dev-mejvcseurlxwqamz.us.auth0.com/android/com.FinalYearProject.app/callback'
+      redirect_uri:'com.FinalYearProject.app://dev-mejvcseurlxwqamz.us.auth0.com/android/com.FinalYearProject.app/callback',
     }
 
 })],
