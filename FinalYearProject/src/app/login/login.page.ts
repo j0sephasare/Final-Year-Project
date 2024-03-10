@@ -24,7 +24,7 @@ export class LoginPage {
   }
 
   onLogin() {
-    // Handle your login logic here, if needed
+    
   }
 
   // Function to navigate to the registration page
