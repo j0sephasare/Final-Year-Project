@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserExerciseService } from '../user-exercise.service';
 import { Exercise } from 'models/exercise.model'; // Import your Exercise model
 import { SaveExerciseData } from 'models/SaveExercise.model';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-saved-exercise-list',
@@ -13,22 +13,28 @@ import { AuthService } from '@auth0/auth0-angular';
 export class SavedExerciseListPage implements OnInit {
   savedExercises: SaveExerciseData[] = [];
   editModeIndex: number | null = null;
-
-  constructor(private userExerciseService: UserExerciseService, private auth: AuthService) {}
+  userId: string = '';
+  constructor(private userExerciseService: UserExerciseService,  private authService: AuthService ) {}
 
   ngOnInit(): void {
-    this.auth.user$.subscribe((user) => {
-      if (user && user.sub) {
-        this.userExerciseService.getSavedExercises(user.sub).subscribe(
-          (data) => {
-            this.savedExercises = data;
-          },
-          (error) => {
-            console.error('Error fetching saved exercises:', error);
-          }
-        );
+    this.authService.getCurrentUser().subscribe(user => {
+      if (user?.uid) {
+        this.userId = user.uid; // Store the user ID to use in update and delete methods
+        this.fetchSavedExercises();
       }
     });
+  }
+  fetchSavedExercises(): void {
+    if (this.userId) {
+      this.userExerciseService.getSavedExercises(this.userId).subscribe({
+        next: (exercises) => {
+          this.savedExercises = exercises;
+        },
+        error: (error) => {
+          console.error('Error fetching saved exercises:', error);
+        }
+      });
+    }
   }
 
   enableEditMode(index: number): void {
@@ -39,29 +45,24 @@ export class SavedExerciseListPage implements OnInit {
     this.editModeIndex = null;
   }
 
-  updateExercise(exercise: SaveExerciseData): void {
+  updateExercise(userId: string, exercise: SaveExerciseData): void {
     if (exercise._id) {
-      this.userExerciseService.updateSavedExercise(exercise._id, exercise).subscribe({
-        next: () => {
-          console.log('Exercise updated successfully');
-          this.cancelEditMode();
-        },
-        error: (error) => {
-          console.error('Error updating exercise:', error);
-        }
+      this.userExerciseService.updateSavedExercise(userId, exercise._id, exercise).then(() => {
+        console.log('Exercise updated successfully');
+        this.cancelEditMode();
+      }).catch((error) => {
+        console.error('Error updating exercise:', error);
       });
     }
   }
-
-  deleteExercise(id: string): void {
-    this.userExerciseService.deleteSavedExercise(id).subscribe({
-      next: () => {
-        this.savedExercises = this.savedExercises.filter(ex => ex._id !== id);
+  deleteExercise(exercise: SaveExerciseData): void {
+    if (this.userId && exercise._id) {
+      this.userExerciseService.deleteSavedExercise(this.userId, exercise._id).then(() => {
+        this.savedExercises = this.savedExercises.filter(ex => ex._id !== exercise._id);
         console.log('Exercise deleted successfully');
-      },
-      error: (error) => {
+      }).catch((error) => {
         console.error('Error deleting exercise:', error);
-      }
-    });
+      });
+    }
   }
 }

@@ -2,29 +2,48 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Exercise } from 'models/exercise.model';
+import { map } from 'rxjs/operators';
 import { SaveExerciseData } from 'models/SaveExercise.model';
+import { Firestore, collection, doc, getDoc, updateDoc, collectionData, deleteDoc, addDoc, query, where, getDocs,setDoc } from '@angular/fire/firestore';
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserExerciseService {
-  private apiUrl = 'http://localhost:4000/SavedExercises';
+ 
 
-  constructor(private httpClient: HttpClient) {}
-
-  saveExercise(data: SaveExerciseData): Observable<HttpResponse<any>> {
-    return this.httpClient.post<any>(`${this.apiUrl}`, data, { observe: 'response' });
-  }
+  constructor(private httpClient: HttpClient,private firestore: Firestore) {}
 
   getSavedExercises(userId: string): Observable<SaveExerciseData[]> {
-    return this.httpClient.get<SaveExerciseData[]>(`${this.apiUrl}/${userId}`);
-  }
-  updateSavedExercise(id: string, data: SaveExerciseData): Observable<HttpResponse<any>> {
-    return this.httpClient.put<HttpResponse<any>>(`${this.apiUrl}/${id}`, data, { observe: 'response' });
+    const userExercisesRef = collection(this.firestore, `users/${userId}/savedExercises`);
+    return collectionData(userExercisesRef, { idField: '_id' }) as Observable<SaveExerciseData[]>;
   }
 
-  // Method to delete a saved exercise
-  deleteSavedExercise(id: string): Observable<HttpResponse<any>> {
-    return this.httpClient.delete<HttpResponse<any>>(`${this.apiUrl}/${id}`, { observe: 'response' });
+  // Update a specific saved exercise
+  updateSavedExercise(userId: string, exerciseId: string, data: SaveExerciseData): Promise<void> {
+    // Reference to the document in the 'savedExercises' collection of the specific 'userId'
+    const exerciseDocRef = doc(this.firestore, `users/${userId}/savedExercises/${exerciseId}`);
+    
+    // Create an update object that omits the _id field
+    // since it should not be included in the update (it's the document's key in Firestore)
+    const { _id, ...updateData } = data;
+  
+    // Perform the update
+    return updateDoc(exerciseDocRef, updateData);
+  }
+
+
+  // Delete a specific saved exercise
+  deleteSavedExercise(userId: string, exerciseId: string): Promise<void> {
+    const exerciseDocRef = doc(this.firestore, `users/${userId}/savedExercises/${exerciseId}`);
+    return deleteDoc(exerciseDocRef);
+  }
+
+  saveWorkout(workoutData: SaveExerciseData): Promise<void> {
+    const userExercisesRef = collection(this.firestore, `users/${workoutData.userId}/savedExercises`);
+    const exerciseRef = doc(userExercisesRef); // Create a new document reference for the workout
+  
+    return setDoc(exerciseRef, workoutData);
   }
   
 }

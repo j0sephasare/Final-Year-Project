@@ -2,28 +2,25 @@
 
 
 
-<!-- exercises-list.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Exercises List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 
 <div class="exercise-list-container">
-  <table class="exercise-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let exercise of exercises" (click)="selectExercise(exercise)" [class.selected]="exercise.selected">
-        <td><span>{{ exercise.name }}</span></td>
-        <td><span>{{ exercise.description }}</span></td>
-      </tr>
-    </tbody>
-  </table>
+  <ion-list>
+  <ion-item *ngFor="let exercise of exercises" (click)="toggleExerciseSelection(exercise)">
+    <ion-label>
+      <h2>{{ exercise.Name }}</h2> <!-- Display the name -->
+      <p>{{ exercise.Description }}</p> <!-- Display the description -->
+    </ion-label>
+    <ion-checkbox [(ngModel)]="exercise.selected"></ion-checkbox>
+  </ion-item>
+</ion-list>
+  <ion-button expand="block" (click)="addSelectedExercises()">Add Selected Exercises</ion-button>
 </div>
-
-<ion-button class="add-button" (click)="addSelectedExercises()" [disabled]="!areAnyExercisesSelected()">
-  Add Selected Exercises
-</ion-button>
 
 <ion-content>
   <ion-tabs>

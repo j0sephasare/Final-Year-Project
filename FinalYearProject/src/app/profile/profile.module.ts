@@ -15,6 +15,6 @@ import { ProfilePage } from './profile.page';
     IonicModule,
     ProfilePageRoutingModule
   ],
-  declarations: [ProfilePage,SavedExercisesComponent]
+  declarations: [ProfilePage]
 })
 export class ProfilePageModule {}

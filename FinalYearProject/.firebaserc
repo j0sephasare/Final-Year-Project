@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fireappconnect-43914": {
+      "hosting": {
+        "app": [
+          "fireappconnect-43914"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fireappconnect-43914"
+  }
+}

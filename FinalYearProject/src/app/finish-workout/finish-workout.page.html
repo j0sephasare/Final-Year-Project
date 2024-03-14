@@ -6,6 +6,7 @@
     <ion-title>Finish Workout</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="saveWorkout()">Save</ion-button>
+      <ion-button (click)="discardWorkout()" color="danger">Discard</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -44,5 +45,5 @@
     </ion-item>
   </ion-list>
 
-  <ion-button expand="full" color="danger" (click)="discardWorkout()">Discard Workout</ion-button>
+
 </ion-content>

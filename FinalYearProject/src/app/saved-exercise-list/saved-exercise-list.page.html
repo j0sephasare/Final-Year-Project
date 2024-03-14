@@ -1,35 +1,32 @@
-<!-- saved-exercise-list.page.html -->
 <ion-header>
   <ion-toolbar>
     <ion-title>Saved Exercises</ion-title>
   </ion-toolbar>
 </ion-header>
-
-
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let exercise of savedExercises; let i = index">
-      <div *ngIf="editModeIndex !== i"> <!-- Display mode -->
-        <ion-label>
-          {{ exercise.exerciseName }} - Volume: {{ exercise.volume }}, Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}
-        </ion-label>
-        <ion-button fill="outline" slot="end" (click)="enableEditMode(i)">
-          Edit
-        </ion-button>
-        <ion-button color="danger" slot="end" *ngIf="exercise._id" (click)="deleteExercise(exercise._id)">
-          Delete
-        </ion-button>
-      </div>
-      <div *ngIf="editModeIndex === i"> <!-- Edit mode -->
-        <ion-input type="number" [(ngModel)]="exercise.volume" placeholder="Volume"></ion-input>
-        <ion-input type="number" [(ngModel)]="exercise.sets" placeholder="Sets"></ion-input>
-        <ion-input type="number" [(ngModel)]="exercise.reps" placeholder="Reps"></ion-input>
-        <ion-button (click)="updateExercise(exercise)">Save</ion-button>
-        <ion-button (click)="cancelEditMode()">Cancel</ion-button>
-      </div>
+    <!-- Iterate over saved exercises -->
+    <ion-item *ngFor="let savedExercise of savedExercises; let i = index">
+      <ion-label>
+        <h2>{{ savedExercise.workoutTitle }}</h2>
+        <!-- Iterate over exercises within a saved exercise -->
+        <div *ngFor="let exercise of savedExercise.exercises">
+          <p>Name: {{ exercise.name }}</p>
+          <p>Sets: {{ exercise.sets }}</p>
+          <p>Reps: {{ exercise.reps }}</p>
+        </div>
+        <p>Description: {{ savedExercise.description }}</p>
+        <p>Duration: {{ savedExercise.duration }}</p>
+      </ion-label>
+
+      <!-- Conditional rendering to avoid passing undefined '_id' -->
+      <ion-button fill="clear" *ngIf="savedExercise._id" (click)="deleteExercise(savedExercise)">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>
+
 
 <ion-content>
   <ion-tabs>

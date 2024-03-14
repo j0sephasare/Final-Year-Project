@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SelectedExerciseService } from '../selected-exercise.service';
 import { UserExerciseService } from '../user-exercise.service';
 import { SaveExerciseData } from 'models/SaveExercise.model';
+import { Exercise } from 'models/exercise.model';
 
 @Component({
   selector: 'app-finish-workout',
@@ -10,12 +11,11 @@ import { SaveExerciseData } from 'models/SaveExercise.model';
   styleUrls: ['./finish-workout.page.scss'],
 })
 export class FinishWorkoutPage implements OnInit {
-  workoutTitle: string = ''; // The title given by the user for the workout
+  workoutTitle: string = '';
   description: string = '';
   duration: string = '';
   volume: number = 0;
   sets: number = 0;
-  reps: number = 0; // Defa
   userId: string | undefined;
 
   constructor(
@@ -26,27 +26,25 @@ export class FinishWorkoutPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Retrieve the state passed from the previous page
-    this.route.queryParams.subscribe(() => {
-      const navigation = this.router.getCurrentNavigation();
-      if (navigation?.extras.state) {
-        const state = navigation.extras.state as {
-          totalVolume: number,
-          totalSets: number,
-          duration: { minutes: number, seconds: number },
-          userId: string
-        };
-        // Ensure duration is converted to a string
-        this.duration = `${state.duration.minutes}min ${state.duration.seconds}s`;
-        this.volume = state.totalVolume;
-        this.sets = state.totalSets;
-        this.userId = state.userId;
-      }
-    });
+    const navigation = this.router.getCurrentNavigation();
+  // Adjust the cast to SaveExerciseData since that's the interface you're using
+  const state = navigation?.extras.state as SaveExerciseData | undefined;
+  
+  if (state) {
+    // Provide default values if state properties are undefined
+    this.volume = state.volume ?? 0; // Use nullish coalescing operator
+    this.sets = state.sets ?? 0;
+    this.duration = state.duration; // Since duration is a string, assign it directly
+    this.userId = state.userId;
+  } else {
+    // Handle the case when state is undefined
+    console.error('State object is missing in navigation extras.');
+  }
+  
+  console.log('State object received:', state);
   }
 
   getCurrentTimestamp(): string {
-    // Format: "31 Jan 2024, 12:34 PM"
     return new Date().toLocaleString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -58,47 +56,41 @@ export class FinishWorkoutPage implements OnInit {
   }
 
   saveWorkout(): void {
-    if (this.userId) {
-      // Assume 'selectedExercises' is an array of exercises with name, sets, and reps
-      const selectedExercises = this.selectedExercisesService.getSelectedExercises();
-
-      // Prepare the data for saving
-      selectedExercises.forEach(exercise => {
-        const saveData: SaveExerciseData = {
-          userId: this.userId,
-          workoutTitle: this.workoutTitle,
-          description: this.description,
-          exerciseName: exercise.name, // Use the name from each selected exercise
-          volume: this.volume,
-          sets: exercise.setsCounter || 1, // Assume this property exists and is correct
-          reps: exercise.reps, // Assume this property exists and is correct
-          duration: this.duration,
-          timestamp: this.getCurrentTimestamp() // Add the current timestamp
-        };
-
-        // Call the service to save each workout exercise to MongoDB
-        this.userExerciseService.saveExercise(saveData).subscribe({
-          next: (response) => {
-            console.log('Workout saved successfully:', response);
-            // If you want to navigate only after all exercises are saved, you need to handle this logic
-          },
-          error: (error) => {
-            console.error('Error saving workout:', error);
-          }
-        });
-      });
-
-      // After saving, navigate to home or a confirmation page
-      this.router.navigate(['/home']);
-    } else {
-      console.error('User ID is not available, cannot save workout.');
+    if (!this.userId || !this.workoutTitle) {
+      console.error('User ID or Workout title is missing, cannot save workout.');
+      return;
     }
-  }
   
-
+    // Map the selected exercises to the format expected by SaveExerciseData
+    const exercisesForSave: SaveExerciseData['exercises'] = this.selectedExercisesService.getSelectedExercises().map(exercise => ({
+      name: exercise.Name,
+      sets: exercise.setsCounter ?? 1, // Ensure there's a default value if undefined
+      reps: exercise.reps ?? 0
+    }));
+  
+    // Construct the full SaveExerciseData object
+    const workoutData: SaveExerciseData = {
+      userId: this.userId,
+      workoutTitle: this.workoutTitle,
+      description: this.description,
+      duration: this.duration,
+      volume: this.volume, // This assumes you calculate the volume elsewhere
+      sets: this.sets, // This assumes you calculate the total sets elsewhere
+      timestamp: this.getCurrentTimestamp(), // Get the current timestamp
+      exercises: exercisesForSave
+    };
+  
+    // Use the UserExerciseService to save the workout data to Firestore
+    this.userExerciseService.saveWorkout(workoutData).then(() => {
+      console.log('Workout saved successfully');
+      this.router.navigate(['/home']);
+    }).catch((error) => {
+      console.error('Error saving workout:', error);
+    });
+  }
   discardWorkout(): void {
     if (window.confirm('Are you sure you want to discard this workout?')) {
-      this.router.navigate(['/home']); // Navigate to home or the workouts list
+      this.router.navigate(['/home']);
     }
   }
 }

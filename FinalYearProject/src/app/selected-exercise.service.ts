@@ -1,43 +1,62 @@
 import { Injectable } from '@angular/core';
-import { Exercise } from './exercises-list/exercises-list.page';
+import { BehaviorSubject, from, map, Observable } from 'rxjs';
+import { Exercise } from 'models/exercise.model';// Correct path to your Exercise model file
+import { Firestore, collection, doc, getDoc, updateDoc, collectionData, deleteDoc, addDoc, query, where, getDocs} from '@angular/fire/firestore';
+import { writeBatch } from 'firebase/firestore';
 @Injectable({
   providedIn: 'root'
 })
 export class SelectedExerciseService {
-  selectedExercises: Exercise[] = [];
+  private selectedExercisesSubject = new BehaviorSubject<Exercise[]>([]);
+  selectedExercises$ = this.selectedExercisesSubject.asObservable();
+
+  constructor(private firestore: Firestore) {}
 
   addExercise(exercise: Exercise) {
-    this.selectedExercises.push(exercise);
+    console.log('Adding exercise:', exercise);
+    const currentExercises = this.selectedExercisesSubject.value;
+    this.selectedExercisesSubject.next([...currentExercises, exercise]);
+    console.log('Current selected exercises:', this.selectedExercisesSubject.value);
   }
 
-  getSelectedExercises() {
-    return this.selectedExercises;
-  }
 
-  getWorkoutData() {
-    let totalVolume = 0;
-    let totalSets = 0;
-    let totalDuration = { minutes: 0, seconds: 0 }; // Assuming duration is tracked elsewhere and passed here
-
-    this.selectedExercises.forEach(exercise => {
-      if (exercise.kg && exercise.reps && exercise.setsCounter) {
-        totalVolume += exercise.kg * exercise.reps;
-        totalSets += exercise.setsCounter;
-      }
+  saveSelectedExercisesToFirebase(userId: string, selectedExercises: Exercise[]) {
+    // Get a reference to the user's exercises collection in Firestore
+    const userExercisesRef = collection(this.firestore, `users/${userId}/savedExercises`);
+  
+    // Create a batch to perform all writes in a single atomic operation
+    const batch = writeBatch(this.firestore);
+  
+    // Go through the selected exercises and prepare them for the batch operation
+    selectedExercises.forEach((exercise) => {
+      const exerciseRef = doc(userExercisesRef); // Create a new document reference
+      batch.set(exerciseRef, {
+        name: exercise.Name,
+        description: exercise.Description,
+        reps: exercise.reps,
+        kg: exercise.kg,
+     
+        // ...other properties you need to save
+      });
+    });
+  
+    // Commit the batch
+    return batch.commit().then(() => {
+      console.log('All exercises saved successfully.');
+    }).catch((error) => {
+      console.error('Error saving exercises:', error);
     });
 
-    // Convert total duration to a displayable string if necessary
-    const durationString = `${totalDuration.minutes}min ${totalDuration.seconds}s`;
+    // Clear the array after saving to Firestore
+    this.clearSelectedExercises();
+  }
+  
 
-    return {
-      volume: totalVolume,
-      sets: totalSets,
-      duration: durationString
-    };
+  getSelectedExercises(): Exercise[] {
+    return this.selectedExercisesSubject.value;
   }
 
   clearSelectedExercises() {
-    this.selectedExercises = [];
+    this.selectedExercisesSubject.next([]);
   }
-  constructor() { }
 }

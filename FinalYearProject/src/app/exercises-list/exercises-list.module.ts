@@ -13,7 +13,7 @@ import { ExercisesListPage } from './exercises-list.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ExercisesListPageRoutingModule
+    ExercisesListPageRoutingModule,
   ],
   declarations: [ExercisesListPage]
 })

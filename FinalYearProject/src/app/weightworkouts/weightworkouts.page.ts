@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { SelectedExerciseService } from '../selected-exercise.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { TimerService } from '../timer.service';
-import { Exercise, ExerciseData } from 'models/exercise.model';
+import { SelectedExerciseService } from '../selected-exercise.service';
 import { Subscription } from 'rxjs';
-
-import { UserExerciseService } from '../user-exercise.service';
-import { AuthService } from '@auth0/auth0-angular';
+import { Exercise } from 'models/exercise.model';
 
 @Component({
   selector: 'app-weightworkouts',
@@ -14,109 +12,141 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./weightworkouts.page.scss'],
 })
 export class WeightworkoutsPage implements OnInit, OnDestroy {
-  exercisesData: ExerciseData = { exercises: [] };
-  selectedExercises: Exercise[] = [] as Exercise[];
+  selectedExercises: Exercise[] = [];
   timerSubscription!: Subscription;
-  timer: { minutes: number; seconds: number } = { minutes: 0, seconds: 0 };
   calculatedVolume: number = 0;
   totalSets: number = 0;
+  userId: string | undefined;
+  timer: { minutes: number; seconds: number } = { minutes: 0, seconds: 0 };
+  workoutTitle: string = '';
+  description: string = '';
+  duration: string = '';
 
   constructor(
     private router: Router,
     private selectedExercisesService: SelectedExerciseService,
-    private timerService: TimerService,
-    private userExerciseService: UserExerciseService,
-    private auth: AuthService  // Inject AuthService
-  ) {
-    this.selectedExercises = this.selectedExercisesService.getSelectedExercises();
-  }
+    private auth: AuthService,
+    private timerService: TimerService
+  ) {}
 
   ngOnInit() {
-    this.timerSubscription = this.timerService.getTimer().subscribe((time) => {
-      this.timer = time;
+    this.selectedExercisesService.selectedExercises$.subscribe(
+      exercises => {
+        this.selectedExercises = exercises;
+        this.calculateVolumeAndTotalSets();
+      }
+    );
+    this.loadSelectedExercises();
+    this.subscribeToTimer();
+        console.log('Selected exercises on init:', this.selectedExercises);
+        
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state?.['selectedExercises']) {
+      this.selectedExercises = navigation.extras.state['selectedExercises'];
+    }
+
+    this.auth.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+      } else {
+        console.error('User is not logged in.');
+      }
     });
   }
 
   ngOnDestroy() {
-    this.timerSubscription.unsubscribe();
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+    this.resetPageState();
   }
 
-  calculateVolume(): void {
+  loadSelectedExercises() {
+    this.selectedExercises = this.selectedExercisesService.getSelectedExercises();
+    console.log('Selected exercises on init:', this.selectedExercises);
+  }
+
+  subscribeToTimer() {
+    this.timerSubscription = this.timerService.getTimer().subscribe(timer => {
+      this.timer = timer;
+      // Format the duration each time the timer updates.
+      this.duration = this.formatDuration(timer.minutes, timer.seconds);
+    });
+  }
+
+  formatDuration(minutes: number, seconds: number): string {
+    // Protect against negative values just in case
+    minutes = Math.max(0, minutes);
+    seconds = Math.max(0, seconds);
+    return `${minutes}min ${seconds}s`;
+  }
+  addSet(exercise: Exercise) {
+    const newSet = { ...exercise, setsCounter: (exercise.setsCounter ?? 0) + 1 };
+    this.selectedExercises.push(newSet);
+    this.calculateVolumeAndTotalSets();
+  }
+
+  calculateVolumeAndTotalSets() {
     this.calculatedVolume = 0;
     this.totalSets = 0;
 
-    for (const exercise of this.selectedExercises) {
-      if (exercise.kg && exercise.reps) {
-        const weight = exercise.kg * exercise.reps;
-        this.calculatedVolume += weight;
-        this.totalSets += exercise.setsCounter || 1;
-      }
+    this.selectedExercises.forEach(exercise => {
+      const safeKg = exercise.kg ?? 0;
+      const safeReps = exercise.reps ?? 0;
+      const safeSetsCounter = exercise.setsCounter ?? 1;
+
+      this.calculatedVolume += safeKg * safeReps * safeSetsCounter;
+      this.totalSets += safeSetsCounter;
+    });
+
+    console.log('Total volume:', this.calculatedVolume, 'Total sets:', this.totalSets);
+  }
+  resetPageState() {
+    this.selectedExercises = [];
+    this.calculatedVolume = 0;
+    this.totalSets = 0;
+    this.timer = { minutes: 0, seconds: 0 };
+    this.duration = '';
+    // ... reset any other relevant state
+  }
+
+  finishWorkout() {
+    if (!this.userId) {
+      console.error('Cannot finish workout - user ID is not defined.');
+      return;
     }
-  }
 
-  addSet(selectedExercise: Exercise): void {
-    // Duplicate the selected exercise
-    const duplicatedExercise: Exercise = {
-      id: selectedExercise.id,
-      name: selectedExercise.name,
-      description: selectedExercise.description,
-      image: selectedExercise.image,
+    console.log(`Navigating with timer data: ${this.duration}`);
 
-      difficulty: selectedExercise.difficulty,
-      selected: selectedExercise.selected,
-      kg: selectedExercise.kg,
-      reps: selectedExercise.reps,
-      setsCounter: (selectedExercise.setsCounter || 1) + 1,
-    };
-
-    // Add the duplicated exercise to the list
-    this.selectedExercises.push(duplicatedExercise);
-
-    // Reset the input values for the duplicated exercise
-    selectedExercise.kg = 0;
-    selectedExercise.reps = 0;
-
-    // Recalculate the volume
-    this.calculateVolume();
-  }
-
-  finishWorkout(): void {
-    this.calculateVolume(); // Make sure volume and sets are calculated
-  
-    this.auth.user$.subscribe((user) => {
-      if (user) {
-        const navigationExtras: NavigationExtras = {
-          state: {
-            exercises: this.selectedExercises,
-            totalVolume: this.calculatedVolume,
-            totalSets: this.totalSets,
-            duration: this.timer, // Pass the timer if you need to
-            userId: user.sub // Include the userId in the state
-          }
-          
-        };
-        this.selectedExercises = [];
-        this.calculatedVolume = 0;
-        this.totalSets = 0;
-        // Navigate to FinishWorkoutPage with the data
-        this.router.navigate(['/finish-workout'], navigationExtras);
-      } else {
-        // Handle the case where the user is not logged in or the user data is not retrieved
-        console.error('User information is not available.');
+    if (this.timer.minutes === undefined || this.timer.seconds === undefined) {
+      console.error('Timer is not initialized.');
+      return;
+    }
+    this.router.navigate(['/finish-workout'], {
+      state: {
+        userId: this.userId,
+        workoutTitle: this.workoutTitle,
+        description: this.description,
+        volume: this.calculatedVolume,
+        sets: this.totalSets,
+        duration: this.duration, // Pass the formatted duration string
+        exercises: this.selectedExercises.map(exercise => ({
+          name: exercise.Name,
+          sets: exercise.setsCounter ?? 0,
+          reps: exercise.reps ?? 0
+        }))
       }
     });
   }
-  
+
+  deleteExercise(index: number) {
+    if (confirm('Are you sure you want to remove this set?')) {
+      this.selectedExercises.splice(index, 1);
+      this.calculateVolumeAndTotalSets();
+    }
+  }
+
   openExerciseList() {
     this.router.navigate(['/exercise-list']);
   }
-  deleteExercise(exerciseIndex: number): void {
-    // Confirm with the user before deleting
-    if (window.confirm('Are you sure you want to delete this exercise?')) {
-      this.selectedExercises.splice(exerciseIndex, 1);
-      this.calculateVolume(); // Update the total volume if necessary
-    }
-  }
-  
-  
 }

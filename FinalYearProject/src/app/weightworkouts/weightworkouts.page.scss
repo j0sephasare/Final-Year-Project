@@ -1,64 +1,16 @@
-/* Style for Timer */
 .timer {
-    text-align: center;
-    font-size: 20px;
-    margin: 16px;
-  }
-  
-  /* Style for Exercise Item */
-  .exercise-item {
-    margin: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-  }
-  
-  /* Style for Exercise Name */
-  .exercise-label {
-    font-weight: bold;
-    font-size: 18px;
-  }
-  
-  /* Style for Exercise Rows */
-  .exercise-row {
-    margin-bottom: 8px;
-  }
-  
-  /* Style for Exercise Input Columns */
-  .exercise-input-col {
-    flex: 1;
-  }
-  
-  /* Style for Exercise Set Column */
-  .exercise-set-col {
-    flex: 0.5;
-  }
-  
-  /* Style for Calculate and Add Set Buttons */
-  .calculate-button,
-  .add-set-button {
-    margin-right: 8px;
-  }
-  
-  /* Style for Add Exercise Button */
-  .add-exercise-button {
-    margin: 16px;
-    display: block;
-  }
-   /* Style for Tab Bar */
-   .tab-bar {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Style for Tab Buttons */
-  .tab-button {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  /* Style for Tab Icons */
-  .tab-icon {
-    font-size: 24px;
-  }
+  text-align: center;
+  font-size: 20px;
+  margin: 16px;
+}
+
+.exercise-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-exercise-button {
+  width: 100%;
+  margin-top: 20px;
+}

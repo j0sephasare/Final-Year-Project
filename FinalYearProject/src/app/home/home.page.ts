@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserExerciseService } from '../user-exercise.service'; // Import your service
-import { AuthService } from '@auth0/auth0-angular';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -9,14 +9,16 @@ import { AuthService } from '@auth0/auth0-angular';
 export class HomePage implements OnInit {
   savedWorkouts: any[] = []; // Use a type here if you have one
 
-  constructor(private userExerciseService: UserExerciseService, public auth: AuthService) { } // Inject your service
+  constructor(private userExerciseService: UserExerciseService, ) { } // Inject your service
 
   ngOnInit() {
     this.updateDateTime();
     setInterval(() => this.updateDateTime(), 1000);
-    this.fetchSavedWorkouts(); // Fetch the workouts when the component loads
+    /*
+    this.fetchSavedWorkouts();
+    */ // Fetch the workouts when the component loads
   }
-
+/*
   fetchSavedWorkouts() {
     this.auth.user$.subscribe((user) => {
       if (user && user.sub) {
@@ -32,7 +34,7 @@ export class HomePage implements OnInit {
       }
     });
   }
-
+ */
   updateDateTime() {
     const now = new Date();
     const dateTimeString = now.toLocaleString(); // Adjust format as needed

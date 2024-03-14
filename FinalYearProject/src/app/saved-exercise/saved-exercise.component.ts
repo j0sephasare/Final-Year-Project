@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserExerciseService } from '../user-exercise.service';
 import { SaveExerciseData } from 'models/SaveExercise.model'; // Update this path if necessary
-import { AuthService } from '@auth0/auth0-angular';
-
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-saved-exercise',
   templateUrl: './saved-exercise.component.html',
@@ -10,22 +9,13 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class SavedExercisesComponent implements OnInit {
   savedExercises: SaveExerciseData[] = []; // Assuming SaveExerciseData is the correct type
-
-  constructor(private userExerciseService: UserExerciseService, private auth: AuthService) {}
+  currentUserId: string | null = null; // Hold the current user's ID
+  constructor(private userExerciseService: UserExerciseService,  private authService: AuthService ) {}
 
   ngOnInit(): void {
-    this.auth.user$.subscribe((user) => {
+    this.authService.getCurrentUser().subscribe(user => {
       if (user) {
-        const userId: string = user.sub || '';
-        this.userExerciseService.getSavedExercises(userId).subscribe(
-          (data) => {
-            // Initialize editMode flag for each exercise
-            this.savedExercises = data.map(exercise => ({ ...exercise, isEditMode: false }));
-          },
-          (error) => {
-            console.error('Error fetching saved exercises:', error);
-          }
-        );
+        this.currentUserId = user.uid; // Save the user ID for later use
       }
     });
   }
@@ -39,30 +29,23 @@ export class SavedExercisesComponent implements OnInit {
   }
 
   updateExercise(exercise: SaveExerciseData): void {
-    if (exercise._id) {
-      this.userExerciseService.updateSavedExercise(exercise._id, exercise).subscribe({
-        next: (response) => {
-          console.log('Exercise updated successfully', response);
-          exercise.isEditMode = false;
-        },
-        error: (error) => {
-          console.error('Error updating exercise:', error);
-        }
+    if (this.currentUserId && exercise._id) {
+      this.userExerciseService.updateSavedExercise(this.currentUserId, exercise._id, exercise).then(() => {
+        console.log('Exercise updated successfully');
+        exercise.isEditMode = false;
+      }).catch((error) => {
+        console.error('Error updating exercise:', error);
       });
     }
   }
 
-  deleteExercise(id: string | undefined): void {
-    if (id) {
-      this.userExerciseService.deleteSavedExercise(id).subscribe({
-        next: () => {
-          this.savedExercises = this.savedExercises.filter(exercise => exercise._id !== id);
-          // Handle success
-        },
-        error: (error) => {
-          // Handle error
-          console.error('Error deleting exercise:', error);
-        }
+  deleteExercise(exercise: SaveExerciseData): void {
+    if (this.currentUserId && exercise._id) {
+      this.userExerciseService.deleteSavedExercise(this.currentUserId, exercise._id).then(() => {
+        this.savedExercises = this.savedExercises.filter(ex => ex._id !== exercise._id);
+        console.log('Exercise deleted successfully');
+      }).catch((error) => {
+        console.error('Error deleting exercise:', error);
       });
     }
   }

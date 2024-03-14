@@ -7,20 +7,15 @@ export interface ExerciseSet {
 
 export class Exercise {
   constructor(
-    public id: number,
-    public name: string,
-    public description: string,
-    public image: string,
-
-    public difficulty: string,
+    // Make id optional if it can be undefined
+    public Name: string,
+    public Description: string,
+    public Difficulty: string,
+    public id?: string, 
     public selected?: boolean,
-    public kg: number = 0,  // Add kg property
-    public reps: number = 0,
-    public calculatedVolume?: number,
-    public sets?: ExerciseSet[],
-   
-    public setsCounter: number = 1,
-    
+    public kg?: number,
+    public reps?: number,
+    public setsCounter?: number,
   ) {}
 }
 

@@ -1,35 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef  } from '@angular/core';
+import { Observable, of, catchError } from 'rxjs';
 import { ExerciseService } from '../exercise.service';
-import {  ExerciseData } from 'models/exercise.model';
-import { NavController } from '@ionic/angular';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Exercise } from 'models/exercise.model';
 import { Router } from '@angular/router';
-import { SelectedExerciseService} from '../selected-exercise.service';
-import { TimerService } from '../timer.service';
-
-export interface ExerciseSet {
-  setNumber: number;
-  kg: number;
-  reps: number;
-}
-
-export class Exercise {
-  constructor(
-    public id: number,
-    public name: string,
-    public description: string,
-    public image: string,
-  
-    public difficulty: string,
-    public selected?: boolean,
-    public kg: number = 0,  // Add kg property
-    public reps: number = 0,
-    public calculatedVolume?: number,
-    public sets?: ExerciseSet[],
-    
-      public setsCounter: number = 1
-  ) {}
-}
+import { SelectedExerciseService } from '../selected-exercise.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-exercises-list',
@@ -37,52 +12,60 @@ export class Exercise {
   styleUrls: ['./exercises-list.page.scss'],
 })
 export class ExercisesListPage implements OnInit {
-   exercises: Exercise[] = [];
- 
-
-  constructor(private exerciseService: ExerciseService, private Httpclient: HttpClient, private router: Router,private selectedExercisesService: SelectedExerciseService,private timerService: TimerService) {}
+  exercises$!: Observable<Exercise[]>;// Specify the type here
+  userId: string | undefined;
+  selectedExercises: Exercise[] = [];
+  exercises: Exercise[] = [];
+  constructor(
+    private exerciseService: ExerciseService,  private changeDetectorRef: ChangeDetectorRef,
+    private selectedExercisesService: SelectedExerciseService,private router: Router,private authService:AuthService) {}
 
   ngOnInit() {
-    this.loadExercises();
-  }
-
-  loadExercises() {
-    this.Httpclient.get<any>('http://localhost:4000/exercises').subscribe(
-    response => {
-      console.log(response);
-      this.exercises = response[0]?.exercises || [];
-    }
-  );
-
-  }
-  selectExercise(exercise: Exercise) {
-    exercise.selected = !exercise.selected;
-    if (exercise.selected) {
-      this.selectedExercisesService.addExercise(exercise);
-    } else {
-      // Remove exercise if deselected
-      const index = this.selectedExercisesService.getSelectedExercises().indexOf(exercise);
-      if (index !== -1) {
-        this.selectedExercisesService.getSelectedExercises().splice(index, 1);
+    console.log('ngOnInit - Fetching exercises...');
+    console.log('ngOnInit - Fetching exercises...');
+     // Fetch exercises and store them in a local array
+     this.exerciseService.getExercises().subscribe(
+      exercisesFromService => {
+        console.log('Exercises received from service:', exercisesFromService);
+        this.exercises = exercisesFromService;
+      },
+      error => {
+        console.error('Error fetching exercises:', error);
       }
+    );
+    // ... rest of your ngOnInit
+    this.authService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        console.log(`User ID: ${this.userId}`);
+      } else {
+        // Handle the case where there is no user logged in.
+        console.error('User is not logged in.');
+        // Possibly redirect to the login page or show a login form.
+      }
+    });
+  }
+
+  // Function to handle selection toggle
+  toggleExerciseSelection(exercise: Exercise) {
+    if (this.selectedExercises.includes(exercise)) {
+      this.selectedExercises = this.selectedExercises.filter(e => e !== exercise);
+    } else {
+      this.selectedExercises.push(exercise);
+      console.log('Selected exercises after toggle:', this.selectedExercises);
     }
   }
-
-  areAnyExercisesSelected(): boolean {
-    return this.exercises.some(e => e.selected);
-  }
-
+ 
   addSelectedExercises() {
-    const selectedExercises = this.exercises.filter(e => e.selected);
-    console.log('Selected Exercises:', selectedExercises);
-    
-    this.router.navigate(['/weightworkouts']);
+    if(this.userId) {
+      this.selectedExercises.forEach(exercise => {
+        this.selectedExercisesService.addExercise(exercise); // Use the service to add exercises
+      });
+
+      // Navigate back to the weight workouts page after adding the exercises
+      this.router.navigate(['/weightworkouts']);
+    } else {
+      console.error('User ID is undefined. Cannot save selected exercises.');
+    }
   }
- 
-
- 
-}
-
- 
-
-
+  }

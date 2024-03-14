@@ -6,7 +6,7 @@ import { ProfilePage } from './profile/profile.page';
 import { ChatbotPage } from './chatbot/chatbot.page';
 import { WeightworkoutsPage } from './weightworkouts/weightworkouts.page';
 import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
-import { MicroServiceLoginPage } from './micro-service-login/micro-service-login.page';
+
 import { SavedExercisesComponent } from './saved-exercise/saved-exercise.component';
 import { SavedExerciseListPage } from './saved-exercise-list/saved-exercise-list.page';
 import { LocalgymsPage } from './localgyms/localgyms.page';
@@ -16,11 +16,24 @@ import { RonaldoPage } from './ronaldo/ronaldo.page';
 import { MealsPage } from './meals/meals.page';
 import { ImageuploadPage } from './imageupload/imageupload.page';
 import { MacroCounterPage } from './macro-counter/macro-counter.page';
+import {
+  redirectUnauthorizedTo, // Used to redirect to login screen if user is not logged in.
+  redirectLoggedInTo, // Used to redirect to home screen if user is already logged in.
+  canActivate, // Used to protect routes by checking if user is logged in.
+} from '@angular/fire/auth-guard';
+
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
     
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginPageModule),
+ 
+    // the spread operator ... is used to expand the properties of the object returned by the canActivate function into the route configuration object.
   },
   { path: 'chatbot', component: ChatbotPage },
   { path: 'mealPlan', component: MealPlanPage },
@@ -30,7 +43,7 @@ const routes: Routes = [
   {path: 'image-upload', component:ImageuploadPage},
   { path: 'ronaldo', component: RonaldoPage },
   { path: 'saved-exercises', component: SavedExerciseListPage },
-  {path: 'MicroServiceLoginPage', component: MicroServiceLoginPage},
+
   {path: 'local-gyms', component: LocalgymsPage},
   { path: 'profile', component: ProfilePage },
   { path: 'exercises', component: ExercisesPage },
@@ -43,11 +56,7 @@ const routes: Routes = [
  
   { path: 'weight-workouts', component: WeightworkoutsPage },
   { path: 'exercise-list', component: ExercisesListPage }, // Add this line
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
+
   {
     path: 'exercises',
     loadChildren: () => import('./exercises/exercises.module').then( m => m.ExercisesPageModule)
@@ -68,14 +77,8 @@ const routes: Routes = [
     path: 'exercises-list',
     loadChildren: () => import('./exercises-list/exercises-list.module').then( m => m.ExercisesListPageModule)
   },
-  {
-    path: 'micro-service-login',
-    loadChildren: () => import('./micro-service-login/micro-service-login.module').then( m => m.MicroServiceLoginPageModule)
-  },
-  {
-    path: 'profile-page-exercises',
-    loadChildren: () => import('./profile-page-exercises/profile-page-exercises.module').then( m => m.ProfilePageExercisesPageModule)
-  },
+
+  
   {
     path: 'saved-exercise-list',
     loadChildren: () => import('./saved-exercise-list/saved-exercise-list.module').then( m => m.SavedExerciseListPageModule)
@@ -108,7 +111,8 @@ const routes: Routes = [
   {
     path: 'macro-counter',
     loadChildren: () => import('./macro-counter/macro-counter.module').then( m => m.MacroCounterPageModule)
-  },  {
+  },
+  {
     path: 'boxing-exercises',
     loadChildren: () => import('./boxing-exercises/boxing-exercises.module').then( m => m.BoxingExercisesPageModule)
   },
