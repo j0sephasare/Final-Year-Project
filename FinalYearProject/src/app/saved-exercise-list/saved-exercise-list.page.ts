@@ -38,18 +38,29 @@ export class SavedExerciseListPage implements OnInit {
   }
 
   enableEditMode(index: number): void {
+    console.log(`Enabling edit mode for index ${index}`);
     this.editModeIndex = index;
   }
-
+  
   cancelEditMode(): void {
+    console.log(`Cancelling edit mode`);
     this.editModeIndex = null;
   }
-
-  updateExercise(userId: string, exercise: SaveExerciseData): void {
-    if (exercise._id) {
-      this.userExerciseService.updateSavedExercise(userId, exercise._id, exercise).then(() => {
+  updateExercise(exercise: SaveExerciseData): void {
+    if (this.userId && exercise._id && exercise.exercises) {
+      // Construct the update payload with only the exercises property
+      const updatePayload: Partial<SaveExerciseData> = {
+        exercises: exercise.exercises.map(e => ({
+          name: e.name,
+          sets: e.sets,
+          reps: e.reps
+        }))
+      };
+  
+      this.userExerciseService.updateSavedExercise(this.userId, exercise._id, updatePayload).then(() => {
         console.log('Exercise updated successfully');
         this.cancelEditMode();
+        this.fetchSavedExercises(); // Re-fetch or update the local array to reflect the changes
       }).catch((error) => {
         console.error('Error updating exercise:', error);
       });

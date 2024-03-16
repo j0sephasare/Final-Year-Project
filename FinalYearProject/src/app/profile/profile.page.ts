@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit {
   userProfile: any;
-  constructor( private router: Router) { }
+  constructor( private router: Router,private authService: AuthService) { }
 
   ngOnInit() {
     
@@ -31,5 +31,9 @@ export class ProfilePage implements OnInit {
   MacroCounter() {
     this.router.navigate(['/macroCounter']);
     console.log('Button clicked!');
+  }
+  logout() {
+    this.authService.logout(); // Call your auth service logout method
+    this.router.navigateByUrl('/login'); // Navigate to login or another appropriate page
   }
 }

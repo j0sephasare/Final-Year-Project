@@ -1,31 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Saved Exercises</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-list>
-    <!-- Iterate over saved exercises -->
-    <ion-item *ngFor="let savedExercise of savedExercises; let i = index">
-      <ion-label>
-        <h2>{{ savedExercise.workoutTitle }}</h2>
-        <!-- Iterate over exercises within a saved exercise -->
-        <div *ngFor="let exercise of savedExercise.exercises">
-          <p>Name: {{ exercise.name }}</p>
-          <p>Sets: {{ exercise.sets }}</p>
-          <p>Reps: {{ exercise.reps }}</p>
-        </div>
-        <p>Description: {{ savedExercise.description }}</p>
-        <p>Duration: {{ savedExercise.duration }}</p>
-      </ion-label>
+<!-- ... other parts of your template ... -->
 
-      <!-- Conditional rendering to avoid passing undefined '_id' -->
-      <ion-button fill="clear" *ngIf="savedExercise._id" (click)="deleteExercise(savedExercise)">
-        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
-</ion-content>
+<ion-list>
+  <ion-item *ngFor="let savedExercise of savedExercises; let i = index">
+    <!-- View Mode: Show text for viewing -->
+    <ion-label *ngIf="editModeIndex !== i">
+      <h2>{{ savedExercise.workoutTitle }}</h2>
+      <div *ngFor="let exercise of savedExercise.exercises">
+        <p>Name: {{ exercise.name }}</p>
+        <p>Sets: {{ exercise.sets }}</p>
+        <p>Reps: {{ exercise.reps }}</p>
+      </div>
+      <p>Description: {{ savedExercise.description }}</p>
+      <p>Duration: {{ savedExercise.duration }}</p>
+      <ion-button (click)="enableEditMode(i)">Edit</ion-button>
+      <ion-button *ngIf="savedExercise._id" (click)="deleteExercise(savedExercise)">Delete</ion-button>
+    </ion-label>
+    
+    <!-- Edit Mode: Show input fields for editing sets and reps -->
+    <ion-label *ngIf="editModeIndex === i">
+      <div *ngFor="let exercise of savedExercise.exercises; let j = index">
+        <p>Name: {{ exercise.name }}</p>
+        <ion-item>
+          <ion-label position="floating">Sets</ion-label>
+          <ion-input [(ngModel)]="exercise.sets" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Reps</ion-label>
+          <ion-input [(ngModel)]="exercise.reps" type="number"></ion-input>
+        </ion-item>
+      </div>
+      <ion-button (click)="updateExercise(savedExercise)">Save</ion-button>
+      <ion-button (click)="cancelEditMode()">Cancel</ion-button>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+<!-- ... other parts of your template ... -->
+
+
+<!-- Include the tab bar as before -->
 
 
 <ion-content>

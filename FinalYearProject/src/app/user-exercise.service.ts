@@ -20,16 +20,9 @@ export class UserExerciseService {
   }
 
   // Update a specific saved exercise
-  updateSavedExercise(userId: string, exerciseId: string, data: SaveExerciseData): Promise<void> {
-    // Reference to the document in the 'savedExercises' collection of the specific 'userId'
+  updateSavedExercise(userId: string, exerciseId: string, data: Partial<SaveExerciseData>): Promise<void> {
     const exerciseDocRef = doc(this.firestore, `users/${userId}/savedExercises/${exerciseId}`);
-    
-    // Create an update object that omits the _id field
-    // since it should not be included in the update (it's the document's key in Firestore)
-    const { _id, ...updateData } = data;
-  
-    // Perform the update
-    return updateDoc(exerciseDocRef, updateData);
+    return updateDoc(exerciseDocRef, data);
   }
 
 

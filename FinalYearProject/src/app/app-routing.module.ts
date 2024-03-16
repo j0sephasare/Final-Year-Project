@@ -7,7 +7,7 @@ import { ChatbotPage } from './chatbot/chatbot.page';
 import { WeightworkoutsPage } from './weightworkouts/weightworkouts.page';
 import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
 
-import { SavedExercisesComponent } from './saved-exercise/saved-exercise.component';
+
 import { SavedExerciseListPage } from './saved-exercise-list/saved-exercise-list.page';
 import { LocalgymsPage } from './localgyms/localgyms.page';
 import { ChallengesPage } from './challenges/challenges.page';

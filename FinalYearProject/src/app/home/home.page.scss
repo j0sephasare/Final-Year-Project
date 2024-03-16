@@ -1,42 +1,122 @@
+/* Date and Time at the top */
 .date-time {
   text-align: center;
   margin-top: 10px;
   font-size: 20px;
   font-weight: bold;
+  color: #4a4a4a; /* Slightly darker font for better readability */
 }
 
+/* General padding around the page content for a cleaner look */
+.page-content {
+  padding: 16px;
+}
 
-  /* Style for Page Content */
-  .page-content {
-    padding: 16px;
-  }
-  
-  /* Style for Tab Bar */
-  .tab-bar {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Style for Tab Buttons */
-  .tab-button {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  /* Style for Tab Icons */
-  .tab-icon {
-    font-size: 24px;
-  }
-  .profile-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  ion-card {
-    margin: 8px;
-  }
-  
-  .date-time {
-    text-align: center;
-    margin: 16px 0;
-  }
-  
+/* Style for Tab Bar */
+.tab-bar {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+/* Style for Tab Buttons */
+.tab-button {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Style for Tab Icons */
+.tab-icon {
+  font-size: 24px;
+}
+
+/* Centered content for profiles, if used elsewhere */
+.profile-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Style for workout cards */
+ion-card {
+  margin: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  border-radius: 8px; /* Rounded corners for a modern look */
+}
+
+/* Card Header with a background color to distinguish it */
+ion-card-header {
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 8px 8px 0 0; /* Continue the card's rounded corners at the top */
+}
+
+/* Card Title for workout names */
+ion-card-title {
+  font-size: 18px;
+  color: #333; /* Darker color for the title */
+}
+
+/* Subtitle for additional info like the date */
+ion-card-subtitle {
+  color: #666; /* Lighter color for less emphasis */
+  font-size: 14px;
+}
+
+/* Content inside the card */
+ion-card-content {
+  padding: 10px;
+  line-height: 1.5; /* More readable line height */
+}
+
+/* Specific style for the notes to make them stand out less */
+ion-note {
+  color: #888;
+  font-size: 14px;
+}
+
+/* Style for icons in list items to align with the text */
+ion-item ion-icon {
+  margin-right: 5px;
+  color: #555; /* Subtle color for icons */
+}
+
+/* Aligning labels and notes within list items */
+ion-item {
+  --padding-start: 0; /* Remove padding for alignment */
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --padding-end: 0;
+  --border-color: #e0e0e0;
+  --border-style: solid;
+  --border-width: 0 0 1px 0;
+  align-items: center; /* Center align the items */
+}
+
+/* Adjustments for input fields in case they are used */
+ion-input,
+ion-textarea {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  width: 100%;
+  font-size: 1em;
+}
+
+/* Color adjustments for labels */
+ion-label {
+  --color: #000;
+}
+
+/* Buttons at the bottom of each card */
+ion-button {
+  margin: 20px 0;
+  font-weight: 500;
+}
+
+/* Toolbar at the top */
+ion-toolbar {
+  --background: #f8f8f8;
+}
+
+/* Center text alignment for the toolbar title */
+ion-title {
+  text-align: center;
+}
