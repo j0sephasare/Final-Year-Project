@@ -7,7 +7,6 @@ import { ChatbotPage } from './chatbot/chatbot.page';
 import { WeightworkoutsPage } from './weightworkouts/weightworkouts.page';
 import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
 
-
 import { SavedExerciseListPage } from './saved-exercise-list/saved-exercise-list.page';
 import { LocalgymsPage } from './localgyms/localgyms.page';
 import { ChallengesPage } from './challenges/challenges.page';
@@ -124,6 +123,11 @@ const routes: Routes = [
     path: 'finish-workout',
     loadChildren: () => import('./finish-workout/finish-workout.module').then( m => m.FinishWorkoutPageModule)
   },
+  {
+    path: 'go-for-run',
+    loadChildren: () => import('./go-for-run/go-for-run.module').then( m => m.GoForRunPageModule)
+  },
+
 
 
 
