@@ -4,6 +4,15 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-item>
+    <ion-input [(ngModel)]="searchTerm" placeholder="Enter Ingredientstt"></ion-input>
+  </ion-item>
+  <ion-button (click)="findMealsBasedOnIngredients()">FIND RECIPESt</ion-button>
+
+  <!-- Your existing meal sections here... -->
+</ion-content>
+
+<ion-content>
   <!-- Breakfast Section -->
   <h2>Breakfast</h2>
   <ion-list>

@@ -15,19 +15,32 @@ export class MealsPage {
   constructor(private spoonacularService: SpoonacularService) {}
 
   searchRecipes() {
-    ['breakfast', 'lunch', 'dinner'].forEach(mealType => {
-      this.spoonacularService.getRecipesByMealTypeAndIngredients(this.ingredients.split(','), mealType)
-        .subscribe(data => {
-          if (mealType === 'breakfast') {
-            this.breakfastRecipes = data.results;
-          } else if (mealType === 'lunch') {
-            this.lunchRecipes = data.results;
-          } else if (mealType === 'dinner') {
-            this.dinnerRecipes = data.results;
-          }
-        });
-    });
+    if (!this.ingredients) {
+      console.error('No ingredients provided');
+      return;
+    }
+  
+    // Clear previous recipes before new search
+    this.breakfastRecipes = [];
+    this.lunchRecipes = [];
+    this.dinnerRecipes = [];
+  
+    const ingredientsArray = this.ingredients.split(',').map(ingredient => ingredient.trim());
+  
+    this.spoonacularService.getRecipesByIngredients(ingredientsArray)
+      .subscribe(data => {
+        // Assuming data.results is an array of recipes
+        const recipes = data.results;
+  
+        // You would need to categorize these recipes by meal type, if your API allows it.
+        // For now, let's just put all recipes in the breakfast category as an example.
+        this.breakfastRecipes = recipes;
+        // If you have a way to distinguish meal types, you can separate them accordingly
+        // this.lunchRecipes = separateByMealType(recipes, 'lunch');
+        // this.dinnerRecipes = separateByMealType(recipes, 'dinner');
+      });
   }
+  
   getRecipeDetails(recipeId: number) {
     this.spoonacularService.getRecipeDetails(recipeId)
       .subscribe(data => {

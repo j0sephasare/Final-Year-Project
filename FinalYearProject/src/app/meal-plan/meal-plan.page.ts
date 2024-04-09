@@ -26,7 +26,7 @@ export class MealPlanPage implements OnInit {
   breakfastMeals: any[] = [];
   lunchMeals: any[] = [];
   dinnerMeals: any[] = [];
-
+  searchTerm: string = ''; 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -65,5 +65,22 @@ export class MealPlanPage implements OnInit {
       }, error => {
         console.error('Error fetching meals:', error);
       });
+  }
+
+  findMealsBasedOnIngredients() {
+    if (!this.searchTerm) {
+      console.error('No search term provided');
+      return;
+    }
+
+    // You might want to clear the previous meals before fetching new ones
+    this.breakfastMeals = [];
+    this.lunchMeals = [];
+    this.dinnerMeals = [];
+
+    // Fetch meals based on the search term
+    this.fetchMeals(this.searchTerm, this.breakfastMeals);
+    // If you need to fetch different meals for lunch and dinner,
+    // consider passing different queries or modifying your API call accordingly.
   }
 }
