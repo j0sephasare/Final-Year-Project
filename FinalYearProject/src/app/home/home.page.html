@@ -1,30 +1,32 @@
-<div class="date-time">
-  <span id="currentDateTime"></span>
-</div>
-<ion-content>
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page">
+  <!-- Date and Time Display -->
   <div class="date-time">
     <span id="currentDateTime"></span>
   </div>
-  <ion-list>
-    <ion-card *ngFor="let workout of savedWorkouts">
-      <ion-card-header>
-        <ion-card-title>{{ workout.workoutTitle }}</ion-card-title>
-        <ion-card-subtitle>{{ workout.timestamp | date: 'medium' }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <!-- Add more fields here if needed -->
-        <p>Duration: {{ workout.duration }}</p>
-        <!-- Example to display exercises, adjust according to your data structure -->
+
+  <!-- Workouts List -->
+  <div *ngFor="let workout of savedWorkouts" class="card shadow-sm">
+    <div class="card-header bg-light">
+      <h5 class="card-title m-0">{{ workout.workoutTitle }}</h5>
+      <h6 class="card-subtitle text-muted">{{ workout.timestamp | date: 'medium' }}</h6>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <strong>Duration:</strong> {{ workout.duration | date: 'H:mm:ss' }} hours
         <div *ngFor="let exercise of workout.exercises">
-          <p>{{ exercise.name }} - Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}</p>
+          <p class="mb-0"><strong>{{ exercise.name }}</strong> - Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}</p>
         </div>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
-  
-
-
+      </li>
+    </ul>
+  </div>
 </ion-content>
+
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom" class="tab-bar">

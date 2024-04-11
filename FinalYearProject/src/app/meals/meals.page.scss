@@ -1,122 +1,90 @@
-/* meals.page.scss */
+/* General Styles */
+.header-title, .section-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
 
-.page-content {
-    background-color: #f4f4f4;
-    padding: 20px;
+.page-content, .recipe-section, .recipe-details {
+  padding: 20px; /* Uniform padding for content alignment */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Input Field Style */
+.input-label {
+  font-size: 16px;
+  color: #666;
+}
+
+.input-field {
+  --padding-start: 8px; /* Internal padding for the input field */
+  --border-radius: 8px; /* Rounded corners for the input */
+  border: 1px solid #ccc; /* Subtle border for the input field */
+}
+
+/* Buttons */
+.search-button {
+  margin-top: 10px;
+  font-weight: bold;
+  --border-radius: 8px;
+  background-color: #4CAF50; /* Green color for the search button */
+  color: white;
+}
+
+.search-button:hover {
+  background-color: #45a049; /* Slightly darker on hover for feedback */
+}
+
+/* Recipe List Styles */
+.recipe-list {
+  width: 100%; /* Full width to maximize content display */
+  max-width: 600px; /* Max width for large screens */
+}
+
+.recipe-item {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9; /* Light background for the items */
+  border-bottom: 1px solid #eee; /* Subtle separation for items */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.recipe-item:hover {
+  background-color: #e9e9e9; /* Change background on hover */
+}
+
+.recipe-thumbnail {
+  width: 90px;
+  height: 90px;
+  border-radius: 45px; /* Rounded thumbnails */
+  object-fit: cover; /* Cover fit to avoid distortion */
+}
+
+.recipe-title {
+  font-size: 18px; /* Prominent font size for titles */
+  color: #333;
+  margin-left: 15px; /* Spacing between image and title */
+}
+
+/* Recipe Details Styles */
+.recipe-details {
+  text-align: center;
+  max-width: 600px;
+}
+
+.recipe-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px; /* Soft rounded corners for images */
+}
+
+/* Responsive Design for Small Devices */
+@media (max-width: 600px) {
+  .input-field, .search-button, .recipe-list {
+    width: 100%; /* Full width on small screens for better accessibility */
   }
-  
-  ion-item {
-    --highlight-background: transparent;
-  }
-  
-  ion-label {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  ion-input {
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    padding: 8px;
-    margin-top: 5px;
-  }
-  
-  .search-button {
-    margin-top: 20px;
-    --background: #007bff;
-    --color: #fff;
-    --border-radius: 5px;
-    font-weight: bold;
-  }
-  
-  .recipe-details {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    padding: 20px;
-  }
-  
-  .recipe-details h2 {
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .recipe-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .recipe-instructions {
-    color: #555;
-    margin-top: 10px;
-  }
-  
-  .section-title {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 20px;
-  }
-  
-  .recipe-list {
-    margin-top: 20px;
-  }
-  
-  .recipe-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .recipe-thumbnail {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .recipe-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .tab-bar {
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .tab-button {
-    color: #333;
-  }
-  
-  .tab-icon {
-    font-size: 24px;
-    color: #333;
-  }
-   /* Style for Tab Bar */
-   .tab-bar {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Style for Tab Buttons */
-  .tab-button {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  /* Style for Tab Icons */
-  .tab-icon {
-    font-size: 24px;
-  }
+}

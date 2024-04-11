@@ -4,25 +4,37 @@
     <ion-buttons slot="end">
       <ion-button (click)="logout()">Logout</ion-button>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="page-content">
-  <div class="profile-container" *ngIf="userProfile">
-    <img [src]="userProfile.picture" alt="Profile Picture" class="profile-picture"/>
-    <h2 class="profile-name">{{ userProfile.name }}</h2>
-    <!-- Other profile details here -->
-  </div>
-  <!-- Rest of the page content -->
-</ion-content>
+  <!-- Profile card for user picture and details -->
+  <ion-card *ngIf="userProfile">
+    <img [src]="userProfile.profilePicture || 'assets/default-profile.png'" alt="Profile Picture" class="profile-picture"/>
+    <ion-card-content>
+      <h2>{{ userProfile.username || 'Set your username' }}</h2>
+      <p>{{ userProfile.email }}</p>
+      <div class="profile-actions">
+        <!-- Username edit section -->
+        <ion-item>
+          <ion-label position="floating">Update Username</ion-label>
+          <ion-input [(ngModel)]="newUsername"></ion-input>
+        </ion-item>
+        <ion-button (click)="updateUsername(newUsername)">Update Username</ion-button>
+        <!-- Profile picture edit section -->
+        <input type="file" (change)="handleFileInput($event)" hidden #fileInput>
+        <ion-button (click)="fileInput.click()">Change Picture</ion-button>
+        <ion-button (click)="uploadProfilePicture()">Save Picture</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
 
-<ion-content class="page-content">
-  <ion-button class="profile-button" (click)="openSavedExerciseList()">Exercises</ion-button>
-  <ion-button class="profile-button" (click)="FindLocalGyms()">Find Local Gyms</ion-button>
-  <ion-button class="profile-button" (click)="MacroCounter()">MacroCounter</ion-button>
-  <!-- Other profile content goes here -->
-  
+  <!-- Action buttons for the user -->
+  <div class="profile-actions">
+    <ion-button expand="block" (click)="openSavedExerciseList()">Exercises</ion-button>
+    <ion-button expand="block" (click)="FindLocalGyms()">Find Local Gyms</ion-button>
+    <ion-button expand="block" (click)="MacroCounter()">Macro Counter</ion-button>
+  </div>
 </ion-content>
 
 <ion-content>

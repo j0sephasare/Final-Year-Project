@@ -1,78 +1,69 @@
 /* Style for Header Title */
 .header-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  /* Style for Start Workout Button */
-  .start-workout-button {
-    margin: 16px;
-    display: block;
-    width: 100%;
-    max-width: 300px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #4a4a4a; /* Subtle gray for sophistication */
+  padding: 16px 0; /* More vertical padding for a better title display */
+}
+
+/* General style for exercise buttons */
+.exercise-button {
+  margin: 8px 16px; /* Uniform margin for all buttons */
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Enhance color schemes for buttons */
+ion-button[color="primary"] {
+  --background: #007bff; /* Consistent blue for primary actions */
+  --background-activated: #0056b3; /* Darker blue when tapped */
+}
+
+ion-button[color="secondary"] {
+  --background: #28a745; /* Green for secondary actions */
+  --background-activated: #1e7e34; /* Darker green when tapped */
+}
+
+ion-button[color="tertiary"] {
+  --background: #17a2b8; /* Teal for tertiary actions */
+  --background-activated: #117a8b; /* Dark teal when tapped */
+}
+
+/* Style for Page Content */
+.page-content {
+  padding: 16px; /* More padding for overall inner spacing */
+}
+
+/* Style for Tab Bar */
+.tab-bar {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  position: fixed; /* Ensures tab bar stays at the bottom */
+  width: 100%; /* Full width */
+  bottom: 0; /* Align to bottom */
+}
+
+/* Style for Tab Buttons */
+.tab-button {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333; /* Dark color for better readability */
+}
+
+/* Style for Tab Icons */
+.tab-icon {
+  font-size: 24px;
+}
+
+ion-tab-button[aria-selected="true"] {
+  color: #007bff; /* Highlight the active tab with primary color */
+}
+
+/* Adjustments for mobile responsiveness */
+@media (max-width: 576px) {
+  .exercise-button {
+    width: 90%; /* More appropriate width on smaller screens */
     margin-left: auto;
     margin-right: auto;
-    font-weight: bold;
-    background-color: #007bff;
-    color: #fff;
   }
-  .start-Boxingworkout-button {
-    margin: 16px;
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: bold;
-    background-color: #007bff;
-    color: #fff;
-  }
-  .start-Run-button {
-    margin: 16px;
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: bold;
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  /* Style for Page Content */
-  .page-content {
-    padding: 16px;
-  }
-  
-  /* Style for Tab Bar */
-  ion-tab-bar {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Style for Tab Button Icons */
-  ion-tab-button ion-icon {
-    font-size: 24px;
-  }
-  
-  /* Style for Tab Button Text */
-  ion-tab-button span {
-    font-size: 14px;
-    font-weight: bold;
-  }
-   /* Style for Tab Bar */
-   .tab-bar {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Style for Tab Buttons */
-  .tab-button {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  /* Style for Tab Icons */
-  .tab-icon {
-    font-size: 24px;
-  }
+}

@@ -10,7 +10,7 @@ import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
 import { SavedExerciseListPage } from './saved-exercise-list/saved-exercise-list.page';
 import { LocalgymsPage } from './localgyms/localgyms.page';
 import { ChallengesPage } from './challenges/challenges.page';
-import { MealPlanPage } from './meal-plan/meal-plan.page';
+
 import { RonaldoPage } from './ronaldo/ronaldo.page';
 import { MealsPage } from './meals/meals.page';
 import { ImageuploadPage } from './imageupload/imageupload.page';
@@ -35,7 +35,7 @@ const routes: Routes = [
     // the spread operator ... is used to expand the properties of the object returned by the canActivate function into the route configuration object.
   },
   { path: 'chatbot', component: ChatbotPage },
-  { path: 'mealPlan', component: MealPlanPage },
+
   { path: 'macroCounter', component: MacroCounterPage },
   { path: 'mealPlanner', component: MealsPage },
   { path: 'challenges', component: ChallengesPage },
@@ -91,10 +91,7 @@ const routes: Routes = [
     path: 'challenges',
     loadChildren: () => import('./challenges/challenges.module').then( m => m.ChallengesPageModule)
   },
-  {
-    path: 'meal-plan',
-    loadChildren: () => import('./meal-plan/meal-plan.module').then( m => m.MealPlanPageModule)
-  },
+ 
   {
     path: 'ronaldo',
     loadChildren: () => import('./ronaldo/ronaldo.module').then( m => m.RonaldoPageModule)

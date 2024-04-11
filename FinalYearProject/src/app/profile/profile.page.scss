@@ -1,64 +1,100 @@
 /* Style for Header Title */
 .header-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  /* Style for Logout Button */
-  .logout-button {
-    font-weight: bold;
-  }
-  
-  /* Style for Profile Buttons */
-  .profile-button {
-    margin: 16px;
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    font-weight: bold;
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  /* Style for Page Content */
-  .page-content {
-    padding: 16px;
-  }
-  
-  /* Style for Tab Bar */
-  .tab-bar {
-    background-color: #fff;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Style for Tab Buttons */
-  .tab-button {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  /* Style for Tab Icons */
-  .tab-icon {
-    font-size: 24px;
-  }
-  .profile-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .profile-name {
-    font-size: 20px;
-    margin-top: 10px;
-  }
-  
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center; /* Center the title */
+}
+
+/* Style for Logout Button */
+.logout-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  background-color: #dc3545; /* Typically, logout or delete buttons are red */
+  color: #ffffff;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+.logout-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Style for Profile Card */
+.profile-card {
+  text-align: center; /* Center the content of the card */
+  border-radius: 20px; /* Rounded corners for the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
+  margin: 20px; /* Add some margin around the card */
+}
+
+/* Style for Profile Picture */
+.profile-picture {
+  width: 150px; /* Set a fixed width for the profile picture */
+  height: 150px; /* Set a fixed height for the profile picture */
+  border-radius: 50%; /* Make the picture round */
+  margin-top: 20px; /* Add some space above the picture */
+  object-fit: cover; /* Ensure the picture covers the space without distortion */
+}
+
+/* Style for Profile Details and Buttons */
+.profile-container {
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  min-height: 100vh; /* Minimum height of the viewport */
+  padding-top: 50px; /* Add some space on the top */
+  padding-bottom: 50px; /* Add some space on the bottom */
+}
+
+/* Style for Profile Name */
+.profile-name {
+  margin-top: 16px; /* Add space above the profile name */
+  font-size: 20px; /* Increase the font size of the profile name */
+  color: #333; /* Darker font color for better readability */
+}
+
+/* Style for Profile Buttons */
+.profile-button {
+  padding: 8px 16px; /* Adjust padding to make buttons smaller */
+  font-size: 14px; /* Smaller font size for text inside the button */
+  border-radius: 8px; /* Rounded corners for a softer look */
+  background-color: #007bff; /* Primary button color */
+  color: #ffffff; /* Text color for the buttons */
+  border: none; /* No borders for a cleaner look */
+  outline: none; /* Remove outline to prevent focus highlight */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+}
+.profile-button:hover {
+  background-color: #0056b3; /* Darker shade on hover for better interaction feedback */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increased shadow on hover for a "lifting" effect */
+}
+/* Style for Page Content */
+.page-content {
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  text-align: center; /* Center text */
+  padding-bottom: 100px; /* Avoid overlap with tab bar */
+}
+
+
+/* Style for Tab Bar */
+.tab-bar {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+/* Style for Tab Buttons */
+.tab-button {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Style for Tab Icons */
+.tab-icon {
+  font-size: 24px;
+}

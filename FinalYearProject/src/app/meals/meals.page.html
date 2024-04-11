@@ -11,61 +11,29 @@
   </ion-item>
   <ion-button (click)="searchRecipes()" class="search-button">Find Recipes</ion-button>
 
+  <!-- Section for Displaying Recipes Based on Search -->
+  <div *ngIf="recipes.length > 0" class="recipe-section">
+    <h2 class="section-title">Recipes</h2>
+    <ion-list class="recipe-list">
+      <ion-item *ngFor="let recipe of recipes" (click)="getRecipeDetails(recipe.id)" class="recipe-item">
+        <ion-thumbnail slot="start">
+          <img [src]="recipe.image" class="recipe-thumbnail">
+        </ion-thumbnail>
+        <ion-label>
+          <h2 class="recipe-title">{{ recipe.title }}</h2>
+          <!-- Click to view details -->
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
   <!-- Section for Displaying Selected Recipe Details -->
-  <div *ngIf="selectedRecipeDetails" class="recipe-details">
-    <h2>{{ selectedRecipeDetails.title }}</h2>
-    <img [src]="selectedRecipeDetails.image" alt="Recipe Image" class="recipe-image">
-    <p class="recipe-instructions">{{ selectedRecipeDetails.instructions }}</p>
-    <!-- You can add more details like ingredients, servings, etc. here -->
-  </div>
-
-  <!-- Breakfast Recipes Section -->
-  <div *ngIf="breakfastRecipes.length > 0" class="recipe-section">
-    <h2 class="section-title">Breakfast</h2>
-    <ion-list class="recipe-list">
-      <ion-item *ngFor="let recipe of breakfastRecipes" (click)="getRecipeDetails(recipe.id)" class="recipe-item">
-        <ion-thumbnail slot="start">
-          <img [src]="recipe.image" class="recipe-thumbnail">
-        </ion-thumbnail>
-        <ion-label>
-          <h2 class="recipe-title">{{ recipe.title }}</h2>
-          <!-- Click to view details -->
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
-
-  <!-- Lunch Recipes Section -->
-  <div *ngIf="lunchRecipes.length > 0" class="recipe-section">
-    <h2 class="section-title">Lunch</h2>
-    <ion-list class="recipe-list">
-      <ion-item *ngFor="let recipe of lunchRecipes" (click)="getRecipeDetails(recipe.id)" class="recipe-item">
-        <ion-thumbnail slot="start">
-          <img [src]="recipe.image" class="recipe-thumbnail">
-        </ion-thumbnail>
-        <ion-label>
-          <h2 class="recipe-title">{{ recipe.title }}</h2>
-          <!-- Click to view details -->
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
-
-  <!-- Dinner Recipes Section -->
-  <div *ngIf="dinnerRecipes.length > 0" class="recipe-section">
-    <h2 class="section-title">Dinner</h2>
-    <ion-list class="recipe-list">
-      <ion-item *ngFor="let recipe of dinnerRecipes" (click)="getRecipeDetails(recipe.id)" class="recipe-item">
-        <ion-thumbnail slot="start">
-          <img [src]="recipe.image" class="recipe-thumbnail">
-        </ion-thumbnail>
-        <ion-label>
-          <h2 class="recipe-title">{{ recipe.title }}</h2>
-          <!-- Click to view details -->
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
+ <div *ngIf="selectedRecipeDetails" class="recipe-details">
+  <h2>{{ selectedRecipeDetails.title }}</h2>
+  <img [src]="selectedRecipeDetails.image" alt="Recipe Image" class="recipe-image">
+  <div [innerHTML]="selectedRecipeDetails.instructions"></div>
+  <!-- You can add more details like ingredients, servings, etc. here -->
+</div>
 </ion-content>
 
 <ion-content>
