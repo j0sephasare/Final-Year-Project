@@ -1,0 +1,101 @@
+
+  .background-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Make sure the image is behind all other content */
+    overflow: hidden;
+  }
+  
+  .background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area without stretching the image */
+  }
+
+
+.login-wrapper {
+
+    border: 3px solid black; /* Add a black border */
+    padding: 32px; /* Add some padding inside the container */
+    border-radius: 16px; /* Optional: add rounded corners */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    text-align: center;
+    width: 100%;
+    max-width: 400px; /* Maximum width of the container */
+    margin-top: 50px; /* Add some top margin to separate from the header */
+    margin-left: auto; /* Center the wrapper */
+    margin-right: auto;
+    z-index: 10; /* Ensure the form appears above the background */
+  }
+  
+  .login-logo-container {
+    margin-bottom: 32px;
+  }
+  
+  .login-logo {
+    max-width: 450px;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .error-note {
+    display: block;
+    color: var(--ion-color-danger);
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 5px;
+  }
+  
+  ion-note.error-note {
+    font-size: 0.8em;
+    color: #f53d3d;
+  }
+  
+  ion-button {
+    margin-top: 8px;
+  }
+  ion-toolbar {
+    display: flex; /* Use flexbox layout */
+    justify-content: center; /* Horizontally center the children (title) */
+    align-items: center; /* Vertically center the children */
+  }
+  
+  ion-title {
+    flex: 1; /* Ensure the title element can expand */
+    text-align: center; /* Center the text */
+    font-size: 24px; /* You can adjust the font size as needed */
+  }
+  ion-content {
+    position: relative;
+  }
+  ion-toolbar {
+    --background: #ffffff; /* Set the toolbar background to white */
+  }
+  
+  ion-title {
+    color: #ffcc00; /* Set title text color to yellow */
+    font-family: "Bebas Neue", sans-serif;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000; /* Black text shadow for outline effect */
+      font-size: 36px; /* Increase font size */
+  }
+  
+
+
+  
