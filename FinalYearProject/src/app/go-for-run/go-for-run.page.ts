@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-go-for-run',
   templateUrl: './go-for-run.page.html',
@@ -21,11 +22,11 @@ export class GoForRunPage implements OnInit {
 
  timer: any = null;
  elapsedTime: string = "00:00:00";
-
+ diff: number = 0;
  startLocation: google.maps.LatLng | null = null;
  distanceFromStart: number = 0;  // Distance in meters
 
- constructor(private http: HttpClient, private authService: AuthService) {}
+ constructor(private http: HttpClient, private authService: AuthService,private router: Router) {}
 
  ngOnInit() {
   this.authService.getCurrentUser().subscribe(user => {
@@ -339,14 +340,30 @@ updateUserMarkerPosition(position: any) {
  }
 
  stopRun() {
-   // Stop live tracking
-   this.stopLiveTracking();
+  // Stop live tracking
+  this.stopLiveTracking();
+
+  // Stop timer
+  if (this.timer) {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+
+  // Calculate elapsed time in milliseconds
+  const endTime = new Date();
+  this.diff = this.startTime ? endTime.getTime() - this.startTime.getTime() : 0;
+
+    // Assuming you have distance in meters, convert it to kilometers
+  const distanceKm = this.totalDistance / 1000;
+  const pace = this.calculatePace(); // Make sure this returns a string
+  const time = this.elapsedTime; // Ensure this is a string formatted as desired
+
+  
  
-   // Stop timer
-   if (this.timer) {
-     clearInterval(this.timer);
-     this.timer = null;
-   }
+}
+
+ goBack(){
+  this.router.navigate(['/exercises']);
  }
 
 }

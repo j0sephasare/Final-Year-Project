@@ -19,8 +19,8 @@
         <ion-thumbnail slot="start">
           <img [src]="recipe.image" class="recipe-thumbnail">
         </ion-thumbnail>
-        <ion-label>
-          <h2 class="recipe-title">{{ recipe.title }}</h2>
+        <ion-label class="recipe-name-label">
+          <h2 class="recipe-title">{{ recipe.name }}</h2>
           <!-- Click to view details -->
         </ion-label>
       </ion-item>
@@ -28,16 +28,17 @@
   </div>
 
   <!-- Section for Displaying Selected Recipe Details -->
- <div *ngIf="selectedRecipeDetails" class="recipe-details">
-  <h2>{{ selectedRecipeDetails.title }}</h2>
-  <img [src]="selectedRecipeDetails.image" alt="Recipe Image" class="recipe-image">
-  <div [innerHTML]="selectedRecipeDetails.instructions"></div>
-  <!-- You can add more details like ingredients, servings, etc. here -->
+ <div *ngIf="selectedRecipeDetails" class="recipe-details-container">
+  <div class="recipe-details">
+    <h2>{{ selectedRecipeDetails.title }}</h2>
+    <img [src]="selectedRecipeDetails.image" alt="Recipe Image" class="recipe-image">
+    <div [innerHTML]="selectedRecipeDetails.instructions" class="recipe-instructions"></div>
+    <!-- You can add more details like ingredients, servings, etc. here -->
+  </div>
 </div>
 </ion-content>
 
-<ion-content>
-  <ion-tabs>
+
     <ion-tab-bar slot="bottom" class="tab-bar">
       <ion-tab-button [routerLink]="['/home']" class="tab-button">
         <ion-icon name="home-outline" class="tab-icon"></ion-icon>
@@ -60,5 +61,4 @@
         Profile
       </ion-tab-button>
     </ion-tab-bar>
-  </ion-tabs>
-</ion-content>
+ 

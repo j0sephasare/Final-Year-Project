@@ -70,8 +70,10 @@
 
 /* Recipe Details Styles */
 .recipe-details {
+  width: 100%; /* Adjust width as necessary */
+  max-width: 500px; /* Set a max width for the content */
+  margin: auto;
   text-align: center;
-  max-width: 600px;
 }
 
 .recipe-image {
@@ -80,6 +82,10 @@
   height: auto;
   margin: 20px 0;
   border-radius: 10px; /* Soft rounded corners for images */
+}
+.recipe-instructions {
+  text-align: left; /* Align instructions to the left */
+  margin-top: 20px; /* Space above the instructions */
 }
 
 /* Responsive Design for Small Devices */

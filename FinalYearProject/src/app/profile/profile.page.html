@@ -10,7 +10,8 @@
 <ion-content class="page-content">
   <!-- Profile card for user picture and details -->
   <ion-card *ngIf="userProfile">
-    <img [src]="userProfile.profilePicture || 'assets/default-profile.png'" alt="Profile Picture" class="profile-picture"/>
+    <img [src]="userProfile.profilePicture || 'assets/default-profile.png'" alt="Profile Picture"
+      class="profile-picture" />
     <ion-card-content>
       <h2>{{ userProfile.username || 'Set your username' }}</h2>
       <p>{{ userProfile.email }}</p>
@@ -37,29 +38,28 @@
   </div>
 </ion-content>
 
-<ion-content>
-<ion-tabs>
-  <ion-tab-bar slot="bottom" class="tab-bar">
-    <ion-tab-button [routerLink]="['/home']" class="tab-button">
-      <ion-icon name="home-outline" class="tab-icon"></ion-icon>
-      Home
-    </ion-tab-button>
-    <ion-tab-button [routerLink]="['/exercises']" class="tab-button">
-      <ion-icon name="barbell-outline" class="tab-icon"></ion-icon>
-      Exercises
-    </ion-tab-button>
-    <ion-tab-button [routerLink]="['/mealPlanner']" class="tab-button">
-      <ion-icon name="book-outline" class="tab-icon"></ion-icon>
-      Meal Plans
-    </ion-tab-button>
-    <ion-tab-button [routerLink]="['/challenges']" class="tab-button">
-      <ion-icon name="trophy-outline" class="tab-icon"></ion-icon>
-      Challenges
-    </ion-tab-button>
-    <ion-tab-button [routerLink]="['/profile']" class="tab-button">
-      <ion-icon name="person-outline" class="tab-icon"></ion-icon>
-      Profile
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs>
-</ion-content>
+
+
+    <ion-tab-bar slot="bottom" class="tab-bar">
+      <ion-tab-button [routerLink]="['/home']" class="tab-button">
+        <ion-icon name="home-outline" class="tab-icon"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/exercises']" class="tab-button">
+        <ion-icon name="barbell-outline" class="tab-icon"></ion-icon>
+        Exercises
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/mealPlanner']" class="tab-button">
+        <ion-icon name="book-outline" class="tab-icon"></ion-icon>
+        Meal Plans
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/challenges']" class="tab-button">
+        <ion-icon name="trophy-outline" class="tab-icon"></ion-icon>
+        Challenges
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/profile']" class="tab-button">
+        <ion-icon name="person-outline" class="tab-icon"></ion-icon>
+        Profile
+      </ion-tab-button>
+    </ion-tab-bar>
+ 

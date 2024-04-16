@@ -30,6 +30,31 @@ export class MealsPage {
     if (recipesSection && recipesSection.results.length) {
       // Update the state with the new recipes
       this.recipes = recipesSection.results;
+
+      // Log the recipes to the console
+      console.log('RecipesSection Results:', recipesSection.results);
+
+      // Log the title of each recipe to the console
+      this.recipes.forEach((recipe, index) => {
+        console.log(`Recipe ${index} Title:`, recipe.title);
+      });
+    } else {
+      // Handle the case when no recipes are found or the section does not exist
+      this.recipes = [];
+      console.log('No recipes found for this query.');
+    }
+  }, error => {
+    console.error('Error fetching recipes:', error);
+  });
+
+
+
+  this.spoonacularService.getRecipes(this.ingredients).subscribe(response => {
+    // Find the 'Recipes' section in the response
+    const recipesSection = response.searchResults.find(section => section.name === 'Recipes');
+    if (recipesSection && recipesSection.results.length) {
+      // Update the state with the new recipes
+      this.recipes = recipesSection.results;
     } else {
       // Handle the case when no recipes are found or the section does not exist
       this.recipes = [];

@@ -13,7 +13,7 @@ import { ChallengesPage } from './challenges/challenges.page';
 
 import { RonaldoPage } from './ronaldo/ronaldo.page';
 import { MealsPage } from './meals/meals.page';
-import { ImageuploadPage } from './imageupload/imageupload.page';
+
 import { MacroCounterPage } from './macro-counter/macro-counter.page';
 import {
   redirectUnauthorizedTo, // Used to redirect to login screen if user is not logged in.
@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'macroCounter', component: MacroCounterPage },
   { path: 'mealPlanner', component: MealsPage },
   { path: 'challenges', component: ChallengesPage },
-  {path: 'image-upload', component:ImageuploadPage},
+
   { path: 'ronaldo', component: RonaldoPage },
   { path: 'saved-exercises', component: SavedExerciseListPage },
 
@@ -47,12 +47,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfilePage },
   { path: 'exercises', component: ExercisesPage },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule) },
-  { path: 'register', loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationPageModule) },
-  {
-    path: 'registration',
-    loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationPageModule)
-  },
- 
+  
   { path: 'weight-workouts', component: WeightworkoutsPage },
   { path: 'exercise-list', component: ExercisesListPage }, // Add this line
 
@@ -100,10 +95,7 @@ const routes: Routes = [
     path: 'meals',
     loadChildren: () => import('./meals/meals.module').then( m => m.MealsPageModule)
   },
-  {
-    path: 'imageupload',
-    loadChildren: () => import('./imageupload/imageupload.module').then( m => m.ImageuploadPageModule)
-  },
+  
   {
     path: 'macro-counter',
     loadChildren: () => import('./macro-counter/macro-counter.module').then( m => m.MacroCounterPageModule)
