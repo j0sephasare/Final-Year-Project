@@ -18,9 +18,12 @@
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        <strong>Duration:</strong> {{ workout.duration | date: 'H:mm:ss' }} hours
+        <div><strong>Duration:</strong> {{ workout.duration }}</div>
+        <div><strong>Description:</strong> {{ workout.description }}</div>
+        <div><strong>TotalVolume:</strong> {{ workout.volume }}</div>
         <div *ngFor="let exercise of workout.exercises">
           <p class="mb-0"><strong>{{ exercise.name }}</strong> - Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}</p>
+          
         </div>
       </li>
     </ul>

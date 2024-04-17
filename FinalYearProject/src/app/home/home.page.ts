@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
     this.fetchSavedWorkouts();
     */ // Fetch the workouts when the component loads
   }
-  fetchSavedWorkouts() {
+  fetchSavedWorkouts() { 
     this.authService.getCurrentUser().subscribe(user => {
       if (user?.uid) {
         this.userExerciseService.getSavedExercises(user.uid).subscribe({
