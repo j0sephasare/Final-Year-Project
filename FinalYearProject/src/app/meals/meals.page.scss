@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
 
 /* Input Field Style */
@@ -62,18 +63,14 @@
   object-fit: cover; /* Cover fit to avoid distortion */
 }
 
-.recipe-title {
-  font-size: 18px; /* Prominent font size for titles */
-  color: #333;
-  margin-left: 15px; /* Spacing between image and title */
+.recipe-details, .recipe-title {
+  color: white; /* Set text color to white */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add a shadow for better readability */
 }
-
-/* Recipe Details Styles */
-.recipe-details {
-  width: 100%; /* Adjust width as necessary */
-  max-width: 500px; /* Set a max width for the content */
-  margin: auto;
-  text-align: center;
+.recipe-instructions, .recipe-title {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  padding: 8px; /* Add some padding around the text */
+  border-radius: 4px; /* Optional: rounds the corners of the background */
 }
 
 .recipe-image {
@@ -86,6 +83,17 @@
 .recipe-instructions {
   text-align: left; /* Align instructions to the left */
   margin-top: 20px; /* Space above the instructions */
+}
+.full-page-background img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  object-fit: cover;
 }
 
 /* Responsive Design for Small Devices */
