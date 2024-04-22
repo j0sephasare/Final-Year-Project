@@ -5,7 +5,7 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ionic serve",
     "build": "ionic build --prod",
     "postinstall": "npm run build",
     "watch": "ng build --watch --configuration development",
