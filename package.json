@@ -6,14 +6,5 @@
     "ionic": "^5.4.16",
     "mongodb": "^6.2.0",
     "moongoose": "^0.0.5"
-  },
-  "scripts": {
-    "ng": "ng",
-    "start": "node server.js",
-    "build": "ionic build --prod",
-    "postinstall": "npm run build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
   }
 }
