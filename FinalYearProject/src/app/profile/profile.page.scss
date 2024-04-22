@@ -27,6 +27,17 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
   margin: 20px; /* Add some margin around the card */
 }
+@keyframes rainbow-glow {
+  0% { box-shadow: 0 0 10px #FF0000, 0 0 15px #FF0000, 0 0 20px #FF0000; }
+  14% { box-shadow: 0 0 10px #FF7F00, 0 0 15px #FF7F00, 0 0 20px #FF7F00; }
+  28% { box-shadow: 0 0 10px #FFFF00, 0 0 15px #FFFF00, 0 0 20px #FFFF00; }
+  42% { box-shadow: 0 0 10px #00FF00, 0 0 15px #00FF00, 0 0 20px #00FF00; }
+  57% { box-shadow: 0 0 10px #0000FF, 0 0 15px #0000FF, 0 0 20px #0000FF; }
+  71% { box-shadow: 0 0 10px #4B0082, 0 0 15px #4B0082, 0 0 20px #4B0082; }
+  85% { box-shadow: 0 0 10px #9400D3, 0 0 15px #9400D3, 0 0 20px #9400D3; }
+  100% { box-shadow: 0 0 10px #FF0000, 0 0 15px #FF0000, 0 0 20px #FF0000; }
+}
+
 
 /* Style for Profile Picture */
 .profile-picture {
@@ -35,7 +46,14 @@
   border-radius: 50%; /* Make the picture round */
   margin-top: 20px; /* Add some space above the picture */
   object-fit: cover; /* Ensure the picture covers the space without distortion */
+  box-shadow: 0 0 10px #39FF14, /* Outer glow */
+               0 0 20px #39FF14, /* More outer glow */
+               0 0 30px #39FF14, /* Even more outer glow */
+               0 0 40px #39FF14; /* Maximum outer glow */
+               animation: rainbow-glow 3s linear infinite;
+               
 }
+
 
 /* Style for Profile Details and Buttons */
 .profile-container {
@@ -57,16 +75,19 @@
 
 /* Style for Profile Buttons */
 .profile-button {
-  padding: 8px 16px; /* Adjust padding to make buttons smaller */
-  font-size: 14px; /* Smaller font size for text inside the button */
-  border-radius: 8px; /* Rounded corners for a softer look */
+  margin: 10px; /* Provides spacing around each button */
+  padding: 5px 10px; /* Smaller padding for a more compact button */
+  font-size: 12px; /* Smaller font size for button text */
+  border-radius: 4px; /* Less pronounced border-radius for a flatter look */
   background-color: #007bff; /* Primary button color */
   color: #ffffff; /* Text color for the buttons */
   border: none; /* No borders for a cleaner look */
   outline: none; /* Remove outline to prevent focus highlight */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+  --expand: none; /* Prevent Ionic from applying the default expand styling */
 }
+
 .profile-button:hover {
   background-color: #0056b3; /* Darker shade on hover for better interaction feedback */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increased shadow on hover for a "lifting" effect */
@@ -98,4 +119,53 @@
 /* Style for Tab Icons */
 .tab-icon {
   font-size: 24px;
+}
+body.dark-mode {
+  --ion-background-color: #303030;
+  --ion-text-color: #ffffff;
+  --ion-toolbar-background-color: #202020;
+  --ion-toolbar-text-color: #ffffff;
+  --ion-item-background-color: #303030;
+  --ion-item-text-color: #ffffff;
+}
+
+/* You can also target specific components if the dark mode is not meant to be global */
+.dark-mode .profile-card {
+  background-color: #424242;
+}
+
+.dark-mode .profile-picture {
+  box-shadow: 0 0 20px #000; /* Example shadow for dark mode */
+}
+/* Core Variables */
+:root {
+  --ion-color-primary: #3880ff;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+
+  /* ... other core variables ... */
+
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+  --ion-toolbar-background-color: #f8f8f8;
+  --ion-toolbar-text-color: #000000;
+  --ion-item-background-color: #ffffff;
+  --ion-item-text-color: #000000;
+}
+
+/* Dark Theme Variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-background-color: #303030;
+    --ion-text-color: #ffffff;
+    --ion-toolbar-background-color: #202020;
+    --ion-toolbar-text-color: #ffffff;
+    --ion-item-background-color: #303030;
+    --ion-item-text-color: #ffffff;
+
+    /* ... more dark theme overrides ... */
+  }
 }

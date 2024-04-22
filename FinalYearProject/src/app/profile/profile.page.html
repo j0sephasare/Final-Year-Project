@@ -2,12 +2,14 @@
   <ion-toolbar>
     <ion-title class="header-title">Profile</ion-title>
     <ion-buttons slot="end">
+     
       <ion-button (click)="logout()">Logout</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="page-content">
+<ion-content class="page-content" >
+  
   <!-- Profile card for user picture and details -->
   <ion-card *ngIf="userProfile">
     <img [src]="userProfile.profilePicture || 'assets/default-profile.png'" alt="Profile Picture"
@@ -32,9 +34,9 @@
 
   <!-- Action buttons for the user -->
   <div class="profile-actions">
-    <ion-button expand="block" (click)="openSavedExerciseList()">Exercises</ion-button>
-    <ion-button expand="block" (click)="FindLocalGyms()">Find Local Gyms</ion-button>
-    <ion-button expand="block" (click)="MacroCounter()">Macro Counter</ion-button>
+    <ion-button class="profile-button" (click)="openSavedExerciseList()">Exercises</ion-button>
+    <ion-button class="profile-button" (click)="FindLocalGyms()">Find Local Gyms</ion-button>
+    <ion-button class="profile-button" (click)="MacroCounter()">Macro Calculator</ion-button>
   </div>
 </ion-content>
 

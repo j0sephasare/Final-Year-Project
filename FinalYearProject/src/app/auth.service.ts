@@ -15,6 +15,7 @@ import { finalize, take,map } from 'rxjs/operators';
   providedIn: 'root', // This service is provided in the root injector (AppModule). This means that the service will be available to the entire application.
 })
 export class AuthService {
+  
   // Inject Firestore service. We need it to create a user profile in Firestore.
   constructor(private auth: Auth, private firestore: Firestore,  private storage: AngularFireStorage ) {}
   getCurrentUser(): Observable<any> {

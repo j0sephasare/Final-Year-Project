@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ThemeService } from '../theme.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -13,7 +14,8 @@ export class ProfilePage implements OnInit {
   userProfile: any;
   imageFile: File | null = null;
   newUsername: string = ''; 
-  constructor( private router: Router,private authService: AuthService) { }
+  
+  constructor( private router: Router,private authService: AuthService,  private themeService: ThemeService,) { }
 
   ngOnInit() {
     this.authService.getCurrentUser().pipe(
@@ -33,8 +35,10 @@ export class ProfilePage implements OnInit {
     }, error => {
       console.error("Error loading user data:", error);
     });
+    
+    
   }
-  
+
   handleFileInput(event: Event) {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;

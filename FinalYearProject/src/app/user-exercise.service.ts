@@ -5,14 +5,14 @@ import { Exercise } from 'models/exercise.model';
 import { map } from 'rxjs/operators';
 import { SaveExerciseData } from 'models/SaveExercise.model';
 import { Firestore, collection, doc, getDoc, updateDoc, collectionData, deleteDoc, addDoc, query, where, getDocs,setDoc } from '@angular/fire/firestore';
-
+import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 @Injectable({
   providedIn: 'root',
 })
 export class UserExerciseService {
  
 
-  constructor(private httpClient: HttpClient,private firestore: Firestore) {}
+  constructor(private httpClient: HttpClient,private firestore: Firestore, private storage: Storage) {}
 
   getSavedExercises(userId: string): Observable<SaveExerciseData[]> {
     console.log(`Fetching saved exercises for user: ${userId}`);
@@ -39,5 +39,15 @@ export class UserExerciseService {
     const exerciseRef = doc(userExercisesRef); // Create a new document reference for the workout
     return setDoc(exerciseRef, workoutData);
   }
-  
+  async uploadImage(fileBlob: Blob, fileName: string): Promise<string> {
+    // Generate a unique file path (e.g., 'uploads/image-<timestamp>.jpg')
+    const filePath = `uploads/${Date.now()}_${fileName}`;
+    const storageRef = ref(this.storage, filePath);
+
+    // Upload the file to Firebase Storage
+    await uploadBytes(storageRef, fileBlob);
+    
+    // Once upload is complete, get and return the download URL
+    return await getDownloadURL(storageRef);
+  }
 }

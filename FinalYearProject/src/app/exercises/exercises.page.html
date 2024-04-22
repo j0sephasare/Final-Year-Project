@@ -5,21 +5,21 @@
 </ion-header>
 
 <ion-content class="exercise-buttons">
+  <div class="full-page-background">
+    <img src="assets/Gym.jpg" alt="Background">
+  </div>
   <ion-button expand="block" color="primary" class="exercise-button" (click)="startWeightWorkout()">
     Start A Weight Workout
   </ion-button>
 
-  <ion-button expand="block" color="secondary" class="exercise-button" (click)="startBoxingWorkout()">
-    Start A Boxing Workout
-  </ion-button>
+
 
   <ion-button expand="block" color="tertiary" class="exercise-button" (click)="startRunWorkout()">
     Start Run Workout
   </ion-button>
 </ion-content>
 
-<ion-content>
-  <ion-tabs>
+
     <ion-tab-bar slot="bottom" class="tab-bar">
       <ion-tab-button [routerLink]="['/home']" class="tab-button">
         <ion-icon name="home-outline" class="tab-icon"></ion-icon>
@@ -42,5 +42,4 @@
         Profile
       </ion-tab-button>
     </ion-tab-bar>
-  </ion-tabs>
-  </ion-content>
+

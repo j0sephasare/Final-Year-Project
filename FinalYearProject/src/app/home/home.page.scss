@@ -1,115 +1,105 @@
-/* Date and Time at the top */
+/* Style for the header title */
+.header-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  
+}
+
+/* Full-page background image at the top */
+.background-section img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Workouts container with centered cards */
+.workouts-container {
+  max-width: 600px; /* Maximum width for the workout cards */
+  margin: 0 auto; /* Center the container */
+  padding-top: 20px; /* Space between the image and the first card */
+  position: relative;
+  z-index: 2;
+}
+
+/* Style for the date and time display */
 .date-time {
   text-align: center;
-  margin-top: 10px;
   font-size: 20px;
   font-weight: bold;
-  color: #4a4a4a; /* Enhanced readability with darker font */
-  background-color: #ffffff; /* Background color for contrast */
+  color: #4a4a4a;
   padding: 10px 0;
-  border-bottom: 1px solid #ddd; /* Subtle separation from content */
-}
-
-/* General padding around the page content for a cleaner look */
-.page-content {
-  padding: 16px;
-  background-color: #f4f4f8; /* Light grey background for overall page */
-}
-
-/* Style for Tab Bar */
-.tab-bar {
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-}
-
-/* Style for Tab Buttons */
-.tab-button {
-  font-size: 14px;
-  font-weight: bold;
-  border-top: 3px solid transparent; /* Pre-define transparent border for active state */
-}
-
-/* Active Tab Button Highlight */
-.tab-button[aria-selected="true"] {
-  border-top: 3px solid #007bff; /* Highlight active tab */
-}
-
-/* Style for Tab Icons */
-.tab-icon {
-  font-size: 20px; /* Standardizing icon size */
-}
-
-/* Centered content for profiles, if used elsewhere */
-.profile-container {
-  text-align: center;
-  margin-top: 20px;
+  background-color:  transparent; 
+  margin-top: -20px; /* Pull the date up to overlap with the image */
 }
 
 /* Style for workout cards */
 ion-card {
-  margin: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* More subtle shadow */
-  border-radius: 8px; /* Consistent rounded corners */
-  background-color: #ffffff; /* White background for cards */
+  margin: 10px; /* Reduced margin */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #ffffff;
 }
 
-/* Card Header with a background color to distinguish it */
+/* Style for the card header */
 ion-card-header {
-  background-color: #007bff; /* Primary color for header */
-  color: #ffffff; /* White text for contrast */
+  background-color: #007bff;
+  color: #ffffff;
   padding: 12px;
-  border-radius: 8px 8px 0 0; /* Maintaining rounded corners at the top */
+  border-radius: 8px 8px 0 0;
 }
 
-/* Card Title for workout names */
+/* Style for the card title */
 ion-card-title {
-  font-size: 18px; /* Emphasize title size */
+  font-size: 18px;
 }
 
-/* Subtitle for additional info like the date */
+/* Style for the card subtitle */
 ion-card-subtitle {
-  color: #999; /* Softer color for subtitle */
+  color: #faf5f5;
   font-size: 14px;
 }
 
-/* Content inside the card */
+/* Style for the card content */
 ion-card-content {
   padding: 15px;
-  line-height: 1.5; /* Improved readability */
-  font-size: 15px; /* Slightly larger font for content */
+  line-height: 1.5;
+  font-size: 15px;
 }
 
-/* Specific style for the notes to make them stand out less */
-ion-note {
-  color: #888;
+/* Style for the tab bar */
+.tab-bar {
+  background-color: #fff;
+  border-top: 1px solid #5a5858;
+}
+
+/* Style for the tab buttons */
+.tab-button {
   font-size: 14px;
+  font-weight: bold;
+  border-top: 3px solid transparent;
 }
 
-/* Style for icons in list items to align with the text */
-ion-item ion-icon {
-  margin-right: 5px;
-  color: #555; /* Subtle color for icons */
+/* Highlight for the active tab button */
+.tab-button[aria-selected="true"] {
+  border-top: 3px solid #007bff;
 }
 
-/* Aligning labels and notes within list items */
-ion-item {
-  --padding-start: 0; /* Adjusted padding for better alignment */
-  --inner-padding-end: 0;
-  --inner-padding-start: 0;
-  --padding-end: 0;
-  --border-color: #e0e0e0;
-  --border-style: solid;
-  --border-width: 0 0 1px 0;
-  align-items: center; /* Center align the items vertically */
+/* Style for the tab icons */
+.tab-icon {
+  font-size: 20px;
 }
 
-/* Adjustments for input fields in case they are used */
+
+
+/* Style adjustments for input fields */
 ion-input,
 ion-textarea {
   --padding-start: 16px;
   --padding-end: 16px;
   width: 100%;
-  font-size: 16px; /* Uniform font size for inputs */
+  font-size: 16px;
 }
 
 /* Color adjustments for labels */
@@ -121,16 +111,42 @@ ion-label {
 ion-button {
   margin: 20px 0;
   font-weight: 500;
-  width: calc(100% - 32px); /* Full width with padding */
-  text-transform: none; /* Prevent all-caps */
+  width: calc(100% - 32px);
+  text-transform: none;
 }
 
-/* Toolbar at the top */
+/* Toolbar style */
 ion-toolbar {
   --background: #f8f8f8;
 }
 
-/* Center text alignment for the toolbar title */
-ion-title {
-  text-align: center;
+/* Adjust the ion-content padding */
+ion-content {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+.centered-image {
+  display: block;
+  margin-left: 150;
+  margin-right: auto;
+  width: 250px; /* or any other fixed width */
+}
+.centered-image2 {
+  display: block;
+  margin-left: auto;
+  margin-right: 250;
+  width: 250px; /* or any other fixed width */
+}
+.full-page-background img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  object-fit: cover;
 }

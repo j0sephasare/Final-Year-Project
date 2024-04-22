@@ -3,12 +3,15 @@
     <ion-title class="header-title">Challenges</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-button class="challenge-button" (click)="openRonaldoChallenge()">
   Train like Ronaldo
 </ion-button>
+<div class="full-page-background">
+  <img src="assets/Professional.jpg" alt="Background"  >
+  
+</div>
 
-<ion-content>
-  <ion-tabs>
     <ion-tab-bar slot="bottom" class="tab-bar">
       <ion-tab-button [routerLink]="['/home']" class="tab-button">
         <ion-icon name="home-outline" class="tab-icon"></ion-icon>
@@ -31,5 +34,3 @@
         Profile
       </ion-tab-button>
     </ion-tab-bar>
-  </ion-tabs>
-  </ion-content>

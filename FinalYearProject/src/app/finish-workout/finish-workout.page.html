@@ -37,7 +37,17 @@
       <ion-label position="floating">Description</ion-label>
       <ion-textarea [(ngModel)]="description"></ion-textarea>
     </ion-item>
+    <ion-item lines="full">
+      <ion-button fill="outline" (click)="takeOrSelectPhoto()">
+        <ion-icon slot="start" name="camera"></ion-icon>
+        Add Photo
+      </ion-button>
+    </ion-item>
 
+    <!-- Display the photo preview if available -->
+    <ion-item *ngIf="photo">
+      <ion-img [src]="photo.webPath"></ion-img>
+    </ion-item>
     <!-- Display the current date and time -->
     <ion-item lines="none">
       <ion-label class="ion-text-wrap" style="color: #3880ff;">When</ion-label>

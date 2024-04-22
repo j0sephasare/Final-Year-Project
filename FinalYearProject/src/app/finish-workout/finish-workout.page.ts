@@ -4,6 +4,7 @@ import { SelectedExerciseService } from '../selected-exercise.service';
 import { UserExerciseService } from '../user-exercise.service';
 import { SaveExerciseData } from 'models/SaveExercise.model';
 import { Exercise } from 'models/exercise.model';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 
 @Component({
   selector: 'app-finish-workout',
@@ -17,7 +18,7 @@ export class FinishWorkoutPage implements OnInit {
   volume: number = 0;
   sets: number = 0;
   userId: string | undefined;
-
+  photo: Photo | null = null; 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -55,12 +56,9 @@ export class FinishWorkoutPage implements OnInit {
     });
   }
 
-  saveWorkout(): void {
-    if (!this.userId || !this.workoutTitle) {
-      console.error('User ID or Workout title is missing, cannot save workout.');
-      return;
-    }
-  
+  async saveWorkout(imageUrl?: string): Promise<void> {
+   
+    
     // Map the selected exercises to the format expected by SaveExerciseData
     const exercisesForSave: SaveExerciseData['exercises'] = this.selectedExercisesService.getSelectedExercises().map(exercise => ({
       name: exercise.Name,
@@ -79,18 +77,54 @@ export class FinishWorkoutPage implements OnInit {
       timestamp: this.getCurrentTimestamp(), // Get the current timestamp
       exercises: exercisesForSave
     };
-  
-    // Use the UserExerciseService to save the workout data to Firestore
-    this.userExerciseService.saveWorkout(workoutData).then(() => {
+    if (imageUrl) {
+      workoutData.photoURL = imageUrl;
+    }
+
+    // Now use workoutData with photoURL property to save to Firestore
+    try {
+      await this.userExerciseService.saveWorkout(workoutData);
       console.log('Workout saved successfully');
       this.router.navigate(['/home']);
-    }).catch((error) => {
+    } catch (error) {
       console.error('Error saving workout:', error);
-    });
+    }
+  
   }
   discardWorkout(): void {
     if (window.confirm('Are you sure you want to discard this workout?')) {
       this.router.navigate(['/home']);
     }
   }
+
+  async takeOrSelectPhoto() {
+    try {
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Prompt, // prompt the user to pick or take a photo
+        quality: 90 // high-quality photos
+      });
+      this.uploadPhoto(photo);
+    } catch (error) {
+      console.error('Error taking or selecting photo:', error);
+    }
+  }
+
+  async uploadPhoto(photo: Photo) {
+    try {
+      // Fetch the photo file as a blob
+      const response = await fetch(photo.webPath!);
+      const blob = await response.blob();
+      // Generate a unique filename for the image, e.g., 'image-1629558904593.jpeg'
+      const filename = `image-${new Date().getTime()}.${photo.format}`;
+      // Pass both the blob and the filename to the uploadImage function
+      const imageUrl = await this.userExerciseService.uploadImage(blob, filename);
+      // After obtaining the imageUrl, you can now proceed to save the workout
+      this.saveWorkout(imageUrl);
+    } catch (error) {
+      console.error('Error uploading photo:', error);
+    }
+  }
+
+  
 }

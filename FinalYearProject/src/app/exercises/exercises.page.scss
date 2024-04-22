@@ -4,29 +4,24 @@
   font-weight: bold;
   color: #4a4a4a; /* Subtle gray for sophistication */
   padding: 16px 0; /* More vertical padding for a better title display */
+  text-align: center;
 }
 
 /* General style for exercise buttons */
 .exercise-button {
-  margin: 8px 16px; /* Uniform margin for all buttons */
+  display: block; /* Display as block-level elements */
+  width: 80%; /* Set a max width */
+  margin: 20px auto; /* Center the buttons with automatic margins */
   font-size: 16px;
   font-weight: bold;
+  text-transform: uppercase; /* Capitalize button text for emphasis */
 }
 
 /* Enhance color schemes for buttons */
-ion-button[color="primary"] {
-  --background: #007bff; /* Consistent blue for primary actions */
-  --background-activated: #0056b3; /* Darker blue when tapped */
-}
-
-ion-button[color="secondary"] {
-  --background: #28a745; /* Green for secondary actions */
-  --background-activated: #1e7e34; /* Darker green when tapped */
-}
-
-ion-button[color="tertiary"] {
-  --background: #17a2b8; /* Teal for tertiary actions */
-  --background-activated: #117a8b; /* Dark teal when tapped */
+ion-button {
+  --border-radius: 8px; /* Rounded corners */
+  --padding-top: 15px; /* Thicker padding for a touch-friendly design */
+  --padding-bottom: 15px;
 }
 
 /* Style for Page Content */
@@ -66,4 +61,15 @@ ion-tab-button[aria-selected="true"] {
     margin-left: auto;
     margin-right: auto;
   }
+}
+.full-page-background img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+  object-fit: cover;
 }
