@@ -2,11 +2,12 @@
   
   "scripts": {
     "ng": "ng",
-    "start": "ionic serve",
-    "build": "ng build --prod",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "npm": "npm",
+    "start": "npm serve",
+    "build": "npm build --prod",
+    "watch": "npm build --watch --configuration development",
+    "test": "npm test",
+    "lint": "npm lint"
   },
   "dependencies": {
     "@angular/animations": "^16.0.0",
