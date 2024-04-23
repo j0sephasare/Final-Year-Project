@@ -34,20 +34,33 @@ export class UserExerciseService {
   }
 
   saveWorkout(workoutData: SaveExerciseData): Promise<void> {
+    console.log(`Attempting to save new workout for user: ${workoutData.userId}`);
     console.log(`Saving new workout for user: ${workoutData.userId}`, workoutData);
     const userExercisesRef = collection(this.firestore, `users/${workoutData.userId}/savedExercises`);
     const exerciseRef = doc(userExercisesRef); // Create a new document reference for the workout
     return setDoc(exerciseRef, workoutData);
   }
-  async uploadImage(fileBlob: Blob, fileName: string): Promise<string> {
-    // Generate a unique file path (e.g., 'uploads/image-<timestamp>.jpg')
-    const filePath = `uploads/${Date.now()}_${fileName}`;
+  async uploadImage(fileBlob: Blob, fileName: string, userId: string): Promise<string> {
+    console.log(`Starting upload for user: ${userId} with filename: ${fileName}`);
+    const filePath = `uploads/${userId}/${fileName}`;
+    console.log(`File path for upload: ${filePath}`);
+  
     const storageRef = ref(this.storage, filePath);
-
-    // Upload the file to Firebase Storage
-    await uploadBytes(storageRef, fileBlob);
-    
-    // Once upload is complete, get and return the download URL
-    return await getDownloadURL(storageRef);
+    try {
+      console.log('Attempting to upload file to Firebase Storage');
+      await uploadBytes(storageRef, fileBlob);
+      console.log(`File uploaded successfully to: ${filePath}`);
+  
+      console.log('Attempting to retrieve download URL');
+      const downloadURL = await getDownloadURL(storageRef);
+      console.log(`Download URL retrieved: ${downloadURL}`);
+  
+      return downloadURL;
+    } catch (error) {
+      console.error('Error occurred during upload to Firebase Storage:', error);
+      throw error;
+    }
   }
+  
+  
 }

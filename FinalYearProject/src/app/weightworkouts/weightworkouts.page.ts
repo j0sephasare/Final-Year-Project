@@ -5,7 +5,7 @@ import { TimerService } from '../timer.service';
 import { SelectedExerciseService } from '../selected-exercise.service';
 import { Subscription } from 'rxjs';
 import { Exercise } from 'models/exercise.model';
-
+import { WorkoutService } from '../workout.service';
 @Component({
   selector: 'app-weightworkouts',
   templateUrl: './weightworkouts.page.html',
@@ -20,12 +20,14 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
   timer: { minutes: number; seconds: number } = { minutes: 0, seconds: 0 };
   workoutTitle: string = '';
   description: string = '';
+  private resetSubscription!: Subscription; 
   duration: string = '';
 
   constructor(
     private router: Router,
     private selectedExercisesService: SelectedExerciseService,
     private auth: AuthService,
+    private workoutService: WorkoutService,
     private timerService: TimerService
   ) {}
 
@@ -52,6 +54,12 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
         console.error('User is not logged in.');
       }
     });
+    this.resetSubscription = this.workoutService.getResetWorkoutObservable().subscribe(shouldReset => {
+      if (shouldReset) {
+        this.resetPageState();
+        this.workoutService.clearResetTrigger();
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -59,6 +67,9 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
       this.timerSubscription.unsubscribe();
     }
     this.resetPageState();
+    if (this.resetSubscription) {
+      this.resetSubscription.unsubscribe();
+    }
   }
 
   loadSelectedExercises() {
@@ -107,9 +118,14 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
     this.totalSets = 0;
     this.timer = { minutes: 0, seconds: 0 };
     this.duration = '';
+    this.workoutTitle = '';
+    this.description = '';
     // ... reset any other relevant state
   }
-
+  resetWorkout() {
+    this.resetPageState();
+    this.timerService.resetTimer(); // Make sure to implement a resetTimer method in your TimerService
+  }
   finishWorkout() {
     if (!this.userId) {
       console.error('Cannot finish workout - user ID is not defined.');

@@ -5,7 +5,9 @@ import { UserExerciseService } from '../user-exercise.service';
 import { SaveExerciseData } from 'models/SaveExercise.model';
 import { Exercise } from 'models/exercise.model';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-
+import { Platform } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { WorkoutService } from '../workout.service';
 @Component({
   selector: 'app-finish-workout',
   templateUrl: './finish-workout.page.html',
@@ -19,10 +21,14 @@ export class FinishWorkoutPage implements OnInit {
   sets: number = 0;
   userId: string | undefined;
   photo: Photo | null = null; 
+  photoPreview: string | ArrayBuffer | null = null; 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private selectedExercisesService: SelectedExerciseService,
+    private platform: Platform,
+    private afAuth: AngularFireAuth,
+    private workoutService: WorkoutService,
     private userExerciseService: UserExerciseService
   ) {}
 
@@ -85,7 +91,11 @@ export class FinishWorkoutPage implements OnInit {
     try {
       await this.userExerciseService.saveWorkout(workoutData);
       console.log('Workout saved successfully');
-      this.router.navigate(['/home']);
+      this.router.navigate(['/home']).then(() => {
+        // Assuming you have a service that can communicate the reset state
+        // If not, you'll need to implement one
+        this.workoutService.resetWorkoutState(); // Communicate to WeightworkoutsPage to reset
+      });
     } catch (error) {
       console.error('Error saving workout:', error);
     }
@@ -98,33 +108,81 @@ export class FinishWorkoutPage implements OnInit {
   }
 
   async takeOrSelectPhoto() {
-    try {
-      const photo = await Camera.getPhoto({
-        resultType: CameraResultType.Uri,
-        source: CameraSource.Prompt, // prompt the user to pick or take a photo
-        quality: 90 // high-quality photos
-      });
-      this.uploadPhoto(photo);
-    } catch (error) {
-      console.error('Error taking or selecting photo:', error);
+    console.log('takeOrSelectPhoto method called'); 
+    if (!this.platform.is('hybrid')) {
+      // For web platform
+      this.handleFileInput();
+    } else {
+      // For native platform
+      try {
+        const photo = await Camera.getPhoto({
+          resultType: CameraResultType.Uri,
+          source: CameraSource.Prompt,
+          quality: 90
+        });
+        console.log('Photo taken', photo);
+        this.uploadPhoto(photo); // Ensure this line is present
+      } catch (error) {
+        console.error('Error taking or selecting photo:', error);
+      }
     }
   }
+  
 
+  handleFileInput() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = () => {
+      if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        this.displaySelectedImage(file); // Call a new method to handle the file
+      }
+    };
+    input.click();
+  }
+  displaySelectedImage(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.photoPreview = e.target.result; // Use a new property 'photoPreview'
+      // Update the photo object for later upload if needed
+      this.photo = {
+        format: file.type.split('/')[1],
+        webPath: e.target.result,
+        path: undefined,
+        exif: undefined,
+        saved: false
+      };
+    };
+    reader.readAsDataURL(file);
+  }
+  
   async uploadPhoto(photo: Photo) {
-    try {
-      // Fetch the photo file as a blob
-      const response = await fetch(photo.webPath!);
-      const blob = await response.blob();
-      // Generate a unique filename for the image, e.g., 'image-1629558904593.jpeg'
-      const filename = `image-${new Date().getTime()}.${photo.format}`;
-      // Pass both the blob and the filename to the uploadImage function
-      const imageUrl = await this.userExerciseService.uploadImage(blob, filename);
-      // After obtaining the imageUrl, you can now proceed to save the workout
-      this.saveWorkout(imageUrl);
-    } catch (error) {
-      console.error('Error uploading photo:', error);
+    console.log('uploadPhoto method called');
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      console.log(`Authenticated user, UID: ${user.uid}`);
+      try {
+        console.log(`Photo path: ${photo.webPath}`);
+        const response = await fetch(photo.webPath!);
+        const blob = await response.blob();
+        console.log('Blob created from the photo', blob);
+  
+        const filename = `image-${new Date().getTime()}.${photo.format}`;
+        console.log(`Generated filename: ${filename}`);
+  
+        const imageUrl = await this.userExerciseService.uploadImage(blob, filename, user.uid);
+        console.log(`Image uploaded, image URL: ${imageUrl}`);
+  
+        this.saveWorkout(imageUrl);
+      } catch (error) {
+        console.error('Error during photo upload:', error);
+      }
+    } else {
+      console.error('No authenticated user found for photo upload.');
     }
   }
+  
 
   
 }

@@ -25,7 +25,9 @@ export class TimerService {
       this.timerSubject.next(time);
     });
   }
-
+  resetTimer() {
+    this.timerSubject.next({ minutes: 0, seconds: 0 });
+  }
   getTimer(): Observable<{ minutes: number; seconds: number }> {
     return this.timerSubject.asObservable();
   }

@@ -29,11 +29,16 @@
         <ion-card-subtitle>{{ workout.timestamp | date: 'medium' }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
+       
+
         <div><strong>Duration:</strong> {{ workout.duration }}</div>
         <div><strong>Description:</strong> {{ workout.description }}</div>
         <div><strong>TotalVolume:</strong> {{ workout.volume }}</div>
         <div *ngFor="let exercise of workout.exercises">
           <p class="mb-0"><strong>{{ exercise.name }}</strong> - Sets: {{ exercise.sets }}, Reps: {{ exercise.reps }}</p>
+        </div>
+        <div *ngIf="workout.photoURL" class="workout-image">
+          <img [src]="workout.photoURL" alt="Workout Photo" class="centered-image">
         </div>
       </ion-card-content>
     </ion-card>
