@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Weight Workouts</ion-title>
+    <ion-title  class="header-title">Weight Workouts</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="finishWorkout()">Finish</ion-button>
     </ion-buttons>
@@ -8,12 +8,15 @@
 </ion-header>
 
 <ion-content>
+  <div class="background-image-container">
+    <img src="assets/marble2.jpg" alt="Background" class="background-image">
+  </div>
   <div class="timer">
     Timer: {{ timer.minutes }}min {{ timer.seconds }}s - Volume: {{ calculatedVolume }}kg - Sets: {{ totalSets }}
   </div>
  
 
-  <ion-list>
+  <ion-list style="background-color: rgba(255, 255, 255, 0.5);">
     <ion-item *ngFor="let exercise of selectedExercises; let i = index" class="exercise-item">
       <ion-label>
         <h2>{{ exercise.Name }}</h2>
