@@ -1,31 +1,25 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="white">
     <ion-title>Train Like Ronaldo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  
+  <div class="background-image-container">
+    <img src="assets/ronaldo.jpg" alt="Background" class="background-image">
+  </div>
   <!-- Display the list of exercises -->
-  <ion-list>
+  <ion-list  style="background-color: rgba(255, 255, 255, 0.5);" >
     <ion-item *ngFor="let exercise of exercises; let i = index">
       <ion-label>{{ exercise.name }}</ion-label>
       <ion-checkbox slot="end" [(ngModel)]="exercise.done"></ion-checkbox>
     </ion-item>
   </ion-list>
-  
-  <!-- Button to complete training when all exercises are done -->
-  <ion-button [disabled]="!allExercisesDone()" expand="full" color="success" (click)="completeTraining()">
-    Complete Training
-  </ion-button>
-</ion-content>
-
-<ion-list class="ion-padding">
-  <!-- First Drill -->
-  <ion-item>
+   <!-- First Drill -->
+   <ion-item>
     <ion-label>
-      <h2>Shooting Practice</h2>
-      <p>
+      <h2><strong>Shooting Practice</strong> </h2>
+      <p  style="color: white;">
         Set up cones or markers to designate a shooting area.
         Receive a pass or dribble the ball into the shooting area.
         Practice shooting with different techniques: instep drive, chip shots, volleys, and bending shots.
@@ -40,8 +34,8 @@
   <!-- Second Drill -->
   <ion-item>
     <ion-label>
-      <h2>Speed and Agility Ladder:</h2>
-      <p>
+      <h2><strong>Agility Ladder:</strong> </h2>
+      <p  style="color: white;">
         Lay an agility ladder on the ground.
         Stand at the ladder's beginning.
         Perform various ladder drills such as the "In and Out" (quickly stepping in and out of each box), the "Icky Shuffle" (side-stepping through the ladder), and "Quick Feet" (fast, alternate footwork).
@@ -57,8 +51,8 @@
   <!-- Third Drill -->
   <ion-item>
     <ion-label>
-      <h2>Free-Kick Practice:</h2>
-      <p>
+      <h2 ><strong>Free-Kick Practice:</strong></h2>
+      <p  style="color: white;">
         Place the ball at the desired distance from the goal.
         Focus on your free-kick technique, including your approach, body posture, and foot placement.
         Aim for specific targets within the goal (e.g., corners) or practice bending the ball around a wall.
@@ -70,6 +64,14 @@
     </ion-button>
   </ion-item>
 
+
+  <!-- Button to complete training when all exercises are done -->
+  <ion-button [disabled]="!allExercisesDone()" expand="full" color="success" (click)="completeTraining()">
+    Complete Training
+  </ion-button>
+  </ion-content>
+
+ 
   <!-- Add more drills here -->
 
 

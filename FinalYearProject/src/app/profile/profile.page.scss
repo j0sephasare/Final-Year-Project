@@ -79,7 +79,6 @@
   padding: 5px 10px; /* Smaller padding for a more compact button */
   font-size: 12px; /* Smaller font size for button text */
   border-radius: 4px; /* Less pronounced border-radius for a flatter look */
-  background-color: #007bff; /* Primary button color */
   color: #ffffff; /* Text color for the buttons */
   border: none; /* No borders for a cleaner look */
   outline: none; /* Remove outline to prevent focus highlight */
@@ -154,6 +153,20 @@ body.dark-mode {
   --ion-toolbar-text-color: #000000;
   --ion-item-background-color: #ffffff;
   --ion-item-text-color: #000000;
+}.background-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Make sure the image is behind all other content */
+  overflow: hidden;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the area without stretching the image */
 }
 
 /* Dark Theme Variables */

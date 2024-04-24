@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="header-title">Profile</ion-title>
+    <ion-title class="header-title">Profile Page</ion-title>
     <ion-buttons slot="end">
      
       <ion-button (click)="logout()">Logout</ion-button>
@@ -9,7 +9,9 @@
 </ion-header>
 
 <ion-content class="page-content" >
-  
+  <div class="background-image-container">
+    <img src="assets/marble.jpg" alt="Background" class="background-image">
+  </div>
   <!-- Profile card for user picture and details -->
   <ion-card *ngIf="userProfile">
     <img [src]="userProfile.profilePicture || 'assets/default-profile.png'" alt="Profile Picture"

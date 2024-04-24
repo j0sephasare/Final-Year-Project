@@ -3,7 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ExercisesPage } from './exercises/exercises.page';
 import { ProfilePage } from './profile/profile.page';
-import { ChatbotPage } from './chatbot/chatbot.page';
 import { WeightworkoutsPage } from './weightworkouts/weightworkouts.page';
 import { ExercisesListPage} from '../app/exercises-list/exercises-list.page';
 
@@ -34,7 +33,7 @@ const routes: Routes = [
  
     // the spread operator ... is used to expand the properties of the object returned by the canActivate function into the route configuration object.
   },
-  { path: 'chatbot', component: ChatbotPage },
+  
 
   { path: 'macroCounter', component: MacroCounterPage },
   { path: 'mealPlanner', component: MealsPage },
@@ -55,10 +54,7 @@ const routes: Routes = [
     path: 'exercises',
     loadChildren: () => import('./exercises/exercises.module').then( m => m.ExercisesPageModule)
   },
-  {
-    path: 'chatbot',
-    loadChildren: () => import('./chatbot/chatbot.module').then( m => m.ChatbotPageModule)
-  },
+
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)

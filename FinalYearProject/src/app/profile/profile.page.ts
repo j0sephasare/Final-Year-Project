@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { ThemeService } from '../theme.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -15,7 +15,7 @@ export class ProfilePage implements OnInit {
   imageFile: File | null = null;
   newUsername: string = ''; 
   
-  constructor( private router: Router,private authService: AuthService,  private themeService: ThemeService,) { }
+  constructor( private router: Router,private authService: AuthService,  ) { }
 
   ngOnInit() {
     this.authService.getCurrentUser().pipe(
