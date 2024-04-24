@@ -25,3 +25,12 @@
     height: 100%;
     object-fit: cover; /* Cover the area without stretching the image */
   }
+  .tab-icon {
+    font-size: 24px;
+  }
+  /* Style for the tab buttons */
+  .tab-button {
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 3px solid transparent;
+  }
