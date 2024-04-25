@@ -21,6 +21,7 @@ export class FinishWorkoutPage implements OnInit {
   sets: number = 0;
   userId: string | undefined;
   photo: Photo | null = null; 
+  imageUrl: string | null = null;
   photoPreview: string | ArrayBuffer | null = null; 
   constructor(
     private route: ActivatedRoute,
@@ -78,8 +79,8 @@ export class FinishWorkoutPage implements OnInit {
       workoutTitle: this.workoutTitle,
       description: this.description,
       duration: this.duration,
-      volume: this.volume, // This assumes you calculate the volume elsewhere
-      sets: this.sets, // This assumes you calculate the total sets elsewhere
+      volume: this.volume, 
+      sets: this.sets, 
       timestamp: this.getCurrentTimestamp(), // Get the current timestamp
       exercises: exercisesForSave
     };
@@ -92,8 +93,7 @@ export class FinishWorkoutPage implements OnInit {
       await this.userExerciseService.saveWorkout(workoutData);
       console.log('Workout saved successfully');
       this.router.navigate(['/home']).then(() => {
-        // Assuming you have a service that can communicate the reset state
-        // If not, you'll need to implement one
+       
         this.workoutService.resetWorkoutState(); // Communicate to WeightworkoutsPage to reset
       });
     } catch (error) {
@@ -174,7 +174,7 @@ export class FinishWorkoutPage implements OnInit {
         const imageUrl = await this.userExerciseService.uploadImage(blob, filename, user.uid);
         console.log(`Image uploaded, image URL: ${imageUrl}`);
   
-        this.saveWorkout(imageUrl);
+        this.photoPreview = this.imageUrl;
       } catch (error) {
         console.error('Error during photo upload:', error);
       }

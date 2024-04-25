@@ -22,7 +22,6 @@ export class MacroCounterPage implements OnInit {
 
   calculateMacros(): void {
     // Calculate total daily energy expenditure (TDEE)
-    // This is a simplified formula. For more accuracy, consider using the Mifflin-St Jeor Equation
     let bmr;
     if (this.gender === 'male') {
       bmr = 10 * this.weight + 6.25 * this.height - 5 * this.age + 5;
