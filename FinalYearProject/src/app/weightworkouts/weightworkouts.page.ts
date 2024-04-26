@@ -120,7 +120,7 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
     this.duration = '';
     this.workoutTitle = '';
     this.description = '';
-    // ... reset any other relevant state
+   
   }
   resetWorkout() {
     this.resetPageState();

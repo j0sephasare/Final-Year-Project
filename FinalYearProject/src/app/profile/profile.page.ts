@@ -93,7 +93,7 @@ export class ProfilePage implements OnInit {
       return;
     }
   
-    // Ensure you have the correct userId
+  
     const userId = this.userProfile.uid;
     if (!userId) {
       console.error('UserID is undefined. Cannot upload image.');
@@ -115,11 +115,7 @@ export class ProfilePage implements OnInit {
         console.error('Error uploading profile picture', error);
       });
   }
-/*
-  logout() {
-    this.auth.logout({ returnTo: `${window.location.origin}/login` } as LogoutOptions);
-  }
-  */
+
   openSavedExerciseList() {
     this.router.navigate(['/saved-exercises']);
     console.log('Button clicked!');

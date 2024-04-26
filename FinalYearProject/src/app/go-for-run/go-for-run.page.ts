@@ -208,11 +208,11 @@ async getDirections(start: google.maps.LatLng, waypoints: google.maps.Directions
 
 
 
- // Helper method to calculate destination based on distance
+ // method to calculate destination based on distance
  calculateDestination(startPos: google.maps.LatLng, distance: number): google.maps.LatLng {
 
-   // Calculate new latitude and longitude based on the desired distance
-   const newLat = startPos.lat() + (distance / 111.32); // 1 degree of latitude is approximately 111.32 km
+   // Calculates new latitude and longitude based on the desired distance
+   const newLat = startPos.lat() + (distance / 111.32); 
    const newLng =
      startPos.lng() + distance / (111.32 * Math.cos(startPos.lat() * (Math.PI / 180)));
 
@@ -272,22 +272,22 @@ updateUserMarkerPosition(position: any) {
  }
 }
 
- //method to calculate pace of user 
+ //method that calculates pace of user 
  calculatePace() {
    if (!this.startTime) {
-     return "0.00"; // Set an initial value of "0.00" when startTime is not set
+     return "0.00"; // Sets an initial value of "0.00" when startTime is not set
    }
  
    const currentTime = new Date();
-   const timeDiff = (currentTime.getTime() - this.startTime.getTime()) / 1000; // Time difference in seconds
-   const distanceKm = this.totalDistance / 1000; // Distance in kilometers
+   const timeDiff = (currentTime.getTime() - this.startTime.getTime()) / 1000; 
+   const distanceKm = this.totalDistance / 1000; // The Distance in kilometers
  
    if (distanceKm === 0) {
-     return "0.00"; // Set "0.00" if the distance is 0
+     return "0.00"; // Sets "0.00" if the distance is 0
    }
  
-   const pace = timeDiff / 60 / distanceKm; // Pace in minutes per kilometer
-   return pace.toFixed(2); // Return pace formatted to two decimal places
+   const pace = timeDiff / 60 / distanceKm; // The Pace in minutes per kilometer
+   return pace.toFixed(2); // Returns pace formatted to two decimal places
  }
  
 

@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title class="header-title">Finish Workout</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="saveWorkout()">Save</ion-button>
+      <ion-button (click)="imageUrl ? saveWorkout(imageUrl) : saveWorkout()">Save</ion-button>
       <ion-button (click)="discardWorkout()" color="danger">Discard</ion-button>
     </ion-buttons>
   </ion-toolbar>

@@ -20,9 +20,9 @@ export class FinishWorkoutPage implements OnInit {
   volume: number = 0;
   sets: number = 0;
   userId: string | undefined;
-  photo: Photo | null = null; 
+  photo: Photo | null = null;
   imageUrl: string | null = null;
-  photoPreview: string | ArrayBuffer | null = null; 
+  photoPreview: string | ArrayBuffer | null = null;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -31,25 +31,25 @@ export class FinishWorkoutPage implements OnInit {
     private afAuth: AngularFireAuth,
     private workoutService: WorkoutService,
     private userExerciseService: UserExerciseService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
-  // Adjust the cast to SaveExerciseData since that's the interface you're using
-  const state = navigation?.extras.state as SaveExerciseData | undefined;
-  
-  if (state) {
-    // Provide default values if state properties are undefined
-    this.volume = state.volume ?? 0; // Use nullish coalescing operator
-    this.sets = state.sets ?? 0;
-    this.duration = state.duration; // Since duration is a string, assign it directly
-    this.userId = state.userId;
-  } else {
-    // Handle the case when state is undefined
-    console.error('State object is missing in navigation extras.');
-  }
-  
-  console.log('State object received:', state);
+    // Adjust the cast to SaveExerciseData since that's the interface you're using
+    const state = navigation?.extras.state as SaveExerciseData | undefined;
+
+    if (state) {
+      // Provide default values if state properties are undefined
+      this.volume = state.volume ?? 0; // Use nullish coalescing operator
+      this.sets = state.sets ?? 0;
+      this.duration = state.duration; // Since duration is a string, assign it directly
+      this.userId = state.userId;
+    } else {
+      // Handle the case when state is undefined
+      console.error('State object is missing in navigation extras.');
+    }
+
+    console.log('State object received:', state);
   }
 
   getCurrentTimestamp(): string {
@@ -63,24 +63,24 @@ export class FinishWorkoutPage implements OnInit {
     });
   }
 
-  async saveWorkout(imageUrl?: string): Promise<void> {
-   
-    
+  async saveWorkout(imageUrl?: string | null): Promise<void> {
+
+
     // Map the selected exercises to the format expected by SaveExerciseData
     const exercisesForSave: SaveExerciseData['exercises'] = this.selectedExercisesService.getSelectedExercises().map(exercise => ({
       name: exercise.Name,
-      sets: exercise.setsCounter ?? 1, // Ensure there's a default value if undefined
+      sets: exercise.setsCounter ?? 1,
       reps: exercise.reps ?? 0
     }));
-  
+
     // Construct the full SaveExerciseData object
     const workoutData: SaveExerciseData = {
       userId: this.userId,
       workoutTitle: this.workoutTitle,
       description: this.description,
       duration: this.duration,
-      volume: this.volume, 
-      sets: this.sets, 
+      volume: this.volume,
+      sets: this.sets,
       timestamp: this.getCurrentTimestamp(), // Get the current timestamp
       exercises: exercisesForSave
     };
@@ -93,13 +93,13 @@ export class FinishWorkoutPage implements OnInit {
       await this.userExerciseService.saveWorkout(workoutData);
       console.log('Workout saved successfully');
       this.router.navigate(['/home']).then(() => {
-       
+
         this.workoutService.resetWorkoutState(); // Communicate to WeightworkoutsPage to reset
       });
     } catch (error) {
       console.error('Error saving workout:', error);
     }
-  
+
   }
   discardWorkout(): void {
     if (window.confirm('Are you sure you want to discard this workout?')) {
@@ -108,7 +108,7 @@ export class FinishWorkoutPage implements OnInit {
   }
 
   async takeOrSelectPhoto() {
-    console.log('takeOrSelectPhoto method called'); 
+    console.log('takeOrSelectPhoto method called');
     if (!this.platform.is('hybrid')) {
       // For web platform
       this.handleFileInput();
@@ -127,7 +127,7 @@ export class FinishWorkoutPage implements OnInit {
       }
     }
   }
-  
+
 
   handleFileInput() {
     const input = document.createElement('input');
@@ -156,7 +156,7 @@ export class FinishWorkoutPage implements OnInit {
     };
     reader.readAsDataURL(file);
   }
-  
+
   async uploadPhoto(photo: Photo) {
     console.log('uploadPhoto method called');
     const user = await this.afAuth.currentUser;
@@ -167,13 +167,14 @@ export class FinishWorkoutPage implements OnInit {
         const response = await fetch(photo.webPath!);
         const blob = await response.blob();
         console.log('Blob created from the photo', blob);
-  
+
         const filename = `image-${new Date().getTime()}.${photo.format}`;
         console.log(`Generated filename: ${filename}`);
-  
+
         const imageUrl = await this.userExerciseService.uploadImage(blob, filename, user.uid);
         console.log(`Image uploaded, image URL: ${imageUrl}`);
-  
+
+        this.imageUrl = imageUrl;
         this.photoPreview = this.imageUrl;
       } catch (error) {
         console.error('Error during photo upload:', error);
@@ -182,7 +183,7 @@ export class FinishWorkoutPage implements OnInit {
       console.error('No authenticated user found for photo upload.');
     }
   }
-  
 
-  
+
+
 }

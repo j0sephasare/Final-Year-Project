@@ -61,7 +61,7 @@ export class LoginPage {
     }
   }
 
-  // The login function is called when the login form is submitted (i.e. the login button is clicked)
+  // The login function is called when the login form is submitted 
   // Login an existing user with the AuthService. If successful, redirect to the home page.
   async login() {
     // Create a loading overlay. This will be displayed while the request is running.

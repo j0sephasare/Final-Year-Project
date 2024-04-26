@@ -60,7 +60,7 @@ export class AuthService {
       map(querySnapshot => !querySnapshot.empty)
     );
   }
-  // New method to update the user's username
+  // method to update the user's username
   async updateUsername(uid: string, newUsername: string): Promise<void> {
     const usernameTaken = await this.isUsernameTaken(newUsername).pipe(take(1)).toPromise();
   

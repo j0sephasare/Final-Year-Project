@@ -34,9 +34,9 @@ export class LocalgymsPage implements OnInit {
   // Set the current position on the map
   setCurrentPosition() {
     const options = {
-      enableHighAccuracy: true, // Use high accuracy
-      timeout: 10000,          // Maximum time before timeout
-      maximumAge: 0            // Accept only the freshest location, not cached
+      enableHighAccuracy: true, 
+      timeout: 10000,         
+      maximumAge: 0           
     };
 
     Geolocation.getCurrentPosition(options).then(
@@ -46,10 +46,10 @@ export class LocalgymsPage implements OnInit {
           position.coords.longitude
         );
 
-        // If the map is already loaded, set its center to the current position
+       
         if (this.map) {
           this.map.setCenter(currentPos);
-          // You can also place a marker at the user's current position if desired
+          // the user's current position
           if (this.userMarker) {
             this.userMarker.setPosition(currentPos);
           } else {
@@ -61,7 +61,7 @@ export class LocalgymsPage implements OnInit {
           }
         }
 
-        // If you want to display local gyms after setting the position, call that method here
+      
         this.displayLocalGyms(currentPos);
       },
       (err) => {
@@ -75,7 +75,7 @@ export class LocalgymsPage implements OnInit {
     const request: google.maps.places.PlaceSearchRequest = {
       location: position,
       radius: 5000, // Search within 5km radius
-      type: 'gym', // Corrected to a single string
+      type: 'gym', 
     };
   
     service.nearbySearch(request, (results: google.maps.places.PlaceResult[], status: google.maps.places.PlacesServiceStatus) => {
