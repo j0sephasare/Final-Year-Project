@@ -35,14 +35,14 @@ export class FinishWorkoutPage implements OnInit {
 
   ngOnInit() {
     const navigation = this.router.getCurrentNavigation();
-    // Adjust the cast to SaveExerciseData since that's the interface you're using
+    // Adjust the cast to SaveExerciseData 
     const state = navigation?.extras.state as SaveExerciseData | undefined;
 
     if (state) {
-      // Provide default values if state properties are undefined
-      this.volume = state.volume ?? 0; // Use nullish coalescing operator
+     
+      this.volume = state.volume ?? 0; 
       this.sets = state.sets ?? 0;
-      this.duration = state.duration; // Since duration is a string, assign it directly
+      this.duration = state.duration;
       this.userId = state.userId;
     } else {
       // Handle the case when state is undefined

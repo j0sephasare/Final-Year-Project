@@ -7,7 +7,6 @@ export interface ExerciseSet {
 
 export class Exercise {
   constructor(
-    // Make id optional if it can be undefined
     public Name: string,
     public Description: string,
     public Difficulty: string,

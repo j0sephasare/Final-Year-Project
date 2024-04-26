@@ -124,7 +124,7 @@ export class WeightworkoutsPage implements OnInit, OnDestroy {
   }
   resetWorkout() {
     this.resetPageState();
-    this.timerService.resetTimer(); // Make sure to implement a resetTimer method in your TimerService
+    this.timerService.resetTimer(); 
   }
   finishWorkout() {
     if (!this.userId) {

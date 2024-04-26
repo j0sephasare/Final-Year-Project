@@ -16,7 +16,7 @@ export class MealsPage {
   constructor(private spoonacularService: SpoonacularService) {}
   recipes: any[] = [];
 
- // ... rest of your code
+
 
  searchRecipes() {
   if (!this.ingredients) {

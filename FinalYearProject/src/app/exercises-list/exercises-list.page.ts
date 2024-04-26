@@ -33,7 +33,7 @@ export class ExercisesListPage implements OnInit {
         console.error('Error fetching exercises:', error);
       }
     );
-    // ... rest of your ngOnInit
+  
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
         this.userId = user.uid;
@@ -41,7 +41,7 @@ export class ExercisesListPage implements OnInit {
       } else {
         // Handle the case where there is no user logged in.
         console.error('User is not logged in.');
-        // Possibly redirect to the login page or show a login form.
+       
       }
     });
   }
@@ -59,7 +59,7 @@ export class ExercisesListPage implements OnInit {
   addSelectedExercises() {
     if(this.userId) {
       this.selectedExercises.forEach(exercise => {
-        this.selectedExercisesService.addExercise(exercise); // Use the service to add exercises
+        this.selectedExercisesService.addExercise(exercise);
       });
 
       // Navigate back to the weight workouts page after adding the exercises
