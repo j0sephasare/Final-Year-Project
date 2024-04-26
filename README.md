@@ -1,6 +1,6 @@
 
 # Herculethes Fitness Application
-![Herculethes Logo](Scrapbook/Images/HerculethesPoster.jpg)
+![Herculethes Logo](Scrapbook/Images/HerculethesPoster2.jpg)
 This is a mobile application designed to help users track their workout routines, save their workout data, and upload images associated with their workouts. It utilizes Angular with Ionic for the frontend and Firebase for authentication, database, and storage services.
 
 ## Features
