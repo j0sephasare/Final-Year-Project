@@ -52,7 +52,7 @@ This will start a server and open the application in your default browser.
 # Firebase Setup
 If You don't already have Firebase Setup here is how:
 
-- Visit the  Firebase Console and create a new Firebase project if you don't already have one![Firebase Console](https://console.firebase.google.com/u/0/).
+- Visit the  Firebase Console and create a new Firebase project if you don't already have one![Firebase Console](https://console.firebase.google.com/u/0/)
 - Once your project is created, navigate to the project settings and add a new web application.
 - Configure the Firebase Authentication, Realtime Database, and other services used in the app through the Firebase console.
 - Install Firebase CLI globally by running npm install -g firebase-tools inside the project directory.
