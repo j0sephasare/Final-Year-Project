@@ -23,6 +23,8 @@ https://atlantictu-my.sharepoint.com/:v:/r/personal/g00392239_atu_ie/Documents/R
 
 - Ionic with Angular
 - Firebase(Database, authentication and cloud functions)
+- Spoonacular API
+- Google Maps API
 
 ## Installation Instructions
 
@@ -70,3 +72,9 @@ After the application has been setup you can:
 - keep up to date with your workouts
 - Use a macronutrients calculator for Losing weight,gaining or maintaining.
 - Find local gyms in your area
+
+# Acknowledgements
+- Big thanks to my project supervisor Gerard Harrison for the advice and guidance throught this whole year on this project.
+- Google maps for providing map services
+- Spoonacular for providing nutrional meals
+- Firebase for backend services
