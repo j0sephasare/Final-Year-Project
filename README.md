@@ -49,3 +49,24 @@ ionic serve
 
 This will start a server and open the application in your default browser.
 
+# Firebase Setup
+If You don't already have Firebase Setup here is how:
+
+- Visit the  Firebase Console and create a new Firebase project if you don't already have one![Firebase Console](https://console.firebase.google.com/u/0/).
+- Once your project is created, navigate to the project settings and add a new web application.
+- Configure the Firebase Authentication, Realtime Database, and other services used in the app through the Firebase console.
+- Install Firebase CLI globally by running npm install -g firebase-tools inside the project directory.
+- Log in to the Firebase CLI with firebase login and follow the on-screen instructions to authenticate.
+- Initialize your project with firebase init and select the features you are using (e.g., Authentication, Realtime Database, Hosting, Functions).
+- Update the .firebaserc file with your project ID and update the firebase.json as needed for your app's configuration.
+
+# Application Uses
+
+After the application has been setup you can:
+
+- Sign up and log  
+- Get meal plans based on ingrediants proved
+- Delete and Update exercise if errors were made
+- keep up to date with your workouts
+- Use a macronutrients calculator for Losing weight,gaining or maintaining.
+- Find local gyms in your area
