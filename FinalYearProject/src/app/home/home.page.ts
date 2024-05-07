@@ -9,17 +9,24 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+  // Array to hold saved workouts
   savedWorkouts: SaveExerciseData[] = [];
-  constructor(private userExerciseService: UserExerciseService,  private authService: AuthService  ) { } 
+
+  constructor(
+    private userExerciseService: UserExerciseService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
+    // Fetch saved workouts and update date-time on component initialization
     this.fetchSavedWorkouts();
     this.updateDateTime();
+    // Update date-time every second
     setInterval(() => this.updateDateTime(), 1000);
-  
   }
-  fetchSavedWorkouts() { 
+
+  // Function to fetch saved workouts
+  fetchSavedWorkouts() {
     this.authService.getCurrentUser().subscribe(user => {
       if (user?.uid) {
         this.userExerciseService.getSavedExercises(user.uid).subscribe({
@@ -33,14 +40,16 @@ export class HomePage implements OnInit {
       }
     });
   }
+
+  // Function to update date-time
   updateDateTime() {
     const now = new Date();
-    const dateTimeString = now.toLocaleString(); 
+    const dateTimeString = now.toLocaleString();
     const dateTimeElement = document.getElementById('currentDateTime');
-  
+
     if (dateTimeElement) {
+      // Update current date-time in the DOM
       dateTimeElement.innerText = dateTimeString;
     }
   }
-  
 }
